@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo ""
+echo "TEST: $0"
+../src/vilistextum 2>/dev/null -l -m -c -r tags.html tags.output.test
+
+diff -q tags.output tags.output.test
+

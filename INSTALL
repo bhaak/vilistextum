@@ -4,7 +4,7 @@ Standard version
 ./configure && make && make install
 
 The standard version of vilistextum should compile on any system with a
-C-Compiler. It has been successfully compiled on Linux and Solaris
+C-Compiler. It has been successfully compiled on Linux, FreeBSD and Solaris
 systems.
 
 

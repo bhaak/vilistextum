@@ -104,15 +104,16 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-TESTS = check_entities check_utf8
+TESTS = check_tags check_entities check_utf8
 
-EXTRA_DIST = entities.html entities.html utf-8-sampler.html utf-8-sampler.output
+EXTRA_DIST = tags.html tags.output entities.html entities.output utf-8-sampler.html utf-8-sampler.output $(TESTS)
 
 TESTS_ENVIRONMENT = top_builddir=$(top_builddir)
 
 DISTCLEANFILES = \
-        index.swish-e.prop \
-        index.swish-e
+				tags.output.test \
+				entities.output.test \
+				utf-8-sampler.output.test
 
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -329,6 +330,8 @@ uninstall-am: uninstall-info-am
 .PHONEY: test
 
 test: check
+
+all: check
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

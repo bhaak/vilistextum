@@ -110,8 +110,6 @@ void start_lis()
 {
   spaces-=2;
 
-	printf("is_zeile_empty() %d\n", is_zeile_empty());
-
 	/* don't output line break, if this list item is immediately
 		 after a start or end list tag. start_uls and end_uls have
 		 already take care of the line break */

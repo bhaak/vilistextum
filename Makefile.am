@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = src doc tests
-EXTRA_DIST = CHANGES COPYING INSTALL
+EXTRA_DIST = CHANGES COPYING INSTALL README
 
 mydist: vilistextum documentation dist bzip2dist
 
@@ -20,11 +20,13 @@ bzip2dist:
 	cp $(distdir).tar.bz2 old
 
 documentation:
-	$(PACKAGE) -l doc/README.xhtml doc/README
-	echo >>doc/README " "
-	echo >>doc/README "PS: This document has been automatically created with vilistextum"
-	echo >>doc/README "    from README.xhtml."
+	rm -f CHANGES README
+	$(PACKAGE) -l doc/README.xhtml README
+	echo >> README " "
+	echo >> README "PS: This document has been automatically created with vilistextum"
+	echo >> README "    from README.html."
 	$(PACKAGE) -l doc/htmlmail.xhtml doc/htmlmail
-	rm -f CHANGES
 	$(PACKAGE) doc/changes.xhtml - | sed -e "1,2D" -e "s/^  \*/  -/" >CHANGES
+
+test: check
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 1st March 2004), see www.w3.org" />
+<title>Examples of vilistextum output</title>
+<link href='style.css' title='Default' rel='stylesheet' type='text/css' media='all' />
+</head>
+<body>
+
+<h2>Example output</h2>
+<h3>Font styles</h3>
+<pre>&lt;b&gt;bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; &lt;u&gt;underlined&lt;/u&gt; &lt;em&gt;emphasized&lt;em&gt; &lt;strong&gt;strong&lt;/strong&gt;
+</pre>
+Output of "vilistextum --convert-tags"
+<pre>*bold* /italic/ _underlined_ /emphasized/ *strong*
+</pre>
+
+<h3>Links</h3>
+While processing the html document, vilistextum collects all external links and lists them at the end of the output.
+<pre>Hypertext links:&lt;BR&gt;
+&lt;a href="http://www.w3.org/"&gt;W3C Web site&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://www.cnn.com/"&gt;CNN&lt;/a&gt;&lt;br&gt;
+&lt;a href="other_localdocument.html"&gt;A local document&lt;/a&gt;
+</pre>
+Output of "vilistextum --links"
+<pre>Hypertext links:
+[1]W3C Web site
+[2]CNN
+A local document
+
+ References:
+   1. http://www.w3.org/
+   2. http://www.cnn.com/
+</pre>
+
+
+<h3>Transliteration</h3>
+When not using the multibyte version, vilistextum transliterates some entitites that don't are
+in ISO-8859-1 (mainly entitites and characters from windows1252). The multibyte version only transliterates when the entities don't fit in to the used
+character set. This behaviour can be switched off with "--dont-convert-characters".
+<pre>&amp;euro;   &amp;#8364; &amp;#128;&lt;br&gt;
+&amp;hellip; &amp;#8230; &amp;#133;&lt;br&gt;
+&amp;trade;  &amp;#8482; &amp;#153;
+</pre>
+Output
+<pre>EUR EUR EUR
+...  ...  ... 
+[tm] [tm] [tm]
+</pre>
+
+<h3>Image options</h3>
+<pre>&lt;IMG href="..."&gt;&lt;BR&gt;
+&lt;IMG href="..." alt=""&gt;&lt;BR&gt;
+&lt;IMG href="..." alt="picture"&gt;&lt;BR&gt;
+</pre>
+Output with default options<br />
+<pre>[Image]
+[]
+[picture]
+</pre>
+Output with "vilistextum --no-image --remove-empty-alt"<br />
+<pre>[picture]</pre>
+
+<h3>Lists</h3>
+<pre>&lt;ul&gt;
+  &lt;li&gt; first item &lt;/li&gt;
+  &lt;li&gt; second item &lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt; sub item &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li&gt; third item &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+Output
+<pre>  * first item
+  * second item
+      o sub item
+  * third item
+</pre>
+</body>
+</html>

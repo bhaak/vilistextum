@@ -1,0 +1,30 @@
+html {	
+	position: relative;
+	padding-left: 1em;
+	padding-right: 1em;
+  padding-below: 1em;
+}
+
+* {
+	background-color: #003366;
+	color: #CCCCFF;
+}
+
+a:link    { color: #00aa22; background-color: #003366; } /* unvisited links */
+a:visited { color: #009933; background-color: #003366; } /* visited links   */
+a:hover   { color: #00FF11; background-color: #003366; } /* user hovers     */
+a:active  { color: #006600; background-color: #003366; } /* active links    */
+
+a.current {
+	color: #11FF55; background-color: #003366;
+}
+
+h1, h2, h3, h4, h5, h6 { color: #eaf1ff; background-color : #003366; } 
+
+pre {
+  padding: 0.5em;
+  border-style: double;
+  color: #000000;
+	background-color: #CCCCFF;
+}
+

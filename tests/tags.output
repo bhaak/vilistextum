@@ -1,0 +1,20 @@
+*bold* /italic/ _underlined_ /emphasized/ *strong*
+
+Hypertext links:
+[1]W3C Web site
+[2]CNN
+A local document
+
+[Image]
+
+[picture]
+
+  * first item
+  * second item
+      o sub item
+  * third item
+
+ References:
+   1. http://www.w3.org/
+   2. http://www.cnn.com/
+

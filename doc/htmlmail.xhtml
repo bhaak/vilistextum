@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="generator" content="HTML Tidy, see www.w3.org" />
+<link href='style.css' title='Default' rel='stylesheet' type='text/css' media='all' />
 <title>Reading HTML mail using vilistextum</title>
 </head>
 <body>
@@ -29,21 +30,18 @@ into readable ascii!<br />
 Put this in your .mailcap:<br />
  
 
-<pre>
-text/html; vilistextum %s - ; copiousoutput
+<pre>text/html; vilistextum %s - ; copiousoutput
 </pre>
 
 <p>And this in your .muttrc:<br />
 </p>
 
-<pre>
-auto_view text/html
+<pre>auto_view text/html
 </pre>
 
 <h3><a name="gnusoort">Gnus Oort and newer (5.10, No Gnus)</a></h3>
 Put the following lines into your .gnus:
-<pre>
-;; prefer to show plain text over markup for multipart/alternative
+<pre>;; prefer to show plain text over markup for multipart/alternative
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
     '("text/html" "text/richtext")))
 
@@ -61,8 +59,7 @@ Put the following lines into your .gnus:
 Put this in your .emacs, or .gnus or somewhere else where it might
 be appropriate: 
 
-<pre>
-;; ---------------------------------------------------------------------
+<pre>;; ---------------------------------------------------------------------
 ;; prefer to show plain text over markup for multipart/alternative
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
     '("text/html" "text/richtext")))
