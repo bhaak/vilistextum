@@ -69,7 +69,7 @@ void html_tag()
 		else { wort_ende(); print_zeile(); nooutput = 1; }
 	} else if CMP("/TITLE", str) {
 		if (option_title) { paragraphen_ende(); print_zeile(); } 
-		else { wort_ende(); print_zeile(); nooutput = 0; }
+		else { wort_ende(); clear_line(); print_zeile(); nooutput = 0; }
 	}
 
 	if (nooutput==0) {

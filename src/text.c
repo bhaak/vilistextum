@@ -46,7 +46,7 @@ int  zeilen_len=0,       /* scheinbare Länge der Zeile  */
   wort_len=0,         /* scheinbare Länge des Worts */
   wort_pos=0,         /* true length of word */
   anz_leere_zeilen=0, /* how many line were blank */
-  noleadingblanks=0;  /* no leading blanks at the beginning of line */
+  noleadingblanks=0;  /* remove blanks lines at the start of the ouput */
 
 /* ------------------------------------------------ */
 
@@ -139,6 +139,13 @@ int only_spaces(CHAR *z)
 
 /* ------------------------------------------------ */
 
+void clear_line() {
+	zeile[0]='\0';
+	zeilen_len=0; zeilen_pos=0;
+}
+
+/* ------------------------------------------------ */
+
 /* print line */
 void print_zeile()
 {
@@ -147,15 +154,18 @@ void print_zeile()
   printf("\nprint_zeile()\n");
   printf("align[align_nr]: %d\n", get_align());
 #endif
-
-  if ((shrink_lines) && only_spaces(zeile)) 
+ 
+	if ((shrink_lines) && only_spaces(zeile)) 
   { 
-		zeile[0]='\0';
-		zeilen_len=0; zeilen_pos=0;
+		clear_line();
 		anz_leere_zeilen++;	
   } else {
 		anz_leere_zeilen=0;
   }	
+
+  /* Don't allow leading blank lines.
+		 That means the first line of the output is never an empty line */
+	if (noleadingblanks==0) { noleadingblanks = !only_spaces(zeile); }
 
   if (shrink_lines==0)
   {
@@ -164,10 +174,7 @@ void print_zeile()
 		printzeile = (!((anz_leere_zeilen>shrink_lines)||(noleadingblanks==0)));
   }
 
-  /* Don't allow leading blank lines */
-	if (noleadingblanks==0) { noleadingblanks = !only_spaces(zeile); }
-
-  /*  fprintf(stderr, "anz_leere_zeilen %d zeilen_len %d zeilen_len_old %d noleadingblanks %d nooutput %d zeile %ls \n", anz_leere_zeilen, zeilen_len, zeilen_len_old, noleadingblanks, nooutput, zeile); */
+  /* fprintf(stderr, "anz_leere_zeilen %d shrink_lines %d zeilen_len %d zeilen_len_old %d noleadingblanks %d nooutput %d printzeile %d zeile %ls \n", anz_leere_zeilen, shrink_lines, zeilen_len, zeilen_len_old, noleadingblanks, nooutput, printzeile, zeile); */
 
   if (printzeile) 
 	{
@@ -176,13 +183,12 @@ void print_zeile()
 	  if (get_align()==RIGHT)  { right_zeile(); }
 
 	  if (!nooutput) { output_string(zeile); }
-	  /*#ifdef debug		 */
-	  else { /* print_error("keine ausgabe von ", zeile); */ }
-	  /*#endif */
+#ifdef debug
+	  else { print_error("keine ausgabe von ", zeile); }
+#endif
 		
-	  zeile[0]='\0';
 	  zeilen_len_old=zeilen_len;
-	  zeilen_len=0; zeilen_pos=0;
+	  clear_line();
   }
 #ifdef proc_debug
   printf("print_zeile() ende\n");
