@@ -35,14 +35,15 @@ void html_tag()
 
   ch = uppercase(read_char());
 
-  /* Character != '/' bzw '!' and also no letter */
-  /* => no HTML-tag */
-  if ((!isalpha(ch)) && (ch!='/') && (ch!='!'))
-  {
+	/* letter -> normal tag */
+	/* '!' -> CDATA section or comment */
+	/* '/' -> end tag */ 
+	/* '?' -> XML processing instruction */
+  if ((!isalpha(ch)) && (ch!='/') && (ch!='!') && (ch!='?'))
+	{
     wort_plus_ch('<');
-	putback_char(ch);/*goback_char(1); */
-    /*if (ch==' ') { wort_ende(); } */
-    /*else { wort_plus_ch(ch); } */
+		putback_char(ch);
+		/* fprintf(stderr, "no html tag: %c\n",ch); */
     return;
   }
 
@@ -54,7 +55,7 @@ void html_tag()
   }
   str[i] = '\0';
 #ifdef debug
-  printf("html_tag: %ls\n",str);
+  fprintf(stderr, "html_tag: %ls\n",str);
   status();
 #endif
 
