@@ -62,7 +62,6 @@ int convert_character(int num, CHAR *outstring)
 	int i;
 	int converted; /* has the entity been successfully converted */
 	
-#ifdef HAVE_ICONV_H
 	char *inp, *outp;
 	size_t insize = 1, outsize = 32;
 
@@ -92,9 +91,6 @@ int convert_character(int num, CHAR *outstring)
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	iconv_close(conv);
 	
-#else
-	for (i=0; i<33; i++) { in[i]=0x00; out[i]=0x00; }
-#endif
 	if (result==(size_t)(-1)) 
 	{	
 #ifdef iconv_debug
