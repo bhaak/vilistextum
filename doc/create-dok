@@ -1,0 +1,8 @@
+#!/bin/tcsh -f
+
+set verbose
+rm -f vilistextum.1 && create-man vilistextum-manual.xml > vilistextum.1
+rm -f manual.xhtml manual.html && create-manual --html vilistextum-manual.xml > manual.html
+
+tidy -asxhtml -config tidy.conf -q manual.html > manual.xhtml
+

@@ -1,0 +1,184 @@
+<manual> 
+<info name="vilistextum" date="11 March 2004" author="Patric Mueller" email="bhaak@gmx.net"/>
+
+<shortdescription>
+html to ascii converter
+</shortdescription>
+
+<description>
+vilistextum is a html to ascii converter specifically programmed to get the best out of incorrect html.
+</description>
+
+<synopsis>
+[OPTIONS] [inputfile |-] [outputfile | -]
+</synopsis>
+
+<optionlist name="OPTIONS">
+<option text="inputfile,- resp. outputfile,-">
+<shortdesc>
+replace inputfile with '-' for reading from standard input, likewise outputfile with '-' for writing to standard output.
+</shortdesc>
+</option>
+
+<option short="a" long="no-alt">
+<shortdesc>
+don't output anything for IMG tags even if they have an ALT attribute. Implies --no-image.
+</shortdesc>
+</option>
+
+<option short="c" long="convert-tags">
+<shortdesc>
+some tags will be converted to special characters.
+</shortdesc>
+<longdesc>
+Some of the tags will be converted to special characters.<br />
+Eg: "&lt;B&gt;Bold&lt;/B&gt; isn't like &lt;I&gt;italic&lt;/I&gt;, isn't like &lt;U&gt;underlined&lt;/U&gt;, isn't like &lt;EM&gt;emphasized&lt;/EM&gt;, but is like &lt;STRONG&gt;strong&lt;/STRONG&gt;."<br />
+will be output as "*Bold* isn't /italic/ isn't _underlined_ isn't /emphasized/ but is like *strong*."<br />
+</longdesc>
+</option>
+
+<option short="e" long="errorlevel" argument="NUMBER">
+<shortdesc>
+increase level of verbosity for error messages (0: No error messages).
+</shortdesc>
+<longdesc>
+Increase level of verbosity for error messages.<br />
+ 0: No error messages<br />
+ 1: Show unrecognized entities<br />
+ 2: Show unknown tags<br />
+>2: Mostly debugging information<br />
+</longdesc>
+</option>
+
+<option short="i" long="defimage" argument="STRING">
+<shortdesc>
+IMG tags without alt attribute are output as [STRING].
+</shortdesc>
+<longdesc>
+IMG tags without alt attribute are output as [STRING].
+Default: Image.
+</longdesc>
+</option>
+
+<option short="l" long="links">
+<shortdesc>
+numbers the links in the document and creates footnotes of each link at the end of the file.
+</shortdesc>
+<longdesc>
+Numbers the links in the document and creates footnotes of each link at the end of the file. Similar to 'lynx -dump'.
+Relative URIs are not resolved and won't be printed.
+</longdesc>
+</option>
+
+<option short="m" long="dont-convert-characters">
+<shortdesc>
+don't convert the entities from windows1252 (&amp;#128;-&amp;#159; and their proper entity names)
+</shortdesc>
+<longdesc>
+The entities from windows1252 (&amp;#128; - &amp;#159; and their proper entitiy names) will not be converted.
+</longdesc>
+</option>
+
+<option short="n" long="no-image">
+<shortdesc>
+don't output [Image] for IMG tags that have no ALT attribute.
+</shortdesc>
+</option>
+
+<option short="p" long="palm">
+<shortdesc>
+output text more suitable for reading on a PDA.
+</shortdesc>
+<longdesc>
+This outputs text more suitable for reading on a PDA.
+Palm textreader do their own wordwrapping, so the width is set to infinity and the program doesn't rightjustify or center the text.
+</longdesc>
+</option>
+
+<option short="r" long="remove-empty-alt">
+<shortdesc>
+if there is an empty ALT attribute in a IMG tag (eg &lt;IMG href="..." alt=""&gt;), don't output '[]'.
+</shortdesc>
+</option>
+
+<option short="s" long="shrink-lines" argument="[NUMBER]">
+<shortdesc>
+if there are more than NUMBER empty lines, output only NUMBER. Default: 1.
+</shortdesc>
+<longdesc>
+If there are more than number empty lines, output only NUMBER.
+Default: 1.
+</longdesc>
+</option>
+
+<option short="t" long="title">
+<shortdesc>
+don't output title.
+</shortdesc>
+<longdesc>
+Don't output title of the HTML document
+</longdesc>
+</option>
+
+<option short="w" long="width" argument="NUMBER">
+<shortdesc>
+maximum line width.
+</shortdesc>
+<longdesc>
+Maximum width of the output text.
+Default: 72.
+</longdesc>
+</option>
+</optionlist>
+
+<optionlist name="">
+<option short="h" long="help">
+<shortdesc>
+display this help and exit
+</shortdesc>
+<longdesc>
+print a list of the command line options.
+</longdesc>
+</option>
+
+<option short="v" long="version">
+<shortdesc>
+output version information and exit
+</shortdesc>
+</option>
+</optionlist>
+
+<optionlist name="MULTIBYTE OPTIONS (Only available if compiled with multibyte support)">
+<option short="u" long="output-utf-8">
+<shortdesc>
+instead of the character set of the html document, everything will be output as utf-8.
+</shortdesc>
+</option>
+
+<option short="x" long="translit">
+<shortdesc>
+use the //TRANSLIT feature of libiconv. Consult the iconv manual for details.
+</shortdesc>
+</option>
+
+<option short="y" long="charset" argument="CHARSET">
+<shortdesc>
+if the HTML document doesn't provide a character set in the meta tags, use DEFAULTCHARSET.
+</shortdesc>
+</option>
+</optionlist>
+
+<paragraph name="LIMITATIONS">
+<subparagraph>The rendering of tables is not very good.</subparagraph>
+<subparagraph>The handling of OL is incomplete. The program treats it as UL and more than 10 nested lists confuse it.</subparagraph>
+<subparagraph>Text is never justified.</subparagraph>
+</paragraph>
+
+<seealso>
+<ref name="iconv" nr="3"/>
+<ref name="lynx"  nr="1"/>
+<ref name="links" nr="1"/>
+<ref name="w3m"   nr="1"/>
+</seealso>
+
+</manual>
