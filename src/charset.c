@@ -102,8 +102,7 @@ int convert_character(int num, CHAR *outstring)
 		/* if the entity is 160 (nbsp), use ' ' instead */
 		if (num==160) {
 			converted = 1;
-			outstring[0] = L' ';
-			outstring[1] = L'\0';
+			outstring[0] = L' '; outstring[1] = L'\0';
 		}
 	} else {
 #ifdef iconv_debug

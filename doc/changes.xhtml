@@ -9,13 +9,14 @@
 <p class="update"> 2.6.6: (??.??.2004)</p>
 <ul class="update">
 <li>better automatic detection of utf-8 locale</li>
+<li>BUGFIX: recognizes character set when declared with &lt;META content="text/html; charset=utf-8" http-equiv="Content-Type"&gt;</li>
 <li>BUGFIX: characters in the range 127-255 from different character sets than latin1 have been interpreted as latin1 characters</li>
 <li>BUGFIX: hexadecimal entities for microsoft entities</li>
 </ul>
 
 <p class="update"> 2.6.5: (01.06.2004)</p>
 <ul class="update">
-<li>vilistextum recognizes character set, even if it is declared with &lt;META http-equiv="charset" content="utf-8"&gt;</li>
+<li>recognizes character set, even if it is declared with &lt;META http-equiv="charset" content="utf-8"&gt;</li>
 <li>BUGFIX: --no-title in combination with --shrink-lines didn't work</li>
 <li>BUGFIX: ignore html tags inside script environments</li>
 <li>BUGFIX: sometimes the last word in the document was not output</li>

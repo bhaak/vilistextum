@@ -415,6 +415,7 @@ void process_meta()
 	int found_chst=0;
 	CHAR *locale=NULL;
 	char stripped_locale[DEF_STR_LEN];
+	CHAR temp_locale[DEF_STR_LEN];
 #endif
 #ifdef proc_debug
 	printf("process_meta()\n");
@@ -425,39 +426,36 @@ void process_meta()
 		/* printf("in process_meta()\n");  DEBUG */
 		/*processed_meta=1; */
 #ifdef MULTIBYTE
-		while (ch!='>')
-		{
+		while (ch!='>') {
 			/* printf("before get_attr()\n");   DEBUG */
 			ch=get_attr();
 			/* printf("after get_attr()\n");  DEBUG */
 			/* printf("%ls %ls\n", attr_name, attr_ctnt);  DEBUG */
-			if ((CMP("HTTP-EQUIV", attr_name)) || (CMP("NAME", attr_name))) 
-			{
+			if ((CMP("HTTP-EQUIV", attr_name)) || (CMP("NAME", attr_name))) {
 				if CMP("Content-Type", attr_ctnt) { found_ctnt=1; }
 				else if CMP("charset", attr_ctnt) { found_chst=1; }
-			} else if CMP("CONTENT", attr_name)
-			{
-				if (found_ctnt||found_chst)
-				{
-					/* printf("found\n"); */
-					if (found_ctnt) {
-						locale = wcsstr(attr_ctnt, L"charset=");
-						if (locale!=NULL) { locale += 8; }
-					} else if (found_chst) {
-						locale = attr_ctnt;
-					}
+			} else if CMP("CONTENT", attr_name) {
+				CPYSS(temp_locale, attr_ctnt);
+			}
+		}
+		if (found_ctnt||found_chst) {
+			/* printf("found\n"); */
+			if (found_ctnt) {
+				locale = wcsstr(temp_locale, L"charset=");
+				if (locale!=NULL) { locale += 8; }
+			} else if (found_chst) {
+				locale = attr_ctnt;
+			}
 					
-					found_ctnt=0; found_chst=0;
-					/* search and set character set */
-					/* printf("locale %ls\n", locale); DEBUG */
-					if (locale!=NULL) {
-						processed_meta=1;
-						/* printf("locale found -%ls-  \n", locale);  DEBUG */
-						strip_wchar(locale, stripped_locale);
-						/* printf("strip_wchar %s\n", stripped_locale); DEBUG */
-						set_iconv_charset(stripped_locale);
-					}
-				}
+			found_ctnt=0; found_chst=0;
+			/* search and set character set */
+			/* printf("locale %ls\n", locale); DEBUG */
+			if (locale!=NULL) {
+				processed_meta=1;
+				/* printf("locale found -%ls-  \n", locale);  DEBUG */
+				strip_wchar(locale, stripped_locale);
+				/* printf("strip_wchar %s\n", stripped_locale); DEBUG */
+				set_iconv_charset(stripped_locale);
 			}
 		}
 #endif

@@ -210,7 +210,7 @@ int read_char()
 					c = outstring[0];
 					/* printf("2: c=%d ; %d\n",c,c); */
 				} else {
-					printf("microsoft character: %d\n", c);
+					/* printf("microsoft character: %d\n", c); */
 				}
 		}
 
