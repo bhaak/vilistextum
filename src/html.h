@@ -20,7 +20,7 @@ void end_div();
 void image(CHAR *, int);
 CHAR friss_kommentar();
 
-void process_meta();
+void find_encoding();
 
 void href();
 void href_output();

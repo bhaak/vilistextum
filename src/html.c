@@ -407,12 +407,13 @@ void image(CHAR *alt_text, int show_alt)
 
 /* ------------------------------------------------ */
 
-/* find alt attribute in current tag */
-void process_meta()
+/* extract encoding information from META or ?xml tags */
+void find_encoding()
 {
 #ifdef MULTIBYTE
 	int found_ctnt=0;
 	int found_chst=0;
+	int found_ecdg=0;
 	CHAR *locale=NULL;
 	char stripped_locale[DEF_STR_LEN];
 	CHAR temp_locale[DEF_STR_LEN];
@@ -436,18 +437,22 @@ void process_meta()
 				else if STRCASECMP("charset", attr_ctnt) { found_chst=1; }
 			} else if CMP("CONTENT", attr_name) {
 				CPYSS(temp_locale, attr_ctnt);
+			} else if CMP("ENCODING", attr_name) {
+				/* printf("found encoding: %ls %ls\n", attr_name, attr_ctnt); DEBUG */
+				CPYSS(temp_locale, attr_ctnt);
+				found_ecdg=1;
 			}
 		}
-		if (found_ctnt||found_chst) {
-			/* printf("found\n"); */
+		if (found_ctnt||found_chst||found_ecdg) {
+			/* printf("found found_ctnt: %d found_ctnt: %d found_ecdg: %d\n", found_ctnt, found_chst, found_ecdg); DEBUG */
 			if (found_ctnt) {
 				locale = wcsstr(temp_locale, L"charset=");
 				if (locale!=NULL) { locale += 8; }
-			} else if (found_chst) {
-				locale = attr_ctnt;
+			} else if (found_chst||found_ecdg) {
+				locale = temp_locale;
 			}
 					
-			found_ctnt=0; found_chst=0;
+			found_ctnt=0; found_chst=0; found_ecdg=0;
 			/* search and set character set */
 			/* printf("locale %ls\n", locale); DEBUG */
 			if (locale!=NULL) {
