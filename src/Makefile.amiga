@@ -1,19 +1,19 @@
 # compile options
 # change what you need 
 
-CC = m68k-amigaos-gcc 
-CC = i386-aros-gcc 
 CC = gcc 
+CC = i386-aros-gcc 
+CC = m68k-amigaos-gcc 
 CFLAGS = -Wall -I. -O2 #-noixemul
 
 all: vilistextum copy
 
-vilistextum: latin1.o microsoft.o fileio.o html_tag.o util.o html.o lists.o text.o main.o unicode_entities.o getopt.o
-	$(CC) -o vilistextum.amiga latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o unicode_entities.o getopt.o
+vilistextum: latin1.o microsoft.o fileio.o html_tag.o util.o html.o lists.o text.o main.o unicode_entities.o 
+	$(CC) -o vilistextum.amiga latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o unicode_entities.o
 
 
 copy:
-	cp vilistextum.amiga /home/amiga/tausch/vilistextum
+	#cp vilistextum.amiga /home/amiga/tausch/vilistextum
 	chmod 777 /home/amiga/tausch/vilistextum
 
 clean: 
