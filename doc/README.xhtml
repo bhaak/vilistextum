@@ -1,67 +1,70 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Vilistextum</title>
-  </head>
-	
-  <body>
-		<h3>Overview</h3>
-		
-		Vilistextum is a html to text / ascii converter specifically programmed to get the
-		best out of incorrect html. It is released as free software under the terms of the GNU GPL.
-		
-		<h3>Some features:</h3>
+<head>
+<title>Vilistextum</title>
+</head>
 
-		<ul>
-			<li>small and fast</li>
-			<li>understands HTML 3.2 upto 4.01 and XHTML 1.0</li>
-			<li>creates footnotes for links</li>
-			<li>can swallow multiple empty lines</li>
-			<li>removes empty ALT tags</li>
-			<li>converts characters and entities between 128 and 159 from the
-				windows1252 charset to meaningful strings in 8859-1. E.g. 0x93 is converted
-				to ".</li>
-			<li>output can be optimized for ebook reading</li>
-			<li>GUI-frontend using kaptain</li>	
-			<li>supports various multibyte encodings (e.g. Unicode, Shift_JIS)</li>
-		</ul>
-		
-		<h3>REQUIREMENT:</h3>		
-		<p>			For multibyte support your system needs a iconv implementation. Alternatively you can use 
-			<a href="http://www.gnu.org/software/libiconv/">libiconv</a>.
-		</p>
-		<p>				
-			If you want to use the GUI-frontend, you need to have
-			<a href="http://kaptain.sourceforge.net/">kaptain</a> installed.</p>
-		
-		<h3>INSTALL:</h3>
-		./configure <br />
-			make <br />
-			make install (as root)<br />
-		<br />
-						If you want to compile in the multibyte support:<br />
-							./configure --enable-multibyte<br />
-							make <br />
-								make install (as root)
-								<br />
-									
-								<h3>How to read HTML mail with gnus or mutt using vilistextum</h3>
-							If you want to use vilistextum for automatically converting html mails to
-							ascii read htmlmail or 
-							<a href="htmlmail.html">this</a>
+<body>
+<h3>Overview</h3>
 
-							<h3>Bugreports or comments:</h3>
-							You can send your comments or bugreports in english or german to 
-							<a href="mailto:bhaak@gmx.net">bhaak@gmx.net</a>. 
-							If you've discovered a bug, please also report the link or attach a copy of the
-							html file that caused the bug. 
-							<hr />
+Vilistextum is a html to text / ascii converter specifically programmed to get the
+best out of incorrect html. It is released as free software under the terms of the GNU GPL.
 
-								<address>
-									<a href="mailto:bhaak@gmx.net">Patric M&#252;ller</a>
-								</address>
-								
-								<br />
-  </body>
+<h3>Some features:</h3>
+
+<ul>
+<li>small and fast</li>
+<li>understands HTML 3.2 upto 4.01 and XHTML 1.0</li>
+<li>creates footnotes for links</li>
+<li>can swallow multiple empty lines</li>
+<li>removes empty ALT attributes</li>
+<li>converts characters and entities between 128 and 159 from the
+windows1252 charset to meaningful strings in ISO-8859-1. E.g. 0x93 is converted
+to ".</li>
+<li>output can be optimized for ebook reading</li>
+<li>GUI-frontend using kaptain</li>	
+<li>supports various multibyte encodings (e.g. Unicode, Shift_JIS)</li>
+</ul>
+
+<h3>REQUIREMENT:</h3>		
+<p>For multibyte support your system needs <a href="http://www.gnu.org/software/libiconv/">libiconv</a>.
+</p>
+<p>				
+If you want to use the GUI-frontend, you need to have
+<a href="http://kaptain.sourceforge.net/">kaptain</a> installed.</p>
+
+<h3>INSTALL:</h3>
+<pre>
+./configure
+make
+make install (as root)
+</pre>
+<br />
+If you want to compile in the multibyte support:<br />
+<pre>
+./configure --enable-multibyte
+make
+make install (as root)
+</pre>
+<br />
+
+<h3>How to read HTML mail with gnus or mutt using vilistextum</h3>
+If you want to use vilistextum for automatically converting html mails to
+ascii read htmlmail or 
+<a href="htmlmail.html">this</a>
+
+<h3>Bugreports or comments:</h3>
+You can send your comments or bugreports in english or german to 
+<a href="mailto:bhaak@gmx.net">bhaak@gmx.net</a>. 
+If you've discovered a bug, please also report the link or attach a copy of the
+html file that caused the bug. 
+<hr />
+
+<address>
+<a href="mailto:bhaak@gmx.net">Patric M&#252;ller</a>
+</address>
+
+<br />
+</body>
 </html>
 

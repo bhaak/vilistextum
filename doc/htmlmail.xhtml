@@ -91,20 +91,17 @@ be appropriate:
     (mm-insert-inline handle text)))
 
 (defun my:html2text-region-vilistextum (min max)
-  "Replace the region with the result of running vilistextum --shrink-lines --remove-empty-alt --convert-tags --links on it. "
+  "Replace the region with the result of running vilistextum on it. "
   (interactive "r")
   ;; vilistextum accepts html on stdin
   (call-process-region min max "vilistextum" t t t "-clrs" "-" "-"))
 
 (defalias 'my:html2text-region 'my:html2text-region-vilistextum)
 ;; ---------------------------------------------------------------------
-
-           
 </pre>
 
 <hr />
-<address><a href="mailto:bhaak@gmx.net">Patric
-M&#252;ller</a></address>
+<address><a href="mailto:bhaak@gmx.net">Patric Mueller</a></address>
 
 </body>
 </html>
