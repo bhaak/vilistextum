@@ -5,7 +5,7 @@ AM_INIT_AUTOMAKE(vilistextum, 2.6.6)
 AM_CONFIG_HEADER(config.h)
 
 dnl Set current date
-AC_DEFINE_UNQUOTED(RELEASEDATE, "23.08.2004", "Release date of the program")
+AC_DEFINE_UNQUOTED(RELEASEDATE, "24.08.2004", "Release date of the program")
 
 dnl Checks for programs.
 AC_PROG_CC
