@@ -25,4 +25,6 @@ void process_meta();
 void href();
 void href_output();
 
+void start_nooutput();
+void end_nooutput();
 #endif

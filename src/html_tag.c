@@ -50,7 +50,7 @@ void html_tag()
   while ((ch!='>') && (ch!=' ') && (ch!=13) && (ch!=10))
   {
     str[i++] = ch;
-    if (i==DEF_STR_LEN) { fprintf(stderr, "String too long!\n"); quit(); };
+    if (i==DEF_STR_LEN) { fprintf(stderr, "Tagname too long!\n"); quit(); };
     ch = uppercase(read_char());
   }
   str[i] = '\0';
@@ -60,10 +60,10 @@ void html_tag()
 #endif
 
 	/* first all tags, that affect if there is any output at all */
-  if CMP("SCRIPT", str)  { wort_ende(); print_zeile(); nooutput = 1; }
-  else if CMP("/SCRIPT", str) { wort_ende(); print_zeile(); nooutput = 0; }
-  else if CMP("STYLE", str)   { wort_ende(); print_zeile(); nooutput = 1; }
-  else if CMP("/STYLE", str)  { wort_ende(); print_zeile(); nooutput = 0; }
+  if CMP("SCRIPT", str)       { start_nooutput(); }
+  else if CMP("/SCRIPT", str) { end_nooutput(); }
+  else if CMP("STYLE", str)   { start_nooutput(); }
+  else if CMP("/STYLE", str)  { end_nooutput(); }
   else if CMP("TITLE", str) { 
 		if (option_title) { push_align(LEFT); neuer_paragraph(); } 
 		else { wort_ende(); print_zeile(); nooutput = 1; }

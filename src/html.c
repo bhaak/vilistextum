@@ -507,3 +507,30 @@ CHAR friss_kommentar()
 } /* end friss_kommentar */
 
 /* ------------------------------------------------ */
+
+void start_nooutput()
+{
+	wort_ende();
+	print_zeile();
+	nooutput = 1;
+	 
+	while (ch!='>')
+	{
+    ch=get_attr();
+		printf("attr_name: %ls\nattr_ctnt: %ls\n", attr_name, attr_ctnt);
+		if CMP("/", attr_name) 
+		{
+			printf("Empty tag\n");
+			nooutput = 0;
+		}
+  }
+} /* end start_nooutput */
+
+void end_nooutput()
+{
+	wort_ende();
+	print_zeile();
+	nooutput = 0;
+} /* end end_nooutput */
+
+/* ------------------------------------------------ */
