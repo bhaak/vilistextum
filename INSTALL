@@ -1,0 +1,22 @@
+Standard version
+================
+
+./configure && make && make install
+
+The standard version of vilistextum should compile on any system with a
+C-Compiler. It has been successfully compiled on Linux and Solaris
+systems.
+
+
+Multibyte/Unicode version
+=========================
+
+./configure --enable && make && make install
+
+The multibyte version needs libiconv.
+http://www.gnu.org/software/libiconv
+
+Misc
+====
+If GNU getopt is not installed, the POSIX getopt will be used. 
+In this case long options are not available.

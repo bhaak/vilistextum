@@ -1,0 +1,48 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/debug.h)
+AM_INIT_AUTOMAKE(vilistextum, 2.6.4)
+AM_CONFIG_HEADER(config.h)
+
+dnl Set current date
+AC_DEFINE_UNQUOTED(RELEASEDATE, "`date +%d.%m.%Y`", "Release date of the program")
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PATH_PROG(KAPTAIN, kaptain, no)
+
+dnl check for #! (shebang)
+AC_SYS_INTERPRETER
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(unistd.h)
+AC_CHECK_HEADERS(getopt.h) 	
+
+dnl checking for options
+AC_MSG_CHECKING(if --enable-multibyte option specified)
+AC_ARG_ENABLE(multibyte,
+        [  --enable-multibyte     Enable multibyte support. Needs libiconv.],
+        [multibyte="yes"], [multibyte="no"])
+AC_MSG_RESULT($multibyte)
+if test "$multibyte" = "yes"; then
+        AC_DEFINE(MULTIBYTE, 1, "Enable multibyte support (e.g. unicode, shift_jis)")
+fi
+
+dnl Checks for libraries.
+if test "$multibyte" = "yes"; then
+	AC_CHECK_HEADERS(iconv.h,,
+		AC_MSG_ERROR(Need libiconv for multibyte support))
+	AC_CHECK_LIB(iconv, iconv,,
+		AC_MSG_ERROR(Need libiconv for multibyte support))
+fi
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(strstr)
+AC_CHECK_FUNCS(strcasecmp)
+ 
+dnl AC_OUTPUT(src/Makefile vilistextumgui/Makefile Makefile)
+AC_OUTPUT(doc/Makefile src/Makefile Makefile)
+
