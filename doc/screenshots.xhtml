@@ -11,15 +11,23 @@
 
 <h2>Example output</h2>
 <h3>Font styles</h3>
-<pre>&lt;b&gt;bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; &lt;u&gt;underlined&lt;/u&gt; &lt;em&gt;emphasized&lt;em&gt; &lt;strong&gt;strong&lt;/strong&gt;
+<pre>&lt;b&gt;bold&lt;/b&gt;&lt;br&gt;
+&lt;i&gt;italic&lt;/i&gt;&lt;br&gt;
+&lt;u&gt;underlined&lt;/u&gt;&lt;br&gt;
+&lt;em&gt;emphasized&lt;em&gt;&lt;br&gt;
+&lt;strong&gt;strong&lt;/strong&gt;
 </pre>
 Output of "vilistextum --convert-tags"
-<pre>*bold* /italic/ _underlined_ /emphasized/ *strong*
+<pre>*bold*
+/italic/
+_underlined_
+/emphasized/
+*strong*
 </pre>
 
 <h3>Links</h3>
 While processing the html document, vilistextum collects all external links and lists them at the end of the output.
-<pre>Hypertext links:&lt;BR&gt;
+<pre>Hypertext links:&lt;br&gt;
 &lt;a href="http://www.w3.org/"&gt;W3C Web site&lt;/a&gt;&lt;br&gt;
 &lt;a href="http://www.cnn.com/"&gt;CNN&lt;/a&gt;&lt;br&gt;
 &lt;a href="other_localdocument.html"&gt;A local document&lt;/a&gt;
