@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = src doc tests
-EXTRA_DIST = CHANGES COPYING INSTALL README
+EXTRA_DIST = CHANGES COPYING INSTALL README vilistextum.spec
 
 mydist: vilistextum documentation dist bzip2dist
 

@@ -1,7 +1,8 @@
 <!DOCTYPE downloads SYSTEM "/home/bubi/dtd/downloads.dtd">
 <downloads>
 <download name="Vilistextum">
-  <current version="2.6.6" date="24-Aug-2004" tgz="vilistextum-2.6.6.tar.gz" tbz2="vilistextum-2.6.6.tar.bz2"/> 
+  <current version="2.6.7" date="19-Dec-2004" tgz="vilistextum-2.6.7.tar.gz" tbz2="vilistextum-2.6.7.tar.bz2"/> 
+  <old     version="2.6.6" date="24-Aug-2004" tgz="vilistextum-2.6.6.tar.gz" tbz2="vilistextum-2.6.6.tar.bz2"/> 
   <old     version="2.6.5" date="01-Jun-2004" tgz="vilistextum-2.6.5.tar.gz" tbz2="vilistextum-2.6.5.tar.bz2"/> 
   <old     version="2.6.4" date="20-Apr-2004" tgz="vilistextum-2.6.4.tar.gz" tbz2="vilistextum-2.6.4.tar.bz2"/> 
   <old     version="2.6.3" date="11-Mar-2003" tgz="vilistextum-2.6.3.tar.gz" tbz2="vilistextum-2.6.3.tar.bz2"/> 

@@ -1,40 +1,40 @@
-Summary: A simple non-curses based HTML display program
+Summary: a HTML to text converter
 Name: vilistextum
-Version: 2.6.6
+Version: 2.6.7
 Release: 1
-Source: vilistextum-2.6.6.tar.gz
+Source: vilistextum-2.6.7.tar.gz
 Copyright: GPL version 2
 Group: System/Utilities
-Packager:  Joshua Jensen <jjensen@cisco.com>
+Packager:  Patric Mueller <bhaak@gmx.net>
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot-%(%{__id_u} -n)
 
 %description
-Vilistextum is a html to text / ascii converter specifically programmed
-to get the best out of incorrect html.
+Vilistextum is a small and fast HTML to text / ascii converter
+specifically programmed to get the best out of incorrect html. It is
+quite fault-tolerant and deals well with badly-formed or otherwise
+quirky HTML. It is able to optimize for ebook reading, collapse
+multiple blank lines, and create footnotes out of links.
+
 
 %prep
 %setup -q
+%configure
 
 %build
-pwd
-%configure
 make
-%makeinstall
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir $RPM_BUILD_ROOT
-install -D src/vilistextum $RPM_BUILD_ROOT/usr/bin/vilistextum
-install -D doc/vilistextum.1 $RPM_BUILD_ROOT/%{_mandir}/man1/vilistextum.1
+[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"
+%makeinstall
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"
 
 %files
 %defattr(-,root,root)
-/usr/bin/vilistextum
+%{_bindir}/vilistextum
 %{_mandir}/man1/*
-%doc doc/*html
-%doc doc/*css
+%doc README CHANGES COPYING vilistextum.spec
+%doc doc/*.html
 %doc src/kilistextum.kaptn

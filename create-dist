@@ -4,6 +4,8 @@
 
 make mydist
 
+rpmbuild -tb --target i386 vilistextum-*.tar.gz
+
 set verbose
 #set echo
 
