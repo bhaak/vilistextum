@@ -11,7 +11,7 @@ void convert_string(char *str, CHAR *converted_string);
 
 int get_current_char();
 int read_char();
-//void goback_char(int p);
+/*void goback_char(int p); */
 void putback_char(CHAR c);
 
 

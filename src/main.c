@@ -106,27 +106,27 @@
 #include "debug.h"
 
 /* commandline options */
-int palm = 0,             // if true, enable pda specific restrictions   
-  convert_tags = 0,       // if true, convert some tags (eg B,I) to ASCII characters
-  errorlevel = 1,         // 0, no errormessages; 1, missing entities; 2, missing tags
-  convert_characters = 1, // if true,  convert 0x128-0x159 to latin1-characters
-  shrink_lines = 0,       // no more than 2 empty lines
-  option_links = 0,       // show links at end of output
-  option_title = 1,       // true -> show title tag, else dont
+int palm = 0,             /* if true, enable pda specific restrictions    */
+  convert_tags = 0,       /* if true, convert some tags (eg B,I) to ASCII characters */
+  errorlevel = 1,         /* 0, no errormessages; 1, missing entities; 2, missing tags */
+  convert_characters = 1, /* if true,  convert 0x128-0x159 to latin1-characters */
+  shrink_lines = 0,       /* no more than 2 empty lines */
+  option_links = 0,       /* show links at end of output */
+  option_title = 1,       /* true -> show title tag, else dont */
 
-  remove_empty_alt = 0,   // dont show [] for <IMG ALT=""> 
-	option_no_image = 0,    // don't show [Image]
-	option_no_alt   = 0,    // don't show [alt text] for <IMG ALT="alt text"
+  remove_empty_alt = 0,   /* dont show [] for <IMG ALT="">  */
+	option_no_image = 0,    /* don't show [Image] */
+	option_no_alt   = 0,    /* don't show [alt text] for <IMG ALT="alt text" */
 #ifdef MULTIBYTE
-	option_output_utf8 = 0, // true -> output everything in utf8
-  sevenbit = 1,           // true -> don't touch any character >127 
-  transliteration = 0;    // use //TRANSLIT with libiconv
+	option_output_utf8 = 0, /* true -> output everything in utf8 */
+  sevenbit = 1,           /* true -> don't touch any character >127  */
+  transliteration = 0;    /* use //TRANSLIT with libiconv */
 #else
-  sevenbit = 0;           // true -> don't touch any character >127 
+  sevenbit = 0;           /* true -> don't touch any character >127  */
 #endif
 
-CHAR *default_image=STRING("Image"); // Default string for IMG without ALT-tag
-CHAR user_image[DEF_STR_LEN]; // string supplied by user
+CHAR *default_image=STRING("Image"); /* Default string for IMG without ALT-tag */
+CHAR user_image[DEF_STR_LEN]; /* string supplied by user */
 
 void help()
 {
@@ -140,9 +140,9 @@ void help()
 	printf("[--charset|-y charset] [--translit|-x] [--output-utf-8|-u]\n");
 #endif
 	exit(0);
-} // end help
+} /* end help */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void parse_args(int argc, char *argv[])
 {
@@ -197,7 +197,7 @@ void parse_args(int argc, char *argv[])
 #else
 		c = getopt(argc, argv, "pmsi:ce:hltrnavy:xuw:");
 #endif
-		// get argument
+		/* get argument */
 		if (optarg==NULL) { argument = argv[optind]; }
 		else { argument = optarg; } 
 
@@ -219,7 +219,7 @@ void parse_args(int argc, char *argv[])
 #endif
 			break;
 		case 'p':
-		  // settings for PDAs
+		  /* settings for PDAs */
 		  hr_breite = 30;
 		  breite=DEF_STR_LEN; 
 		  palm = 1;
@@ -251,7 +251,7 @@ void parse_args(int argc, char *argv[])
 		case 'l': option_links = 1; break;
 		case 't': option_title = 0; break;
 
-		case '?': // unknown option
+		case '?': /* unknown option */
 		  help();
 		  break;
 					
@@ -272,7 +272,7 @@ void parse_args(int argc, char *argv[])
 #endif
 }                                
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int main(int argc, char *argv[])
 {    
@@ -290,4 +290,4 @@ int main(int argc, char *argv[])
 
   quit();
   return(0);
-} // end main
+} /* end main */

@@ -39,12 +39,12 @@ int latin1(CHAR*);
 
 CHAR tmpstr[DEF_STR_LEN];
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int set_char_wrapper(CHAR *str, int num)
 {
 #ifdef MULTIBYTE
-	//printf("Multibyte %ls %d\n", str, num);
+	/*printf("Multibyte %ls %d\n", str, num); */
 	return(convert_character(num, str));
 #else	
 # if DEBUG
@@ -53,15 +53,15 @@ int set_char_wrapper(CHAR *str, int num)
 	set_char(str, num);
 	return(1);
 #endif
-} // end set_char_wrapper
+} /* end set_char_wrapper */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// parse entity in string 
+/* parse entity in string  */
 void parse_entity(CHAR *str)
 {
-	// int i;
-	//CHAR tmpstr[DEF_STR_LEN];
+	/* int i; */
+	/*CHAR tmpstr[DEF_STR_LEN]; */
 	int len = STRLEN(str);
 #ifdef DEBUG
 	printf("DEBUG\n");
@@ -71,7 +71,7 @@ void parse_entity(CHAR *str)
 	printf("start parse: %s\n", str);
 #endif	
 
-	//for (i=0; i<DEF_STR_LEN; i++) { tmpstr[i]=0x00; } // CAUTION
+	/*for (i=0; i<DEF_STR_LEN; i++) { tmpstr[i]=0x00; } CAUTION */
 	CPYSS(tmpstr, str);
 	
 #ifdef DEBUG
@@ -84,32 +84,32 @@ void parse_entity(CHAR *str)
 	printf("DEBUG\n");
 	*/
 #endif
-	//	fprintf(stderr, "tmpstr: %s-\n", tmpstr);
-	//fprintf(stderr, "tmpstr: %d-\n", tmpstr[len]);
+	/*	fprintf(stderr, "tmpstr: %s-\n", tmpstr); */
+	/*fprintf(stderr, "tmpstr: %d-\n", tmpstr[len]); */
 	if (tmpstr[len-1]!=';') {
 		tmpstr[len]   = ';';
 		tmpstr[len+1] = '\0';
 	}
-	//printf("tmpstr: %ls\n", tmpstr);
+	/*printf("tmpstr: %ls\n", tmpstr); */
 
 	if ((entity_number(tmpstr))||(html_entity(tmpstr))||(latin1(tmpstr))||(microsoft_entities(tmpstr))) {
-		// if true entity was known
+		/* if true entity was known */
 		CPYSS(str, tmpstr);
-		//fprintf(stdout, "Entity String found %ls\n", str);
+		/*fprintf(stdout, "Entity String found %ls\n", str); */
 	}
 	else {
 		if (errorlevel>=1) { print_error("entity unknown: ", tmpstr); }
 	}
 	
-	//fprintf(stderr, "Entity String %s %s\n", str, tmpstr);
+	/*fprintf(stderr, "Entity String %s %s\n", str, tmpstr); */
 #ifdef proc_debug
 	printf("end parse: %s\n", str);
 #endif
-} // end parse
+} /* end parse */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// parses entities in string
+/* parses entities in string */
 void parse_entities(CHAR *s)
 {
 	int i=0,j=0,k=0;
@@ -120,7 +120,7 @@ void parse_entities(CHAR *s)
 	
 	result[0] = '\0';
 
-	//printf("Ganzer String -%s-\n", s);
+	/*printf("Ganzer String -%s-\n", s); */
 	
 	while(i<=len) {
 		j=0;
@@ -143,32 +143,32 @@ void parse_entities(CHAR *s)
 		i++;
 	}
 
-	//printf("Result: %s\n", result);
+	/*printf("Result: %s\n", result); */
 
 	CPYSS(s, result);
-} // end parse_entities
+} /* end parse_entities */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int entity_number(CHAR *s)
 {
   int number;
   CHAR *tmp = s;
 
-  // Numeric entity
+  /* Numeric entity */
   if ((s[0]=='&') && (s[1]=='#')) {	   
-		// Hex entity
+		/* Hex entity */
 		if (uppercase(s[2])=='X')	{
 			tmp += 3;
 			number = x2dec(tmp, 16);					 
 		}
-		// Decimal entity
+		/* Decimal entity */
 		else {
 			tmp += 2;
 			number = ATOI(tmp);	
 		}
 
-		// ascii printable character 32-127 
+		/* ascii printable character 32-127  */
 		if ((number>=32) && (number<=127)) { 
 #ifdef MULTIBYTE
 			return(convert_character(number, s));
@@ -177,9 +177,9 @@ int entity_number(CHAR *s)
 			return(1);
 #endif
 		}
-		// ansi printable character 160-255
+		/* ansi printable character 160-255 */
 		else if ((number>=160) && (number<=255)) {
-			//if (sevenbit) { return(0); }
+			/*if (sevenbit) { return(0); } */
 #ifdef MULTIBYTE
 			return(convert_character(number, s));
 #else
@@ -187,7 +187,7 @@ int entity_number(CHAR *s)
 			return(1);
 #endif
 		}
-		// ascii control character -> return empty string
+		/* ascii control character -> return empty string */
 		else if ((number >= 0) && (number < 32)) { 
 			s[0] = '\0';
 			return(1); 
@@ -199,127 +199,129 @@ int entity_number(CHAR *s)
 #endif
 	}
   return(0);
-} // end entity_number
+} /* end entity_number */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int html_entity(CHAR *str)
 {	
-	// clutch until proper charset conversion is done
-  //if (sevenbit) {
-	//	if CMP("&nbsp;", str)      { set_char_wrapper(str, ' '); } // no-break space 
-	//	else if CMP("&#160;", str) { set_char_wrapper(str, ' '); } // no-break space 
-  //}
+#if 0
+	clutch until proper charset conversion is done
+  if (sevenbit) {
+		if CMP("&nbsp;", str)      { set_char_wrapper(str, ' '); } /* no-break space */
+		else if CMP("&#160;", str) { set_char_wrapper(str, ' '); } /* no-break space */
+  }
+#endif
 
   if CMP("&quot;",     str)    { return(set_char_wrapper(str, '"')); }
-  else if CMP("&;",    str)    { return(set_char_wrapper(str, '&')); } // for those brain damaged ones
+  else if CMP("&;",    str)    { return(set_char_wrapper(str, '&')); } /* for those brain damaged ones */
   else if CMP("&amp;", str)    { return(set_char_wrapper(str, '&')); }
   else if CMP("&gt;",  str)    { return(set_char_wrapper(str, '>')); }
   else if CMP("&lt;",  str)    { return(set_char_wrapper(str, '<')); }
-  else { return(0); } // found no html entity
-} // end html_entity
+  else { return(0); } /* found no html entity */
+} /* end html_entity */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// returns true if str is a known entity and changes str to the printout
+/* returns true if str is a known entity and changes str to the printout */
 int latin1(CHAR *str)
 {
-  if CMP("&nbsp;", str)         { return(set_char_wrapper(str, 160)); } // no-break space 
-  else if CMP("&iexcl;", str)    { return(set_char_wrapper(str, 161)); } // inverted exclamation mark 
-  else if CMP("&cent;", str)    { return(set_char_wrapper(str, 162)); } // cent sign 
-  else if CMP("&pound;", str)   { return(set_char_wrapper(str, 163)); } // pound sterling sign 
-  else if CMP("&curren;", str)  { return(set_char_wrapper(str, 164)); } // general currency sign 
-  else if CMP("&yen;", str)     { return(set_char_wrapper(str, 165)); } // yen sign 
-  else if CMP("&brvbar;", str)  { return(set_char_wrapper(str, 166)); } // broken (vertical) bar 
-  else if CMP("&sect;", str)    { return(set_char_wrapper(str, 167)); } // section sign 
-  else if CMP("&uml;", str)     { return(set_char_wrapper(str, 168)); } // umlaut (dieresis) 
-  else if CMP("&copy;", str)    { return(set_char_wrapper(str, 169)); } // copyright sign 
-  else if CMP("&ordf;", str)    { return(set_char_wrapper(str, 170)); } // ordinal indicator, feminine 
-  else if CMP("&laquo;", str)   { return(set_char_wrapper(str, 171)); } // angle quotation mark, left 
-  else if CMP("&not;", str)     { return(set_char_wrapper(str, 172)); } // not sign 
-  else if CMP("&shy;", str)     { return(set_char_wrapper(str, 173)); } // soft hyphen 
-  else if CMP("&reg;", str)     { return(set_char_wrapper(str, 174)); } // registered sign 
-  else if CMP("&macr;", str)    { return(set_char_wrapper(str, 175)); } // macron 
-  else if CMP("&deg;", str)     { return(set_char_wrapper(str, 176)); } // degree sign 
-  else if CMP("&plusmn;", str)  { return(set_char_wrapper(str, 177)); } // plus-or-minus sign 
-  else if CMP("&sup2;", str)    { return(set_char_wrapper(str, 178)); } // superscript two 
-  else if CMP("&sup3;", str)    { return(set_char_wrapper(str, 179)); } // superscript three 
-  else if CMP("&acute;", str)   { return(set_char_wrapper(str, 180)); } // acute accent 
-  else if CMP("&micro;", str)   { return(set_char_wrapper(str, 181)); } // micro sign 
-  else if CMP("&para;", str)    { return(set_char_wrapper(str, 182)); } // pilcrow (paragraph sign) 
-  else if CMP("&middot;", str)  { return(set_char_wrapper(str, 183)); } // middle dot 
-  else if CMP("&cedil;", str)   { return(set_char_wrapper(str, 184)); } // cedilla 
-  else if CMP("&sup1;", str)    { return(set_char_wrapper(str, 185)); } // superscript one 
-  else if CMP("&ordm;", str)    { return(set_char_wrapper(str, 186)); } // ordinal indicator, masculine 
-  else if CMP("&raquo;", str)   { return(set_char_wrapper(str, 187)); } // angle quotation mark, right 
-  else if CMP("&frac14;", str)  { return(set_char_wrapper(str, 188)); } // fraction one-quarter 
-  else if CMP("&frac12;", str)  { return(set_char_wrapper(str, 189)); } // fraction one-half 
-  else if CMP("&frac34;", str)  { return(set_char_wrapper(str, 190)); } // fraction three-quarters 
-  else if CMP("&iquest;", str)  { return(set_char_wrapper(str, 191)); } // inverted question mark 
-  else if CMP("&Agrave;", str)  { return(set_char_wrapper(str, 192)); } // capital A, grave accent 
-  else if CMP("&Aacute;", str)  { return(set_char_wrapper(str, 193)); } // capital A, acute accent 
-  else if CMP("&Acirc;", str)   { return(set_char_wrapper(str, 194)); } // capital A, circumflex accent 
-  else if CMP("&Atilde;", str)  { return(set_char_wrapper(str, 195)); } // capital A, tilde 
-  else if CMP("&Auml;", str)    { return(set_char_wrapper(str, 196)); } // capital A, dieresis or umlaut mark 
-  else if CMP("&Aring;", str)   { return(set_char_wrapper(str, 197)); } // capital A, ring 
-  else if CMP("&AElig;", str)   { return(set_char_wrapper(str, 198)); } // capital AE diphthong (ligature) 
-  else if CMP("&Ccedil;", str)  { return(set_char_wrapper(str, 199)); } // capital C, cedilla 
-  else if CMP("&Egrave;", str)  { return(set_char_wrapper(str, 200)); } // capital E, grave accent 
-  else if CMP("&Eacute;", str)  { return(set_char_wrapper(str, 201)); } // capital E, acute accent 
-  else if CMP("&Ecirc;", str)   { return(set_char_wrapper(str, 202)); } // capital E, circumflex accent 
-  else if CMP("&Euml;", str)    { return(set_char_wrapper(str, 203)); } // capital E, dieresis or umlaut mark 
-  else if CMP("&Igrave;", str)  { return(set_char_wrapper(str, 204)); } // capital I, grave accent 
-  else if CMP("&Iacute;", str)  { return(set_char_wrapper(str, 205)); } // capital I, acute accent 
-  else if CMP("&Icirc;", str)   { return(set_char_wrapper(str, 206)); } // capital I, circumflex accent 
-  else if CMP("&Iuml;", str)    { return(set_char_wrapper(str, 207)); } // capital I, dieresis or umlaut mark 
-  else if CMP("&ETH;", str)     { return(set_char_wrapper(str, 208)); } // capital Eth, Icelandic 
-  else if CMP("&Ntilde;", str)  { return(set_char_wrapper(str, 209)); } // capital N, tilde 
-  else if CMP("&Ograve;", str)  { return(set_char_wrapper(str, 210)); } // capital O, grave accent 
-  else if CMP("&Oacute;", str)  { return(set_char_wrapper(str, 211)); } // capital O, acute accent 
-  else if CMP("&Ocirc;", str)   { return(set_char_wrapper(str, 212)); } // capital O, circumflex accent 
-  else if CMP("&Otilde;", str)  { return(set_char_wrapper(str, 213)); } // capital O, tilde 
-  else if CMP("&Ouml;", str)    { return(set_char_wrapper(str, 214)); } // capital O, dieresis or umlaut mark 
-  else if CMP("&times;", str)   { return(set_char_wrapper(str, 215)); } // multiply sign 
-  else if CMP("&Oslash;", str)  { return(set_char_wrapper(str, 216)); } // capital O, slash 
-  else if CMP("&Ugrave;", str)  { return(set_char_wrapper(str, 217)); } // capital U, grave accent 
-  else if CMP("&Uacute;", str)  { return(set_char_wrapper(str, 218)); } // capital U, acute accent 
-  else if CMP("&Ucirc;", str)   { return(set_char_wrapper(str, 219)); } // capital U, circumflex accent 
-  else if CMP("&Uuml;", str)    { return(set_char_wrapper(str, 220)); } // capital U, dieresis or umlaut mark 
-  else if CMP("&Yacute;", str)  { return(set_char_wrapper(str, 221)); } // capital Y, acute accent 
-  else if CMP("&THORN;", str)   { return(set_char_wrapper(str, 222)); } // capital THORN, Icelandic 
-  else if CMP("&szlig;", str)   { return(set_char_wrapper(str, 223)); } // small sharp s, German (sz ligature) 
-  else if CMP("&agrave;", str)  { return(set_char_wrapper(str, 224)); } // small a, grave accent 
-  else if CMP("&aacute;", str)  { return(set_char_wrapper(str, 225)); } // small a, acute accent 
-  else if CMP("&acirc;", str)   { return(set_char_wrapper(str, 226)); } // small a, circumflex accent 
-  else if CMP("&atilde;", str)  { return(set_char_wrapper(str, 227)); } // small a, tilde 
-  else if CMP("&auml;", str)    { return(set_char_wrapper(str, 228)); } // small a, dieresis or umlaut mark 
-  else if CMP("&aring;", str)   { return(set_char_wrapper(str, 229)); } // small a, ring 
-  else if CMP("&aelig;", str)   { return(set_char_wrapper(str, 230)); } // small ae diphthong (ligature) 
-  else if CMP("&ccedil;", str)  { return(set_char_wrapper(str, 231)); } // small c, cedilla 
-  else if CMP("&egrave;", str)  { return(set_char_wrapper(str, 232)); } // small e, grave accent 
-  else if CMP("&eacute;", str)  { return(set_char_wrapper(str, 233)); } // small e, acute accent 
-  else if CMP("&ecirc;", str)   { return(set_char_wrapper(str, 234)); } // small e, circumflex accent 
-  else if CMP("&euml;", str)    { return(set_char_wrapper(str, 235)); } // small e, dieresis or umlaut mark 
-  else if CMP("&igrave;", str)  { return(set_char_wrapper(str, 236)); } // small i, grave accent 
-  else if CMP("&iacute;", str)  { return(set_char_wrapper(str, 237)); } // small i, acute accent 
-  else if CMP("&icirc;", str)   { return(set_char_wrapper(str, 238)); } // small i, circumflex accent 
-  else if CMP("&iuml;", str)    { return(set_char_wrapper(str, 239)); } // small i, dieresis or umlaut mark 
-  else if CMP("&eth;", str)     { return(set_char_wrapper(str, 240)); } // small eth, Icelandic 
-  else if CMP("&ntilde;", str)  { return(set_char_wrapper(str, 241)); } // small n, tilde 
-  else if CMP("&ograve;", str)  { return(set_char_wrapper(str, 242)); } // small o, grave accent 
-  else if CMP("&oacute;", str)  { return(set_char_wrapper(str, 243)); } // small o, acute accent 
-  else if CMP("&ocirc;", str)   { return(set_char_wrapper(str, 244)); } // small o, circumflex accent 
-  else if CMP("&otilde;", str)  { return(set_char_wrapper(str, 245)); } // small o, tilde 
-  else if CMP("&ouml;", str)    { return(set_char_wrapper(str, 246)); } // small o, dieresis or umlaut mark 
-  else if CMP("&divide;", str)  { return(set_char_wrapper(str, 247)); } // divide sign 
-  else if CMP("&oslash;", str)  { return(set_char_wrapper(str, 248)); } // small o, slash 
-  else if CMP("&ugrave;", str)  { return(set_char_wrapper(str, 249)); } // small u, grave accent 
-  else if CMP("&uacute;", str)  { return(set_char_wrapper(str, 250)); } // small u, acute accent 
-  else if CMP("&ucirc;", str)   { return(set_char_wrapper(str, 251)); } // small u, circumflex accent 
-  else if CMP("&uuml;", str)    { return(set_char_wrapper(str, 252)); } // small u, dieresis or umlaut mark 
-  else if CMP("&yacute;", str)  { return(set_char_wrapper(str, 253)); } // small y, acute accent 
-  else if CMP("&thorn;", str)   { return(set_char_wrapper(str, 254)); } // small thorn, Icelandic 
-  else if CMP("&yuml;", str)    { return(set_char_wrapper(str, 255)); } // small y, dieresis or umlaut mark 
+  if CMP("&nbsp;", str)         { return(set_char_wrapper(str, 160)); } /* no-break space  */
+  else if CMP("&iexcl;", str)    { return(set_char_wrapper(str, 161)); } /* inverted exclamation mark  */
+  else if CMP("&cent;", str)    { return(set_char_wrapper(str, 162)); } /* cent sign  */
+  else if CMP("&pound;", str)   { return(set_char_wrapper(str, 163)); } /* pound sterling sign  */
+  else if CMP("&curren;", str)  { return(set_char_wrapper(str, 164)); } /* general currency sign  */
+  else if CMP("&yen;", str)     { return(set_char_wrapper(str, 165)); } /* yen sign  */
+  else if CMP("&brvbar;", str)  { return(set_char_wrapper(str, 166)); } /* broken (vertical) bar  */
+  else if CMP("&sect;", str)    { return(set_char_wrapper(str, 167)); } /* section sign  */
+  else if CMP("&uml;", str)     { return(set_char_wrapper(str, 168)); } /* umlaut (dieresis)  */
+  else if CMP("&copy;", str)    { return(set_char_wrapper(str, 169)); } /* copyright sign  */
+  else if CMP("&ordf;", str)    { return(set_char_wrapper(str, 170)); } /* ordinal indicator, feminine  */
+  else if CMP("&laquo;", str)   { return(set_char_wrapper(str, 171)); } /* angle quotation mark, left  */
+  else if CMP("&not;", str)     { return(set_char_wrapper(str, 172)); } /* not sign  */
+  else if CMP("&shy;", str)     { return(set_char_wrapper(str, 173)); } /* soft hyphen  */
+  else if CMP("&reg;", str)     { return(set_char_wrapper(str, 174)); } /* registered sign  */
+  else if CMP("&macr;", str)    { return(set_char_wrapper(str, 175)); } /* macron  */
+  else if CMP("&deg;", str)     { return(set_char_wrapper(str, 176)); } /* degree sign  */
+  else if CMP("&plusmn;", str)  { return(set_char_wrapper(str, 177)); } /* plus-or-minus sign  */
+  else if CMP("&sup2;", str)    { return(set_char_wrapper(str, 178)); } /* superscript two  */
+  else if CMP("&sup3;", str)    { return(set_char_wrapper(str, 179)); } /* superscript three  */
+  else if CMP("&acute;", str)   { return(set_char_wrapper(str, 180)); } /* acute accent  */
+  else if CMP("&micro;", str)   { return(set_char_wrapper(str, 181)); } /* micro sign  */
+  else if CMP("&para;", str)    { return(set_char_wrapper(str, 182)); } /* pilcrow (paragraph sign)  */
+  else if CMP("&middot;", str)  { return(set_char_wrapper(str, 183)); } /* middle dot  */
+  else if CMP("&cedil;", str)   { return(set_char_wrapper(str, 184)); } /* cedilla  */
+  else if CMP("&sup1;", str)    { return(set_char_wrapper(str, 185)); } /* superscript one  */
+  else if CMP("&ordm;", str)    { return(set_char_wrapper(str, 186)); } /* ordinal indicator, masculine  */
+  else if CMP("&raquo;", str)   { return(set_char_wrapper(str, 187)); } /* angle quotation mark, right  */
+  else if CMP("&frac14;", str)  { return(set_char_wrapper(str, 188)); } /* fraction one-quarter  */
+  else if CMP("&frac12;", str)  { return(set_char_wrapper(str, 189)); } /* fraction one-half  */
+  else if CMP("&frac34;", str)  { return(set_char_wrapper(str, 190)); } /* fraction three-quarters  */
+  else if CMP("&iquest;", str)  { return(set_char_wrapper(str, 191)); } /* inverted question mark  */
+  else if CMP("&Agrave;", str)  { return(set_char_wrapper(str, 192)); } /* capital A, grave accent  */
+  else if CMP("&Aacute;", str)  { return(set_char_wrapper(str, 193)); } /* capital A, acute accent  */
+  else if CMP("&Acirc;", str)   { return(set_char_wrapper(str, 194)); } /* capital A, circumflex accent  */
+  else if CMP("&Atilde;", str)  { return(set_char_wrapper(str, 195)); } /* capital A, tilde  */
+  else if CMP("&Auml;", str)    { return(set_char_wrapper(str, 196)); } /* capital A, dieresis or umlaut mark  */
+  else if CMP("&Aring;", str)   { return(set_char_wrapper(str, 197)); } /* capital A, ring  */
+  else if CMP("&AElig;", str)   { return(set_char_wrapper(str, 198)); } /* capital AE diphthong (ligature)  */
+  else if CMP("&Ccedil;", str)  { return(set_char_wrapper(str, 199)); } /* capital C, cedilla  */
+  else if CMP("&Egrave;", str)  { return(set_char_wrapper(str, 200)); } /* capital E, grave accent  */
+  else if CMP("&Eacute;", str)  { return(set_char_wrapper(str, 201)); } /* capital E, acute accent  */
+  else if CMP("&Ecirc;", str)   { return(set_char_wrapper(str, 202)); } /* capital E, circumflex accent  */
+  else if CMP("&Euml;", str)    { return(set_char_wrapper(str, 203)); } /* capital E, dieresis or umlaut mark  */
+  else if CMP("&Igrave;", str)  { return(set_char_wrapper(str, 204)); } /* capital I, grave accent  */
+  else if CMP("&Iacute;", str)  { return(set_char_wrapper(str, 205)); } /* capital I, acute accent  */
+  else if CMP("&Icirc;", str)   { return(set_char_wrapper(str, 206)); } /* capital I, circumflex accent  */
+  else if CMP("&Iuml;", str)    { return(set_char_wrapper(str, 207)); } /* capital I, dieresis or umlaut mark  */
+  else if CMP("&ETH;", str)     { return(set_char_wrapper(str, 208)); } /* capital Eth, Icelandic  */
+  else if CMP("&Ntilde;", str)  { return(set_char_wrapper(str, 209)); } /* capital N, tilde  */
+  else if CMP("&Ograve;", str)  { return(set_char_wrapper(str, 210)); } /* capital O, grave accent  */
+  else if CMP("&Oacute;", str)  { return(set_char_wrapper(str, 211)); } /* capital O, acute accent  */
+  else if CMP("&Ocirc;", str)   { return(set_char_wrapper(str, 212)); } /* capital O, circumflex accent  */
+  else if CMP("&Otilde;", str)  { return(set_char_wrapper(str, 213)); } /* capital O, tilde  */
+  else if CMP("&Ouml;", str)    { return(set_char_wrapper(str, 214)); } /* capital O, dieresis or umlaut mark  */
+  else if CMP("&times;", str)   { return(set_char_wrapper(str, 215)); } /* multiply sign  */
+  else if CMP("&Oslash;", str)  { return(set_char_wrapper(str, 216)); } /* capital O, slash  */
+  else if CMP("&Ugrave;", str)  { return(set_char_wrapper(str, 217)); } /* capital U, grave accent  */
+  else if CMP("&Uacute;", str)  { return(set_char_wrapper(str, 218)); } /* capital U, acute accent  */
+  else if CMP("&Ucirc;", str)   { return(set_char_wrapper(str, 219)); } /* capital U, circumflex accent  */
+  else if CMP("&Uuml;", str)    { return(set_char_wrapper(str, 220)); } /* capital U, dieresis or umlaut mark  */
+  else if CMP("&Yacute;", str)  { return(set_char_wrapper(str, 221)); } /* capital Y, acute accent  */
+  else if CMP("&THORN;", str)   { return(set_char_wrapper(str, 222)); } /* capital THORN, Icelandic  */
+  else if CMP("&szlig;", str)   { return(set_char_wrapper(str, 223)); } /* small sharp s, German (sz ligature)  */
+  else if CMP("&agrave;", str)  { return(set_char_wrapper(str, 224)); } /* small a, grave accent  */
+  else if CMP("&aacute;", str)  { return(set_char_wrapper(str, 225)); } /* small a, acute accent  */
+  else if CMP("&acirc;", str)   { return(set_char_wrapper(str, 226)); } /* small a, circumflex accent  */
+  else if CMP("&atilde;", str)  { return(set_char_wrapper(str, 227)); } /* small a, tilde  */
+  else if CMP("&auml;", str)    { return(set_char_wrapper(str, 228)); } /* small a, dieresis or umlaut mark  */
+  else if CMP("&aring;", str)   { return(set_char_wrapper(str, 229)); } /* small a, ring  */
+  else if CMP("&aelig;", str)   { return(set_char_wrapper(str, 230)); } /* small ae diphthong (ligature)  */
+  else if CMP("&ccedil;", str)  { return(set_char_wrapper(str, 231)); } /* small c, cedilla  */
+  else if CMP("&egrave;", str)  { return(set_char_wrapper(str, 232)); } /* small e, grave accent  */
+  else if CMP("&eacute;", str)  { return(set_char_wrapper(str, 233)); } /* small e, acute accent  */
+  else if CMP("&ecirc;", str)   { return(set_char_wrapper(str, 234)); } /* small e, circumflex accent  */
+  else if CMP("&euml;", str)    { return(set_char_wrapper(str, 235)); } /* small e, dieresis or umlaut mark  */
+  else if CMP("&igrave;", str)  { return(set_char_wrapper(str, 236)); } /* small i, grave accent  */
+  else if CMP("&iacute;", str)  { return(set_char_wrapper(str, 237)); } /* small i, acute accent  */
+  else if CMP("&icirc;", str)   { return(set_char_wrapper(str, 238)); } /* small i, circumflex accent  */
+  else if CMP("&iuml;", str)    { return(set_char_wrapper(str, 239)); } /* small i, dieresis or umlaut mark  */
+  else if CMP("&eth;", str)     { return(set_char_wrapper(str, 240)); } /* small eth, Icelandic  */
+  else if CMP("&ntilde;", str)  { return(set_char_wrapper(str, 241)); } /* small n, tilde  */
+  else if CMP("&ograve;", str)  { return(set_char_wrapper(str, 242)); } /* small o, grave accent  */
+  else if CMP("&oacute;", str)  { return(set_char_wrapper(str, 243)); } /* small o, acute accent  */
+  else if CMP("&ocirc;", str)   { return(set_char_wrapper(str, 244)); } /* small o, circumflex accent  */
+  else if CMP("&otilde;", str)  { return(set_char_wrapper(str, 245)); } /* small o, tilde  */
+  else if CMP("&ouml;", str)    { return(set_char_wrapper(str, 246)); } /* small o, dieresis or umlaut mark  */
+  else if CMP("&divide;", str)  { return(set_char_wrapper(str, 247)); } /* divide sign  */
+  else if CMP("&oslash;", str)  { return(set_char_wrapper(str, 248)); } /* small o, slash  */
+  else if CMP("&ugrave;", str)  { return(set_char_wrapper(str, 249)); } /* small u, grave accent  */
+  else if CMP("&uacute;", str)  { return(set_char_wrapper(str, 250)); } /* small u, acute accent  */
+  else if CMP("&ucirc;", str)   { return(set_char_wrapper(str, 251)); } /* small u, circumflex accent  */
+  else if CMP("&uuml;", str)    { return(set_char_wrapper(str, 252)); } /* small u, dieresis or umlaut mark  */
+  else if CMP("&yacute;", str)  { return(set_char_wrapper(str, 253)); } /* small y, acute accent  */
+  else if CMP("&thorn;", str)   { return(set_char_wrapper(str, 254)); } /* small thorn, Icelandic  */
+  else if CMP("&yuml;", str)    { return(set_char_wrapper(str, 255)); } /* small y, dieresis or umlaut mark  */
 
 #ifdef MULTIBYTE
   else if CMP("&fnof;", str)     { return(set_char_wrapper(str,  402)); }
@@ -484,6 +486,6 @@ int latin1(CHAR *str)
 #if DEBUG
 		printf("No Latin1 %ls\n", str); 
 #endif
-		return(0); }  // found no latin1 entity
-  return(1); // found latin1 entity 
-} // end latin1
+		return(0); }  /* found no latin1 entity */
+  return(1); /* found latin1 entity  */
+} /* end latin1 */

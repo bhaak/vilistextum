@@ -37,13 +37,13 @@ int check_style()
     }
   }
   return 0;
-} // end check_style
+} /* end check_style */
 
 /* ------------------------------------------------ */
 
 void start_uls()
 {
-  //int ret;
+  /*int ret; */
 #ifdef proc_debug
   printf("start_uls()\n");
 #endif
@@ -52,7 +52,7 @@ void start_uls()
 /*  ret=check_style();
   if (ret==0)
   {*/
-  // * o + # @ - = ~ $ %
+  /* * o + # @ - = ~ $ % */
     if (bullet_style==' ') { bullet_style='*'; }
     else if (bullet_style=='*') { bullet_style='o'; }
     else if (bullet_style=='o') { bullet_style='+'; }
@@ -71,7 +71,7 @@ void start_uls()
 #ifdef proc_debug
   printf("start_uls() ende\n");
 #endif
-} // end start_uls
+} /* end start_uls */
 
 void end_uls()
 {
@@ -91,23 +91,23 @@ void end_uls()
   else if (bullet_style=='*') { bullet_style=' '; }
 
   pop_align();
-} // end end_uls
+} /* end end_uls */
 
 /* ------------------------------------------------ */
 
 void start_ols()
 {
 	start_uls();
-	//	spaces+=2; orderedlist++;
-} // end start_ols
+	/*	spaces+=2; orderedlist++; */
+} /* end start_ols */
 
 /* ------------------------------------------------ */
 
 void end_ols()
 {
 	end_uls();
-	//	spaces-=2; orderedlist--;
-} // end end_ols
+	/*	spaces-=2; orderedlist--; */
+} /* end end_ols */
 
 /* ------------------------------------------------ */
 
@@ -116,12 +116,12 @@ void start_lis()
   spaces-=2;
   line_break();
   
-	//wort_plus_ch(bullet_style);
+	/*wort_plus_ch(bullet_style); */
 
-	//if (orderedlist>0) { wort_plus_string("-"); }
-	//else  { 
+	/*if (orderedlist>0) { wort_plus_string("-"); } */
+	/*else  {  */
 	wort_plus_ch(bullet_style);
-	// }
+	/* } */
 
   wort_ende();
   spaces+=2;
@@ -133,33 +133,33 @@ void start_lis()
 int definition_list=0;
 void end_dd();
 
-// Definition List
+/* Definition List */
 void start_dl()
 {
 	end_dd();
 	start_p();
-} // end start_dl
+} /* end start_dl */
 
 void end_dl()
 {
 	paragraphen_ende();
 
 	end_dd();
-} // end_dl
+} /* end_dl */
 
-// Definition Title
+/* Definition Title */
 void start_dt()
 {	
 	end_dd();
 	
 	line_break();
-} // end start_dt
+} /* end start_dt */
 
 void end_dt()
 {
-} // end_dt
+} /* end_dt */
 
-// Definition Description
+/* Definition Description */
 void start_dd()
 {
 	end_dd();
@@ -168,7 +168,7 @@ void start_dd()
 	spaces+=tab; 
 
 	definition_list=1;
-} // end 
+} /* end  */
 
 void end_dd()
 {
@@ -177,5 +177,5 @@ void end_dd()
 		spaces-=tab;
 		definition_list=0;
 	}
-} // end_dd
+} /* end_dd */
 

@@ -27,26 +27,26 @@
 # include <wctype.h>
 #endif
 
-// Dynamic align added by autophile@starband.net 29 Mar 2002
+/* Dynamic align added by autophile@starband.net 29 Mar 2002 */
 int *align = NULL,
   	align_nr=0;
 int align_size = 0;
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int get_align()
 {
-  // Dynamic align added by autophile@starband.net 29 Mar 2002
+  /* Dynamic align added by autophile@starband.net 29 Mar 2002 */
   if (align==NULL)
   {
     align = (int *)malloc(256*sizeof(int));
-    align[0] = 1; // default LEFT alignment.
+    align[0] = 1; /* default LEFT alignment. */
   }
-	//printf("align[%d] %d\n", align_nr, align[align_nr]);
+	/*printf("align[%d] %d\n", align_nr, align[align_nr]); */
 	return(align[align_nr]);
-} // end get_align
+} /* end get_align */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void push_align(int a)
 {
@@ -56,36 +56,36 @@ void push_align(int a)
 #endif
   align_nr++;
 
-  // Dynamic align added by autophile@starband.net 29 Mar 2002
+  /* Dynamic align added by autophile@starband.net 29 Mar 2002 */
   if (align_nr > align_size)
   {
     align_size += 256;
     if (align == NULL) {
       align = (int *)malloc(align_size*sizeof(int));
-			align[0] = 1; // default LEFT alignment.
+			align[0] = 1; /* default LEFT alignment. */
     } else {
-      //align = (int *)realloc(align, align_size*sizeof(int));
+      /*align = (int *)realloc(align, align_size*sizeof(int)); */
 			tmp_align = (int *)malloc(align_size*sizeof(int));
 		  if (align_size!=0) { memcpy(tmp_align, align, (align_size-256)*sizeof(int)); } 
 			align = tmp_align;
 		}
   }
 
-	//	if (div_test!=0) { align[align_nr]=div_test; } else { 
-	align[align_nr]=a; //}
+	/*	if (div_test!=0) { align[align_nr]=div_test; } else {  */
+	align[align_nr]=a; /*} */
 }
 
 void pop_align()
 {
   if (align_nr==0) { if (errorlevel>=5) { fprintf(stdout, "Error: align_nr=0\n");} }
   else { align_nr--; }
-	//printf("align_nr %d\n", align_nr);
+	/*printf("align_nr %d\n", align_nr); */
 #ifdef proc_debug
   printf("pop_align()\n");
 #endif
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
 wint_t uppercase(wint_t c)
@@ -101,7 +101,7 @@ int uppercase(int c)
 } /* end uppercase */
 #endif
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void uppercase_str(CHAR *s)
 {
@@ -120,18 +120,18 @@ void uppercase_str(CHAR *s)
 #endif
 } /* end uppercase_str */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// copy the character to the string
+/* copy the character to the string */
 void set_char(CHAR *s, CHAR c)
 {
-  //	printf("set_char1: %s=\n", s);
+  /*	printf("set_char1: %s=\n", s); */
   s[0] = c;
   s[1] = '\0';
-  //	printf("set_char2: %s=\n", s);
-} // end set_char
+  /*	printf("set_char2: %s=\n", s); */
+} /* end set_char */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int x2dec(CHAR *str, int base)
 {
@@ -157,7 +157,7 @@ int x2dec(CHAR *str, int base)
   return nr;
 } /* end x2dec */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void print_error(char *error, CHAR *text)
 {

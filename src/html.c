@@ -31,17 +31,17 @@
 #include "charset.h"
 #include "util.h"
 
-int pre=0; // for PRE-Tag
-int processed_meta=0; // only parse meta tags once
+int pre=0; /* for PRE-Tag */
+int processed_meta=0; /* only parse meta tags once */
 
 CHAR attr_name[DEF_STR_LEN], /* Attribut Name of a HTML-Tag */
 	    attr_ctnt[DEF_STR_LEN]; /* Attribut Inhalt of a HTML-Tag */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// get the next attribute writes it to attr_name and attr_ctnt.
-// attr_name is converted to uppercase. 
-int get_attr() // FIXME change to get_attr(char *name, char *ctnt)
+/* get the next attribute writes it to attr_name and attr_ctnt. */
+/* attr_name is converted to uppercase.  */
+int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 {
   int i;
 	CHAR temp[DEF_STR_LEN];
@@ -52,13 +52,13 @@ int get_attr() // FIXME change to get_attr(char *name, char *ctnt)
   attr_name[0] = '\0';
   attr_ctnt[0] = '\0';
 
-// printf("character %c %d\n", ch, ch);
+/* printf("character %c %d\n", ch, ch); */
 
   while ((isspace(ch)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
   if (ch=='>') { return '>'; };
-  //  printf("nach return %c %d\n", ch, ch);
+  /*  printf("nach return %c %d\n", ch, ch); */
 
-  // read attribute's name
+  /* read attribute's name */
   i=1;
   attr_name[0] = ch;
 
@@ -68,17 +68,17 @@ int get_attr() // FIXME change to get_attr(char *name, char *ctnt)
 	
   if (ch=='>') { attr_ctnt[0]='\0'; return '>'; }
 
-  // content of attribute
+  /* content of attribute */
 	ch=read_char();
-	// skip white_space
+	/* skip white_space */
 	while ((isspace(ch)) && (ch!='>')) { ch=read_char(); }
 	temp[0] = '\0';
 
-	// if quoted
+	/* if quoted */
   if ((ch=='"') || (ch=='\''))
   {
-		// attribute looks like alt="bla" or alt='bla'.
-		// we'll have to remember what the quote was.
+		/* attribute looks like alt="bla" or alt='bla'. */
+		/* we'll have to remember what the quote was. */
 		int quote=ch;
     i=0;
     ch=read_char();
@@ -88,20 +88,20 @@ int get_attr() // FIXME change to get_attr(char *name, char *ctnt)
   }
   else
   {
-		// attribute looks like alt=bla
+		/* attribute looks like alt=bla */
     i=1;
     temp[0] = ch;
     while ((ch!='>') && (!isspace(ch))) { ch=read_char(); temp[i++] = ch; }
     temp[i-1] = '\0';
   }
 
-	//	printf("AttributInhalt: #%s#\n", temp);
+	/*	printf("AttributInhalt: #%s#\n", temp); */
 	uppercase_str(attr_name);
-	//printf(" %s %s\n", attr_name, temp);
+	/*printf(" %s %s\n", attr_name, temp); */
   if CMP("ALT", attr_name) { parse_entities(temp); }
-  //printf("AttributInhalt: %s#-#\n", temp);
+  /*printf("AttributInhalt: %s#-#\n", temp); */
 	CPYSS(attr_ctnt, temp);
-	//printf("Attribut: %s; Inhalt: %s#-#\n", attr_name, attr_ctnt);
+	/*printf("Attribut: %s; Inhalt: %s#-#\n", attr_name, attr_ctnt); */
 
 #ifdef attr_debug
   printf("Attribut: %s; Inhalt: %s#-#\n", attr_name, attr_ctnt);
@@ -112,13 +112,13 @@ int get_attr() // FIXME change to get_attr(char *name, char *ctnt)
   return ch;
 } /* end get_attr */
 
-// ------------------------------------------------ 
+/* ------------------------------------------------  */
 
 void html()
 {
 	int i;
 	CHAR str[DEF_STR_LEN];
-  //align[0]=LEFT;
+  /*align[0]=LEFT; */
 
 	for (i=0; i<DEF_STR_LEN; i++) { str[i]=0x00; }
 
@@ -138,7 +138,7 @@ void html()
         html_tag();
         break;
 
-			// Entities 
+			/* Entities  */
       case '&':
 #ifdef debug
         printf("&: \n");
@@ -152,19 +152,19 @@ void html()
         }
         while ((isalnum(ch)) || (ch=='#'));
 
-				// if last char is no ';', then the string is no valid entity, maybe
-				// it is something like &nbsp or even '& '
+				/* if last char is no ';', then the string is no valid entity, maybe */
+				/* it is something like &nbsp or even '& ' */
 				if (ch!=';') 
 				{ 
-				  // save last char 
-				  putback_char(ch); //goback_char(1);
-				  // no ';' at end
+				  /* save last char  */
+				  putback_char(ch); /*goback_char(1); */
+				  /* no ';' at end */
 				  str[i-1] = '\0'; }
 				else 
 				{					
-					// valid entity
+					/* valid entity */
 					str[i] = '\0';
-					// strcpy(tmpstr, str);
+					/* strcpy(tmpstr, str); */
 				}
 #ifdef debug
         printf("check &: %s\n",str);
@@ -176,29 +176,29 @@ void html()
 #endif
 				parse_entity(&str[0]);
 				wort_plus_string(str);
-				/*
+				#if 0
  				if ((entity_number(str)) || (latin1(str)) || (microsoft_entities(str))) 
 				{
-					// if true entity was known
+					/* if true entity was known */
 					wort_plus_string(str);
 				}
         else
         {
 					if (errorlevel>=1) { fprintf(stderr, "entity %s unknown\n",tmpstr); }
 					wort_plus_string(tmpstr);
-					// FIXME MAYBE???
-					//goback_char(strlen(str)-2);
-					//wort_plus_ch(str[0]);
-					//wort_plus_ch(str[1]);
+					/* FIXME MAYBE??? */
+					/*goback_char(strlen(str)-2); */
+					/*wort_plus_ch(str[0]); */
+					/*wort_plus_ch(str[1]); */
 				}
-				*/
+				#endif
 #ifdef debug
         printf("&: %s\n",str);
 #endif
         break;
 
-      case    9: // TAB */
-      case   13: // CR */
+      case    9: /* TAB */
+      case   13: /* CR */
       case '\n':
 #ifdef debug
         printf("\\n, TAB or CR: \n");
@@ -207,7 +207,7 @@ void html()
         if (pre) { line_break(); }
         break;
 
-      // Microsoft...
+      /* Microsoft... */
 	case 0x80: case 0x81: case 0x82: case 0x83: case 0x84: case 0x85: case 0x86: case 0x87: 
 	case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d:	case 0x8e: case 0x8f:
 	case 0x90: case 0x91: case 0x92: case 0x93: case 0x94: case 0x95: case 0x96: case 0x97:
@@ -231,9 +231,9 @@ void html()
   } /* next */
 } /* end html */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// used when there's only the align-attribut to be checked 
+/* used when there's only the align-attribut to be checked  */
 void check_for_center()
 {
 	int found=0;
@@ -257,7 +257,7 @@ void check_for_center()
       else { if (errorlevel>=2) { fprintf(stderr, "Kein LEFT|CENTER|RIGHT gefunden!\n"); push_align(LEFT); } }
     }
   } 
-  // found no ALIGN 
+  /* found no ALIGN  */
   if (found==0) { push_align(LEFT); }
 	
 #ifdef proc_debug
@@ -265,7 +265,7 @@ void check_for_center()
 #endif
 } /* end check_for_center */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void start_p()
 {
@@ -280,14 +280,14 @@ void start_p()
 #endif
 } /* end start_p */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void start_div(int a)
 {
 #ifdef proc_debug
   printf("start_div()\n"),
 #endif
-	//  paragraphen_ende();
+	/*  paragraphen_ende(); */
 
 	line_break();
 
@@ -298,7 +298,7 @@ void start_div(int a)
 #endif
 } /* end start_div */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void end_div()
 {
@@ -316,7 +316,7 @@ void end_div()
 #endif
 } /* end_div */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void print_footnote_number(CHAR *temp, int number)
 {	
@@ -341,7 +341,7 @@ int references_count=0;
 CHAR references[DEF_STR_LEN];
 char *schemes[] = {"ftp://","file://" ,"http://" ,"gopher://" ,"mailto:" ,"news:" ,"nntp://" ,"telnet://" ,"wais://" ,"prospero://" };
 
-// handles <A href"..."></A>
+/* handles <A href"..."></A> */
 void href()
 {  
 	CHAR tmp[DEF_STR_LEN];
@@ -376,11 +376,11 @@ void href_output()
 			output_string(references);
 		}
 	}
-} // end href_output
+} /* end href_output */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// find alt attribute in current tag
+/* find alt attribute in current tag */
 void image(CHAR *alt_text, int show_alt)
 {
   int found_alt=0;
@@ -395,9 +395,9 @@ void image(CHAR *alt_text, int show_alt)
     ch=get_attr();
     if CMP("ALT", attr_name)
     {
-			//printf("+1+\n");
+			/*printf("+1+\n"); */
 			if (!(remove_empty_alt && CMP("", attr_ctnt))) { 
-				//printf("+2+\n");
+				/*printf("+2+\n"); */
 				if (!option_no_alt)
 				{ wort_plus_ch('['); wort_plus_string(attr_ctnt); wort_plus_ch(']');}
 			}
@@ -413,9 +413,9 @@ void image(CHAR *alt_text, int show_alt)
 #endif
 } /* end image */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// find alt attribute in current tag
+/* find alt attribute in current tag */
 void process_meta()
 {
 #ifdef MULTIBYTE
@@ -429,15 +429,15 @@ void process_meta()
 
 	if (!processed_meta)
 	{
-		// printf("in process_meta()\n"); // DEBUG
-		//processed_meta=1;
+		/* printf("in process_meta()\n"); // DEBUG */
+		/*processed_meta=1; */
 #ifdef MULTIBYTE
 		while (ch!='>')
 		{
-			//printf("vor get_attr()\n");  // DEBUG
+			/*printf("vor get_attr()\n");  // DEBUG */
 			ch=get_attr();
-			// printf("nach get_attr()\n"); // DEBUG
-			// printf("%ls %ls\n", attr_name, attr_ctnt); // DEBUG
+			/* printf("nach get_attr()\n"); // DEBUG */
+			/* printf("%ls %ls\n", attr_name, attr_ctnt); // DEBUG */
 			if ((CMP("HTTP-EQUIV", attr_name)) || (CMP("NAME", attr_name))) 
 			{
 				if CMP("Content-Type", attr_ctnt) { found_ctnt=1; }
@@ -445,22 +445,22 @@ void process_meta()
 			{
 				if (found_ctnt)
 				{
-					//printf("2.5\n"); // DEBUG
+					/*printf("2.5\n"); // DEBUG */
 					found_ctnt=0;
-					// search and set character set
+					/* search and set character set */
 					locale = wcsstr(attr_ctnt, L"charset=");
-					//printf("3 locale %ls\n", locale); // DEBUG
+					/*printf("3 locale %ls\n", locale); // DEBUG */
 					if (locale!=NULL) {
 						processed_meta=1;
 						locale += 8;
-						//printf("3\n"); // DEBUG
-						//printf("locale gefunden -%ls-  \n", locale); // DEBUG
-						//printf("4\n"); // DEBUG
+						/*printf("3\n"); // DEBUG */
+						/*printf("locale gefunden -%ls-  \n", locale); // DEBUG */
+						/*printf("4\n"); // DEBUG */
 						strip_wchar(locale, stripped_locale);
-						//printf("strip_wchar %s\n", stripped_locale); // DEBUG
-						//set_locale(stripped_locale);				
+						/*printf("strip_wchar %s\n", stripped_locale); // DEBUG */
+						/*set_locale(stripped_locale);				 */
 						set_iconv_charset(stripped_locale);
-						//files_reopen(); // PROBABLY USELESS?
+						/*files_reopen(); // PROBABLY USELESS? */
 					}
 				}
 			}
@@ -472,9 +472,9 @@ void process_meta()
 #endif
 } /* end process_meta */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// simple finite state machine to eat up complete comment '!--'
+/* simple finite state machine to eat up complete comment '!--' */
 CHAR friss_kommentar()
 {
 	int c, dontquit=1;
@@ -484,33 +484,33 @@ CHAR friss_kommentar()
 	while (dontquit) 
 	{
 		c=read_char();
-		//#ifdef debug
-		//printf("%c", c);
-		//#endif
+		/*#ifdef debug */
+		/*printf("%c", c); */
+		/*#endif */
 		if (c=='-')
 		{
 		  c=read_char();
-		  //#ifdef debug
-			//printf("%c", c);
-			//#endif
+		  /*#ifdef debug */
+			/*printf("%c", c); */
+			/*#endif */
 			while (c=='-') 
 		  {
 			  c=read_char();
-			  //#ifdef debug
-				//printf("%c", c);
-				//#endif
+			  /*#ifdef debug */
+				/*printf("%c", c); */
+				/*#endif */
 				if (c=='>') { dontquit=0; }
 			}
 		}
 	}
 
-	//#ifdef debug
-	//printf("\n");
-	//#endif
-	//#ifdef proc_debug
-	//printf("Frisskommentar ende ch %c %d\n", c, c);
-	//#endif
+	/*#ifdef debug */
+	/*printf("\n"); */
+	/*#endif */
+	/*#ifdef proc_debug */
+	/*printf("Frisskommentar ende ch %c %d\n", c, c); */
+	/*#endif */
 	return c;
-} // end friss_kommentar
+} /* end friss_kommentar */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */

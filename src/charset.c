@@ -36,17 +36,19 @@ int usr=0;
 iconv_t conv;
 #endif
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
+
 #ifdef MULTIBYTE
 void init_multibyte()
 {
 	char *ret;
 	ret = setlocale(LC_CTYPE, "en_US.utf-8"); 
   if (ret==NULL) { fprintf(stderr, "setlocale failed with: en_US.utf8\n\n"); }
-  //else { fprintf(stderr, "%s\n", ret); } 
+  /*else { fprintf(stderr, "%s\n", ret); } */
 }
 #endif
-// ------------------------------------------------
+
+/* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
 int convert_character(int num, CHAR *outstring)
@@ -54,7 +56,7 @@ int convert_character(int num, CHAR *outstring)
 	char in[33], out[33];
 	size_t result=(size_t)(-1);
 	int i;
-	int converted; // has the entity been successfully converted
+	int converted; /* has the entity been successfully converted */
 	
 #ifdef HAVE_ICONV_H
 	char *inp, *outp;
@@ -64,11 +66,11 @@ int convert_character(int num, CHAR *outstring)
 	printf("convert_character start\n");
 #endif
 
-	//#define iconv_debug 1
+	/*#define iconv_debug 1 */
 	
-	//ret = setlocale(LC_CTYPE, "en_US.utf-8"); 
-  //if (ret==NULL) { fprintf(stderr, "setlocale failed with: en_US.utf8\n\n"); }
-  //else { fprintf(stderr, "%s\n", ret); } 
+	/*ret = setlocale(LC_CTYPE, "en_US.utf-8");  */
+  /*if (ret==NULL) { fprintf(stderr, "setlocale failed with: en_US.utf8\n\n"); } */
+  /*else { fprintf(stderr, "%s\n", ret); }  */
 
 	for (i=0; i<33; i++) { in[i]=0x00; out[i]=0x00; }
 	inp  = in;
@@ -91,10 +93,10 @@ int convert_character(int num, CHAR *outstring)
 #ifdef iconv_debug
 		printf("convert_character: not converted: &#%d;", num);
 #endif
-		//swprintf (outstring, 32, L"&#%d;\0", num);
-		//fprintf(stdout, "%ls\n", outstring);
+		/*swprintf (outstring, 32, L"&#%d;\0", num); */
+		/*fprintf(stdout, "%ls\n", outstring); */
 		converted = 0;
-		// if the entity is 160 (nbsp), use ' ' instead
+		/* if the entity is 160 (nbsp), use ' ' instead */
 		if (num==160) {
 			converted = 1;
 			outstring[0] = L' ';
@@ -105,10 +107,10 @@ int convert_character(int num, CHAR *outstring)
 		printf("convert_character: Input '%s'; Output '%s'\n", in, out);
 #endif
 		converted = 1;
-		//setlocale(LC_CTYPE, this_complete_locale);
-		//result = mbstowcs(outstring, out, strlen(out));
+		/*setlocale(LC_CTYPE, this_complete_locale); */
+		/*result = mbstowcs(outstring, out, strlen(out)); */
 
-		//outstring[result] = L'\0';
+		/*outstring[result] = L'\0'; */
 		outstring[0] = num;
 		outstring[1] = L'\0';
 #ifdef iconv_debug
@@ -124,65 +126,67 @@ int convert_character(int num, CHAR *outstring)
 	printf("convert_character end\n\n");
 #endif
 	return(converted);
-} // end convert_character
+} /* end convert_character */
 #endif
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 char* get_iconv_charset()
 {
 	return(iconv_charset);
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void set_iconv_charset(char *charset) {
-	// set charset for iconv conversion
+	/* set charset for iconv conversion */
 	strcpy(iconv_charset, charset);
 	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");}
 	/* printf("iconv_charset %s\n", iconv_charset); */
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-/* void set_locale(char *charset) */
-/* { */
-/*   // if charset == "", take the value from the environment variables */
-/*   char *ret; */
-/*   //ret = setlocale(LC_CTYPE, ""); */
-/* 	char country_charset[DEF_STR_LEN]; */
-/* 	if (usr==0) */
-/* 	{ */
-/* #ifdef proc_debug */
-/* 	printf("set_locale start\n"); */
-/* #endif */
+#if 0
+void set_locale(char *charset) 
+{
+  /* if charset == "", take the value from the environment variables */
+  char *ret; 
+  /*ret = setlocale(LC_CTYPE, ""); */
+	char country_charset[DEF_STR_LEN]; 
+	if (usr==0) 
+	{ 
+#ifdef proc_debug 
+	printf("set_locale start\n"); 
+#endif 
 
-/* 	// set charset for iconv conversion */
-/* 	strcpy(iconv_charset, charset); */
-/* 	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");} */
-/* 	//printf("iconv_charset %s\n", iconv_charset); */
+	/* set charset for iconv conversion */
+	strcpy(iconv_charset, charset); 
+	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");} 
+	/*printf("iconv_charset %s\n", iconv_charset); */
 
-/* 	strcpy(country_charset, default_country); */
-/* 	strcat(country_charset, charset); */
+	strcpy(country_charset, default_country); 
+	strcat(country_charset, charset); 
 
-/*   ret = setlocale(LC_CTYPE, country_charset);  */
-/* 	//printf("Locale: =%s=\n", country_charset); */
-/* 	strcpy(this_complete_locale, country_charset); */
-/* 	strcpy(this_locale, charset); */
-/*   if (ret==NULL) { fprintf(stderr, "setlocale failed with: %s\n\n", country_charset); } */
-/*   else { } // fprintf(stderr, "%s\n", ret); }  */
-/* #ifdef proc_debug */
-/* 	printf("set_locale end\n"); */
-/* #endif */
-/* 	} */
-/* } // end set_locale */
+  ret = setlocale(LC_CTYPE, country_charset);  
+	/*printf("Locale: =%s=\n", country_charset); */
+	strcpy(this_complete_locale, country_charset); 
+	strcpy(this_locale, charset); 
+  if (ret==NULL) { fprintf(stderr, "setlocale failed with: %s\n\n", country_charset); } 
+  else { } // fprintf(stderr, "%s\n", ret); }  */
+#ifdef proc_debug 
+	printf("set_locale end\n"); 
+#endif
+	} 
+} /* end set_locale */
+#endif
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-//void use_locale()  { } //printf("using this locale %s\n", this_locale); set_locale(this_locale); }
+/*void use_locale()  { } printf("using this locale %s\n", this_locale); set_locale(this_locale); } */
 void use_default_charset() { set_iconv_charset(default_charset); }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void set_usr_locale(char *user_locale)
 {
@@ -190,7 +194,7 @@ void set_usr_locale(char *user_locale)
  	usr=1;
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 #ifdef MULTIBYTE
 void strip_wchar(CHAR *locale, char *stripped_locale)
 {
@@ -202,22 +206,22 @@ void strip_wchar(CHAR *locale, char *stripped_locale)
 	printf("strip_wchar start\n");
 #endif
 
-	//printf("locale: -%d-%d-\n", locale[0], locale[1]);
+	/*printf("locale: -%d-%d-\n", locale[0], locale[1]); */
 
 	len = STRLEN(locale);
-	// copy stripped string to out
+	/* copy stripped string to out */
 	for (i=0; i<len; i++) { out[i] = wctob(in[i]); }
 	out[i] = 0x00;
-	//printf("out %s\n", stripped_locale);
+	/*printf("out %s\n", stripped_locale); */
 #ifdef proc_debug
 	printf("strip_wchar end\n");
 #endif
-} // end strip_wchar
+} /* end strip_wchar */
 #endif
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void print_locale() { 
-	//printf("%s\n", this_locale);
+	/* printf("%s\n", this_locale); */
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */

@@ -41,15 +41,15 @@ int breite=76,
 CHAR wort[DEF_STR_LEN];
 
 CHAR zeile[DEF_STR_LEN];
-int     zeilen_len=0,       // scheinbare Länge der Zeile 
+int     zeilen_len=0,       /* scheinbare Länge der Zeile  */
   zeilen_len_old=0,
-  zeilen_pos=0,       // wahre Länge der Zeile 
-  wort_len=0,         // scheinbare Länge des Worts
-  wort_pos=0,         // wahre Länge des Worts 
-  anz_leere_zeilen=0, // wieviele Zeilen waren bisher leer
-  noleadingblanks=0;  // keine Leerzeilen am Anfang.
+  zeilen_pos=0,       /* wahre Länge der Zeile  */
+  wort_len=0,         /* scheinbare Länge des Worts */
+  wort_pos=0,         /* wahre Länge des Worts  */
+  anz_leere_zeilen=0, /* wieviele Zeilen waren bisher leer */
+  noleadingblanks=0;  /* keine Leerzeilen am Anfang. */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void center_zeile()
 {
@@ -87,7 +87,7 @@ void center_zeile()
   }
 } /* end center_zeile */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void right_zeile()
 {
@@ -125,9 +125,9 @@ void right_zeile()
 #endif
 } /* end right_zeile */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
-// return true, if z is all spaces or nonbreakable space
+/* return true, if z is all spaces or nonbreakable space */
 int only_spaces(CHAR *z)
 {
   int len=STRLEN(z);
@@ -136,9 +136,9 @@ int only_spaces(CHAR *z)
 
 	for (i=0; i<len; i++) { j=z[i]; ret = (ret && ((j==' ')||(j==160))); }
 	return(ret);
-} // end only_spaces
+} /* end only_spaces */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void print_zeile()
 {
@@ -164,10 +164,10 @@ void print_zeile()
 		printzeile = (!((anz_leere_zeilen>shrink_lines)||(noleadingblanks==0)));
   }
 
-  // Don't allow leading blank lines
+  /* Don't allow leading blank lines */
 	if (noleadingblanks==0) { noleadingblanks = !only_spaces(zeile); }
 
-  //  fprintf(stderr, "anz_leere_zeilen %d zeilen_len %d zeilen_len_old %d noleadingblanks %d nooutput %d zeile %ls \n", anz_leere_zeilen, zeilen_len, zeilen_len_old, noleadingblanks, nooutput, zeile);
+  /*  fprintf(stderr, "anz_leere_zeilen %d zeilen_len %d zeilen_len_old %d noleadingblanks %d nooutput %d zeile %ls \n", anz_leere_zeilen, zeilen_len, zeilen_len_old, noleadingblanks, nooutput, zeile); */
 
   if (printzeile) 
 	{
@@ -176,9 +176,9 @@ void print_zeile()
 	  if (get_align()==RIGHT)  { right_zeile(); }
 
 	  if (!nooutput) { output_string(zeile); }
-	  //#ifdef debug		
+	  /*#ifdef debug		 */
 	  else { /* print_error("keine ausgabe von ", zeile); */ }
-	  //#endif
+	  /*#endif */
 		
 	  zeile[0]='\0';
 	  zeilen_len_old=zeilen_len;
@@ -189,14 +189,14 @@ void print_zeile()
 #endif
 } /* end print_zeile */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 int is_zeile_empty()
 {
 	return(zeile[0]=='\0');
-} // end is_zeile_empty
+} /* end is_zeile_empty */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void status()
 {
@@ -211,7 +211,7 @@ void status()
 #endif
 }
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void zeile_plus_wort(CHAR *s, int wl, int wp)
 {
@@ -229,7 +229,7 @@ void zeile_plus_wort(CHAR *s, int wl, int wp)
 #endif
 } /* end zeile_plus_wort */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void wort_plus_string_nocount(CHAR *s)
 {
@@ -252,7 +252,7 @@ void wort_plus_string_nocount(CHAR *s)
 #endif
 } /* end wort_plus_string_nocount */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void wort_plus_string(CHAR *s)
 {
@@ -275,7 +275,7 @@ void wort_plus_string(CHAR *s)
 #endif
 } /* end wort_plus_string */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void wort_plus_ch(int c)
 {
@@ -287,7 +287,7 @@ void wort_plus_ch(int c)
   wort_len++;
 } /* end wort_plus */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void wort_ende()
 {
@@ -317,7 +317,7 @@ void wort_ende()
       printf(" z1: zeilen_len: %d ; wort_len %d \n",zeilen_len, wort_len);
       printf(" z1: zeilen_pos: %d ; wort_pos %d\n",zeilen_pos, wort_pos);
 #endif
-			// Leerzeichen + Wort
+			/* Leerzeichen + Wort */
       zeile_plus_wort(ONESPACE,1,1); zeile_plus_wort(wort,wort_len, wort_pos);
     }
     else /* zeilen_len==0 => neuer Paragraphenanfang */
@@ -341,7 +341,7 @@ void wort_ende()
 #endif
 } /* end wort_ende */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void line_break()
 {
@@ -349,7 +349,7 @@ void line_break()
   print_zeile();
 } /* end line_break */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void paragraphen_ende()
 {
@@ -370,14 +370,14 @@ void paragraphen_ende()
 #endif
 } /* end paragraphen_ende */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void neuer_paragraph()
 {
 #ifdef proc_debug
   printf("neuer_paragraph()\n");
 #endif
-  //fprintf(stderr, "paragraph %d\n", paragraph);
+  /*fprintf(stderr, "paragraph %d\n", paragraph); */
   if (paragraph!=0) { paragraphen_ende(); }
   line_break();
   print_zeile();
@@ -388,7 +388,7 @@ void neuer_paragraph()
 #endif
 } /* end neuer_paragraph */
 
-// ------------------------------------------------
+/* ------------------------------------------------ */
 
 void hr()
 {
