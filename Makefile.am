@@ -9,8 +9,8 @@ vilistextum:
 	cd src && $(MAKE)
 
 static:
-	$(MAKE) clean
-	env CFLAGS=-static $(MAKE) vilistextum
+	rm -f src/vilistextum
+	cd src && env STATIC=-static $(MAKE)
 
 bzip2dist:
 	gunzip $(distdir).tar.gz
