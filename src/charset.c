@@ -7,7 +7,8 @@
  *
  *  history
  *  14.10.2001: creation of this file
- *  21.10.2002:
+ *
+ *
  */
 
 #include <../config.h>
@@ -62,16 +63,19 @@ int convert_character(int num, CHAR *outstring)
 	char *inp, *outp;
 	size_t insize = 1, outsize = 32;
 
+	/* no conversion needed */
+	if (option_output_utf8) {
+		outstring[0] = num;
+		outstring[1] = L'\0';
+		return 1;
+	}
+
 #ifdef proc_debug
 	printf("convert_character start\n");
 #endif
 
 	/*#define iconv_debug 1 */
 	
-	/*ret = setlocale(LC_CTYPE, "en_US.utf-8");  */
-  /*if (ret==NULL) { fprintf(stderr, "setlocale failed with: en_US.utf8\n\n"); } */
-  /*else { fprintf(stderr, "%s\n", ret); }  */
-
 	for (i=0; i<33; i++) { in[i]=0x00; out[i]=0x00; }
 	inp  = in;
 	outp = out;
@@ -107,10 +111,6 @@ int convert_character(int num, CHAR *outstring)
 		printf("convert_character: Input '%s'; Output '%s'\n", in, out);
 #endif
 		converted = 1;
-		/*setlocale(LC_CTYPE, this_complete_locale); */
-		/*result = mbstowcs(outstring, out, strlen(out)); */
-
-		/*outstring[result] = L'\0'; */
 		outstring[0] = num;
 		outstring[1] = L'\0';
 #ifdef iconv_debug
