@@ -23,7 +23,7 @@ dnl AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(getopt.h) 	
 
 dnl checking for options
-AC_MSG_CHECKING(if --enable-multibyte option specified)
+AC_MSG_CHECKING(if --enable-multibyte specified)
 AC_ARG_ENABLE(multibyte,
         [  --enable-multibyte     Enable multibyte support. Needs libiconv.],
         [multibyte="yes"], [multibyte="no"])
@@ -39,8 +39,8 @@ if test "$multibyte" = "yes"; then
 fi
 
 dnl setting INTERNAL_LOCALE
-AC_MSG_CHECKING(if --with-unicode-locale option specified)
-DEFAULT_LOCALE="en_US.UTF8"
+AC_MSG_CHECKING(if --with-unicode-locale specified)
+DEFAULT_LOCALE=`locale -a | grep -i en_us.utf | line || echo en_US.UTF8`
 AC_ARG_WITH(unicode-locale,
 	[  --with-unicode-locale=LOCALE  use this LOCALE instead of $DEFAULT_LOCALE],
 	AC_MSG_RESULT(yes); AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$with_unicode_locale", [preferred Unicode set]),
