@@ -119,6 +119,8 @@ void html_tag()
 		else if CMP("/STRONG", str) { if (convert_tags) { wort_plus_ch('*'); } }
 		else if CMP("EM", str)      { if (convert_tags) { wort_plus_ch('/'); } }
 		else if CMP("/EM", str)     { if (convert_tags) { wort_plus_ch('/'); } }
+		else if CMP("EMPH", str)    { if (convert_tags) { wort_plus_ch('/'); } } /* sometimes used, but doesn't really exist */
+		else if CMP("/EMPH", str)   { if (convert_tags) { wort_plus_ch('/'); } } /* sometimes used, but doesn't really exist */
 #endif
 
 
