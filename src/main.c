@@ -141,7 +141,7 @@ char help_text[] =
 "  -p, --palm                    \n"
 "  -r, --remove-empty-alt        \n"
 "  -s, --shrink-lines [NUMBER]   \n"
-"  -t, --title                   \n"
+"  -t, --no-title                \n"
 "  -w, --width NUMBER            \n"
 #ifdef MULTIBYTE
 "\n"

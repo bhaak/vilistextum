@@ -1,4 +1,6 @@
-#1/usr/bin/tcsh -f
+#!/usr/bin/tcsh -f
+
+(cd doc && ./create-dok)
 
 make mydist
 

@@ -111,7 +111,7 @@ Default: 1.
 </longdesc>
 </option>
 
-<option short="t" long="title">
+<option short="t" long="no-title">
 <shortdesc>
 don't output title.
 </shortdesc>
