@@ -27,11 +27,6 @@
 #ifdef MULTIBYTE
   #include <iconv.h>
   #include <locale.h>
-  #if defined(__sun__)
-    #include <libcharset.h>
-  #else
-    #include <localcharset.h>
-  #endif
 #endif
 
 FILE *in, *out;
@@ -74,9 +69,14 @@ void convert_string(char *str, CHAR *converted_string)
 	char *inp, *outp;
 	int fehlernr=0;
 	size_t insize, outsize;
+	char *ret;
 
 	/* set locale based on environment variables */
-	setlocale(LC_CTYPE, "");
+	ret = setlocale(LC_CTYPE, "");
+  if (ret==NULL) { 
+		fprintf(stderr, "setlocale failed with: %s\n\n", getenv("LC_CTYPE"));
+		exit(1);
+	}
 
 	insize = strlen(str);
 	if (insize > DEF_STR_LEN) { insize = DEF_STR_LEN; }
@@ -86,21 +86,25 @@ void convert_string(char *str, CHAR *converted_string)
 	outp = output;
 
 	if ((conv = iconv_open("utf-8", "char"))==(iconv_t)(-1))
-		{	printf("iconv_open failed in convert_string: Can't convert from %s to UTF-8?\n", locale_charset()); exit(1); }
+		{	printf("iconv_open failed in convert_string: Can't convert from %s to UTF-8?\n", getenv("LC_CTYPE")); exit(1); }
 
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	fehlernr = errno;
 
 	if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
 	else if (fehlernr==EILSEQ) { 
-		fprintf(stderr, "Can't convert '%s' as character set %s\n", str, locale_charset());
+		fprintf(stderr, "Can't interpret '%s' as character from charset %s\n", str, getenv("LC_CTYPE"));
 		fprintf(stderr, "Check your language settings with locale(1)\n");
 	}
 	else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
 		
 	output[strlen(output)] = '\0';
 
-	setlocale(LC_CTYPE, INTERNAL_LOCALE);
+	ret = setlocale(LC_CTYPE, INTERNAL_LOCALE);
+  if (ret==NULL) { 
+		fprintf(stderr, "setlocale failed with: %s\n\n", INTERNAL_LOCALE);
+		exit(1);
+	}
 	mbstowcs(converted_string, output, strlen(output));
 
 	iconv_close(conv);
@@ -142,7 +146,7 @@ void output_string(CHAR *str)
 		fehlernr = errno;
 
 		if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
-		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ in output_string\n"); }
+		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ in output_string\n"); fprintf(stderr, "input: %s\n", inp); }
 		else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
 		
 		output[DEF_STR_LEN-outsize] = '\0';

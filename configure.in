@@ -5,7 +5,7 @@ AM_INIT_AUTOMAKE(vilistextum, 2.6.8-devel)
 AM_CONFIG_HEADER(config.h)
 
 dnl Set current date
-AC_DEFINE_UNQUOTED(RELEASEDATE, ">19.12.2004", "Release date of the program")
+AC_DEFINE_UNQUOTED(RELEASEDATE, "??.??.2005", "Release date of the program")
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -36,8 +36,11 @@ fi
 
 dnl Checks for libraries.
 if test "$multibyte" = "yes"; then
-	AC_CHECK_LIB(iconv, iconv,,
-		AC_MSG_ERROR(Need libiconv for multibyte support))
+AC_CHECK_HEADERS(iconv.h,,
+			AC_MSG_ERROR(Need libiconv or iconv.h for multibyte support))
+
+AC_CHECK_LIB(iconv, iconv,,
+			AC_MSG_WARN(only generic iconv has been found not libiconv))
 
 dnl setting INTERNAL_LOCALE
 AC_MSG_CHECKING(for unicode locale)

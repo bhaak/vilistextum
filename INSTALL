@@ -11,7 +11,7 @@ systems.
 Multibyte/Unicode version
 =========================
 
-./configure --enable && make && make install
+./configure --enable-multibyte && make && make install
 
 The multibyte version needs libiconv.
 http://www.gnu.org/software/libiconv
