@@ -210,11 +210,12 @@ int html_entity(CHAR *str)
   }
 #endif
 
-  if CMP("&quot;",     str)    { return(set_char_wrapper(str, '"')); }
-  else if CMP("&;",    str)    { return(set_char_wrapper(str, '&')); } /* for those brain damaged ones */
-  else if CMP("&amp;", str)    { return(set_char_wrapper(str, '&')); }
-  else if CMP("&gt;",  str)    { return(set_char_wrapper(str, '>')); }
-  else if CMP("&lt;",  str)    { return(set_char_wrapper(str, '<')); }
+  if CMP("&quot;",      str)    { return(set_char_wrapper(str, '"')); }
+  else if CMP("&;",     str)    { return(set_char_wrapper(str, '&')); } /* for those brain damaged ones */
+  else if CMP("&amp;",  str)    { return(set_char_wrapper(str, '&')); }
+  else if CMP("&gt;",   str)    { return(set_char_wrapper(str, '>')); }
+  else if CMP("&lt;",   str)    { return(set_char_wrapper(str, '<')); }
+	else if CMP("&apos;", str)    { return(set_char_wrapper(str, '\'')); } 
   else { return(0); } /* found no html entity */
 } /* end html_entity */
 
@@ -447,6 +448,7 @@ int latin1(CHAR *str)
   else if CMP("&diams;", str)    { return(set_char_wrapper(str,  9830)); }
   else if CMP("&quot;", str)     { return(set_char_wrapper(str,  34)); }
   else if CMP("&amp;", str)      { return(set_char_wrapper(str,  38)); }
+  else if CMP("&apos;", str)     { return(set_char_wrapper(str,  39)); }
   else if CMP("&lt;", str)       { return(set_char_wrapper(str,  60)); }
   else if CMP("&gt;", str)       { return(set_char_wrapper(str,  62)); }
   else if CMP("&OElig;", str)    { return(set_char_wrapper(str,  338)); }
