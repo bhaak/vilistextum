@@ -43,14 +43,16 @@ Put this in your .mailcap:<br />
 Put the following lines into your .gnus:
 <pre>;; prefer to show plain text over markup for multipart/alternative
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
-    '("text/html" "text/richtext")))
+                                    '("text/html" "text/richtext")))
 
-(add-to-list 'mm-text-html-renderer-alist 
-		'(vilistextum mm-inline-render-with-file mm-links-remove-leading-blank
-		"vilistextum" "-l" "-r" "-c" "-s" file "-"))
+(add-to-list 'mm-text-html-renderer-alist
+             '(vilistextum mm-inline-render-with-file
+               mm-links-remove-leading-blank
+               "vilistextum" "-l" "-r" "-c" "-s" file "-"))
 (add-to-list 'mm-text-html-washer-alist 
-		'(vilistextum mm-inline-wash-with-file mm-links-remove-leading-blank
-		"vilistextum" "-l" "-r" "-c" "-s" file "-"))
+             '(vilistextum mm-inline-wash-with-file
+               mm-links-remove-leading-blank
+               "vilistextum" "-l" "-r" "-c" "-s" file "-"))
 (setq mm-text-html-renderer 'vilistextum)
 </pre>
 

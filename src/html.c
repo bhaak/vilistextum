@@ -522,7 +522,7 @@ void start_nooutput()
 	while (ch!='>')
 	{
     ch=get_attr();
-		printf("attr_name: %ls\nattr_ctnt: %ls\n", attr_name, attr_ctnt);
+		/* printf("attr_name: %ls\nattr_ctnt: %ls\n", attr_name, attr_ctnt); */
 		if CMP("/", attr_name) 
 		{
 			printf("Empty tag\n");
