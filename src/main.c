@@ -128,17 +128,38 @@ int palm = 0,             /* if true, enable pda specific restrictions    */
 CHAR *default_image=STRING("Image"); /* Default string for IMG without ALT-tag */
 CHAR user_image[DEF_STR_LEN]; /* string supplied by user */
 
+char help_text[] = 
+"Usage: vilistextum [OPTIONS] [inputfile|-] [outputfile|-]\n"
+"\n"
+"OPTIONS:\n"
+"  -a, --no-alt                  \n"
+"  -c, --convert-tags            \n"
+"  -e, --errorlevel NUMBER       \n"
+"  -i, --defimage STRING         \n"
+"  -l, --links                   \n"
+"  -m, --dont-convert-characters \n"
+"  -n, --no-image                \n"
+"  -p, --palm                    \n"
+"  -r, --remove-empty-alt        \n"
+"  -s, --shrink-lines [NUMBER]   \n"
+"  -t, --title                   \n"
+"  -w, --width NUMBER            \n"
+#ifdef MULTIBYTE
+"\n"
+"  -u, --output-utf-8            \n"
+"  -x, --translit                \n"
+"  -y, --charset CHARSET         \n"
+#endif
+"\n"
+"  -h, --help           \n" /*        display this help and exit\n" */
+"  -v, --version        \n" /*         output version information and exit\n" */
+"Please report bugs to <bhaak@gmx.net>\n"
+;
+
 void help()
 {
-	printf("Usage: vilistextum [OPTIONS] [inputfile|-] [outputfile|-]\n");
-	printf("OPTIONS: [--version|-v] [--help|-h] [--palm|-p] [--dont-convert-characters|-m]\n");
-	printf("[--shrink-lines|-s [number]] [--remove-empty-alt|-r]\n");
-	printf("[--defimage|-i string] [--width|-w number] [--errorlevel|-e number]\n");
-	printf("[--convert-tags|-c] [--links|-l] [--no-image|-n] [--no-alt|-a]\n");
-	printf("[--no-title|-t]\n");
-#ifdef MULTIBYTE
-	printf("[--charset|-y charset] [--translit|-x] [--output-utf-8|-u]\n");
-#endif
+	printf(help_text);
+
 	exit(0);
 } /* end help */
 
@@ -201,7 +222,7 @@ void parse_args(int argc, char *argv[])
 		if (optarg==NULL) { argument = argv[optind]; }
 		else { argument = optarg; } 
 
-		if (c == -1) break;
+		if ((c == -1) && (c = '-')) break;
 
 		switch (c)
 		{
