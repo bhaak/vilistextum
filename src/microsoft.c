@@ -21,137 +21,139 @@
 
 int microsoft_entities(CHAR *s)
 {
-  if (!convert_characters) { return(0); }
+	int number = extract_entity_number(s);
+
+	if (!convert_characters) { return(0); }
   /* Euro */
-  else if CMP("&#128;", s)    { CPYSL(s, "EUR"); }
+  else if (number==128)       { CPYSL(s, "EUR"); }
   else if CMP("&euro;", s)    { CPYSL(s, "EUR"); }
-  else if CMP("&#8364;", s)   { CPYSL(s, "EUR"); }
+  else if (number==8364)      { CPYSL(s, "EUR"); }
   
   /* Single Low-9 Quotation Mark */
-  else if CMP("&#130;", s)    { set_char(s, ','); }
+  else if (number==130)       { set_char(s, ','); }
   else if CMP("&sbquo;", s)   { set_char(s, ','); }
-  else if CMP("&#8218;", s)   { set_char(s, ','); }
+  else if (number==8218)      { set_char(s, ','); }
 
-  else if CMP("&#131;", s)    { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
+  else if (number==131)       { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
   else if CMP("&fnof;", s)    { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
-  else if CMP("&#402;", s)    { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
+  else if (number==402)       { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
 
   /* Double Low-9 Quotation Mark */
-  else if CMP("&#132;", s)    { CPYSL(s, "\""); }
+  else if (number==132)       { CPYSL(s, "\""); }
   else if CMP("&bdquo;", s)   { CPYSL(s, "\""); }
-  else if CMP("&#8222;", s)   { CPYSL(s, "\""); }
+  else if (number==8222)      { CPYSL(s, "\""); }
 
-  else if CMP("&#133;", s)    { CPYSL(s, "... "); } /* Horizontal Ellipsis */
+  else if (number==133)       { CPYSL(s, "... "); } /* Horizontal Ellipsis */
   else if CMP("&hellip;", s)  { CPYSL(s, "... "); } /* Horizontal Ellipsis */
-  else if CMP("&#8230;", s)   { CPYSL(s, "... "); } /* Horizontal Ellipsis */
+  else if (number==8230)      { CPYSL(s, "... "); } /* Horizontal Ellipsis */
 
   /* Dagger */
-  else if CMP("&#134;", s)    { CPYSL(s, "/-"); }   
+  else if (number==134)       { CPYSL(s, "/-"); }   
   else if CMP("&dagger;", s)  { CPYSL(s, "/-"); }
-  else if CMP("&#8224;", s)   { CPYSL(s, "/-"); }
+  else if (number==8224)      { CPYSL(s, "/-"); }
 
   /* Double Dagger */
-  else if CMP("&#135;", s)    { CPYSL(s, "/="); }
+  else if (number==135)       { CPYSL(s, "/="); }
   else if CMP("&Dagger;", s)  { CPYSL(s, "/="); }
-  else if CMP("&#8225;", s)   { CPYSL(s, "/="); }
+  else if (number==8225)      { CPYSL(s, "/="); }
   
   /* Modifier Letter Circumflex Accent */
-  else if CMP("&#136;", s)    { set_char(s, '^'); }
+  else if (number==136)       { set_char(s, '^'); }
   else if CMP("&circ;", s)    { set_char(s, '^'); }
-  else if CMP("&#710;", s)    { set_char(s, '^'); }
+  else if (number==710)       { set_char(s, '^'); }
 
   /* Per Mille Sign */
-  else if CMP("&#137;", s)    { CPYSL(s, "0/00"); }
+  else if (number==137)       { CPYSL(s, "0/00"); }
   else if CMP("&permil;", s)  { CPYSL(s, "0/00"); }
-  else if CMP("&#8240;", s)   { CPYSL(s, "0/00"); } 
+  else if (number==8240)      { CPYSL(s, "0/00"); } 
 
   /* Latin Capital Letter S With Caron */
-  else if CMP("&#138;", s)    { set_char(s, 'S'); }
+  else if (number==138)       { set_char(s, 'S'); }
   else if CMP("&Scaron;", s)  { set_char(s, 'S'); }
-  else if CMP("&#352;", s)    { set_char(s, 'S'); }
+  else if (number==352)       { set_char(s, 'S'); }
 
   /* Single Left-Pointing Angle Quotation Mark */
-  else if CMP("&#139;", s)    { set_char(s, '<'); }
+  else if (number==139)       { set_char(s, '<'); }
   else if CMP("&lsaquo;", s)  { set_char(s, '<'); }
-  else if CMP("&#8249;", s)   { set_char(s, '<'); }
+  else if (number==8249)      { set_char(s, '<'); }
 
   /* Latin Capital Ligature OE */
-  else if CMP("&#140;", s)    { CPYSL(s, "OE"); }  
+  else if (number==140)       { CPYSL(s, "OE"); }  
   else if CMP("&OElig;", s)   { CPYSL(s, "OE"); }   
-  else if CMP("&#338;", s)    { CPYSL(s, "OE"); }  
+  else if (number==338)       { CPYSL(s, "OE"); }  
 
   /* Z\/ */
-  else if CMP("&#142;", s)    { set_char(s, 'Z'); }
-  else if CMP("&#381;", s)    { set_char(s, 'Z'); }
+  else if (number==142)       { set_char(s, 'Z'); }
+  else if (number==381)       { set_char(s, 'Z'); }
 
   /* Left Single Quotation Mark */
-  else if CMP("&#145;", s)    { set_char(s, '`'); }
+  else if (number==145)       { set_char(s, '`'); }
   else if CMP("&lsquo;", s)   { set_char(s, '`'); }
-  else if CMP("&#8216;", s)   { set_char(s, '`'); }
+  else if (number==8216)      { set_char(s, '`'); }
 
   /* Right Single Quotation Mark */
-  else if CMP("&#146;", s)    { set_char(s, '\''); }
+  else if (number==146)       { set_char(s, '\''); }
   else if CMP("&rsquo;", s)   { set_char(s, '\''); }
-  else if CMP("&#8217;", s)   { set_char(s, '\''); }
+  else if (number==8217)      { set_char(s, '\''); }
 
   /* Left Double Quotation Mark */
-  else if CMP("&#147;", s)    { set_char(s, '"'); }
+  else if (number==147)       { set_char(s, '"'); }
   else if CMP("&ldquo;", s)   { set_char(s, '"'); }
-  else if CMP("&#8220;", s)   { set_char(s, '"'); }
+  else if (number==8220)      { set_char(s, '"'); }
 
   /* Right Double Quotation Mark */
-  else if CMP("&#148;", s)    { set_char(s, '"'); }
+  else if (number==148)       { set_char(s, '"'); }
   else if CMP("&rdquo;", s)   { set_char(s, '"'); }
-  else if CMP("&#8221;", s)   { set_char(s, '"'); }
+  else if (number==8221)      { set_char(s, '"'); }
 
   /* Bullet */
-  else if CMP("&#149;", s)    { set_char(s, '*'); }
+  else if (number==149)       { set_char(s, '*'); }
   else if CMP("&bull;", s)    { set_char(s, '*'); }
-  else if CMP("&#8226;", s)   { set_char(s, '*'); }
+  else if (number==8226)      { set_char(s, '*'); }
   
   /* En Dash */
-  else if CMP("&#150;", s)    { set_char(s, '-'); }
+  else if (number==150)       { set_char(s, '-'); }
   else if CMP("&ndash;", s)   { set_char(s, '-'); }
-  else if CMP("&#8211;", s)   { set_char(s, '-'); }
+  else if (number==8211)      { set_char(s, '-'); }
 
   /* Em Dash */
-  else if CMP("&#151;", s)    { CPYSL(s, "--"); }
+  else if (number==151)       { CPYSL(s, "--"); }
   else if CMP("&mdash;", s)   { CPYSL(s, "--"); }
-  else if CMP("&#8212;", s)   { CPYSL(s, "--"); }
+  else if (number==8212)      { CPYSL(s, "--"); }
   
   /* Small Tilde */
-  else if CMP("&#152;", s)    { set_char(s, '~'); }
+  else if (number==152)       { set_char(s, '~'); }
   else if CMP("&tilde;", s)   { set_char(s, '~'); }
-  else if CMP("&#732;", s)    { set_char(s, '~'); } 
+  else if (number==732)       { set_char(s, '~'); } 
 
   /* Trade Mark Sign */
-  else if CMP("&#153;", s)    { CPYSL(s, "[tm]"); }
+  else if (number==153)       { CPYSL(s, "[tm]"); }
   else if CMP("&trade;", s)   { CPYSL(s, "[tm]"); }
-  else if CMP("&#8482;", s)   { CPYSL(s, "[tm]"); }
+  else if (number==8482)      { CPYSL(s, "[tm]"); }
 
   /* Latin Small Letter S With Caron */
-  else if CMP("&#154;", s)    { set_char(s, 's'); }
+  else if (number==154)       { set_char(s, 's'); }
   else if CMP("&scaron;", s)  { set_char(s, 's'); }
-  else if CMP("&#353;", s)    { set_char(s, 's'); }
+  else if (number==353)       { set_char(s, 's'); }
 
   /* Single Right-Pointing Angle Quotation Mark */
-  else if CMP("&#155;", s)    { set_char(s, '>'); }
+  else if (number==155)       { set_char(s, '>'); }
   else if CMP("&rsaquo;", s)  { set_char(s, '>'); }
-  else if CMP("&#8250;", s)   { set_char(s, '>'); }
+  else if (number==8250)      { set_char(s, '>'); }
 
   /* Latin Small Ligature OE */
-  else if CMP("&#156;", s)    { CPYSL(s, "oe"); }
+  else if (number==156)       { CPYSL(s, "oe"); }
   else if CMP("&oelig;", s)   { CPYSL(s, "oe"); }
-  else if CMP("&#339;", s)    { CPYSL(s, "oe"); }
+  else if (number==339)       { CPYSL(s, "oe"); }
 
   /* z\/ */
-  else if CMP("&#158;", s)    { set_char(s, 'z'); }
-  else if CMP("&#382;", s)    { set_char(s, 'z'); }
+  else if (number==158)       { set_char(s, 'z'); }
+  else if (number==382)       { set_char(s, 'z'); }
 
   /* Latin Capital Letter Y With Diaeresis  */
-  else if CMP("&#159;", s)    { set_char(s, 'Y'); }
+  else if (number==159)       { set_char(s, 'Y'); }
   else if CMP("&Yuml;", s)    { set_char(s, 'Y'); }
-  else if CMP("&#376;", s)    { set_char(s, 'Y'); }
+  else if (number==376)       { set_char(s, 'Y'); }
 	
   else { return(0); }
 

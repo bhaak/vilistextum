@@ -146,53 +146,10 @@ void set_iconv_charset(char *charset) {
 
 /* ------------------------------------------------ */
 
-#if 0
-void set_locale(char *charset) 
-{
-  /* if charset == "", take the value from the environment variables */
-  char *ret; 
-  /*ret = setlocale(LC_CTYPE, ""); */
-	char country_charset[DEF_STR_LEN]; 
-	if (usr==0) 
-	{ 
-#ifdef proc_debug 
-	printf("set_locale start\n"); 
-#endif 
-
-	/* set charset for iconv conversion */
-	strcpy(iconv_charset, charset); 
-	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");} 
-	/*printf("iconv_charset %s\n", iconv_charset); */
-
-	strcpy(country_charset, default_country); 
-	strcat(country_charset, charset); 
-
-  ret = setlocale(LC_CTYPE, country_charset);  
-	/*printf("Locale: =%s=\n", country_charset); */
-	strcpy(this_complete_locale, country_charset); 
-	strcpy(this_locale, charset); 
-  if (ret==NULL) { fprintf(stderr, "setlocale failed with: %s\n\n", country_charset); } 
-  else { } /* fprintf(stderr, "%s\n", ret); }  */
-#ifdef proc_debug 
-	printf("set_locale end\n"); 
-#endif
-	} 
-} /* end set_locale */
-#endif
-
-/* ------------------------------------------------ */
-
 void use_default_charset() { set_iconv_charset(default_charset); }
 
 /* ------------------------------------------------ */
 
-void set_usr_locale(char *user_locale)
-{
-	set_iconv_charset(user_locale);
- 	usr=1;
-}
-
-/* ------------------------------------------------ */
 #ifdef MULTIBYTE
 void strip_wchar(CHAR *locale, char *stripped_locale)
 {

@@ -61,20 +61,15 @@ int set_char_wrapper(CHAR *str, int num)
 /* parse entity in string  */
 void parse_entity(CHAR *str)
 {
-	/* int i; */
-	/*CHAR tmpstr[DEF_STR_LEN]; */
 	int len = STRLEN(str);
-#ifdef DEBUG
-	printf("DEBUG\n");
-	for (i=0; i<10; i++) { printf("%d ", str[i]);}
-#endif
+
 #ifdef proc_debug
 	printf("start parse: %s\n", str);
 #endif	
 
 	/*for (i=0; i<DEF_STR_LEN; i++) { tmpstr[i]=0x00; } CAUTION */
 	CPYSS(tmpstr, str);
-	
+
 #ifdef DEBUG
 	/*	printf("1 %s\n", str);
 	printf("2 %s\n", tmpstr);
@@ -85,13 +80,12 @@ void parse_entity(CHAR *str)
 	printf("DEBUG\n");
 	*/
 #endif
-	/*	fprintf(stderr, "tmpstr: %s-\n", tmpstr); */
-	/*fprintf(stderr, "tmpstr: %d-\n", tmpstr[len]); */
+
 	if (tmpstr[len-1]!=';') {
 		tmpstr[len]   = ';';
 		tmpstr[len+1] = '\0';
 	}
-	/*printf("tmpstr: %ls\n", tmpstr); */
+	/* printf("tmpstr: -%ls-\n", tmpstr); */
 
 	if ((entity_number(tmpstr))||(html_entity(tmpstr))||(latin1(tmpstr))||(microsoft_entities(tmpstr))||unicode_entity(tmpstr)) {
 		/* if true entity was known */

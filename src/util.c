@@ -136,21 +136,23 @@ void set_char(CHAR *s, CHAR c)
 int x2dec(CHAR *str, int base)
 {
   int i=0,
-	nr=0;
+		current_nr=0,
+		nr=0;
   int len=STRLEN(str);
 
   for (i=0;i<len;i++)
   {
+		current_nr=str[i];
     nr*=base;
-    if ((str[i]>='0') && (str[i]<='9')) { nr += str[i]-'0'; }
+    if ((current_nr>='0') && (current_nr<='9')) { nr += current_nr-'0'; }
     else 
     {  
 #ifdef MULTIBYTE
-      str[i] = towupper(str[i])-'A'+10; 
+      current_nr = towupper(current_nr)-'A'+10; 
 #else
-      str[i] = toupper(str[i])-'A'+10; 
+      current_nr = toupper(current_nr)-'A'+10; 
 #endif
-	  if ((str[i]>=10) && (str[i]<base)) { nr += str[i]; }
+	  if ((current_nr>=10) && (current_nr<base)) { nr += current_nr; }
 	  else { return(nr/base); }
     }
   }

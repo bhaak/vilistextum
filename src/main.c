@@ -50,7 +50,7 @@
  *      14.02.01   : better command parsing (still no getopt)
  *                   added microsoft entities
  *      20.02.01   : unknown &#xxx; will be printed as text
- *                   microsoft_entities broke latin1 regognition (how appropriate)
+ *                   microsoft_entities broke latin1 recognition (how appropriate)
  *                   errorlevel introduced
  *      20.02.01   : SCRIPT was not implemented
  *                   Default Image text editable

@@ -170,21 +170,9 @@ void html()
 				printf("-\n");
 #endif
 				parse_entity(&str[0]);
+				/* str contains the converted entity or the original string */
 				wort_plus_string(str);
-				#if 0
- 				if ((entity_number(str)) || (latin1(str)) || (microsoft_entities(str))) {
-					/* if true entity was known */
-					wort_plus_string(str);
-				}
-        else {
-					if (errorlevel>=1) { fprintf(stderr, "entity %s unknown\n",tmpstr); }
-					wort_plus_string(tmpstr);
-					/* FIXME MAYBE??? */
-					/*goback_char(strlen(str)-2); */
-					/*wort_plus_ch(str[0]); */
-					/*wort_plus_ch(str[1]); */
-				}
-				#endif
+
 #ifdef debug
         printf("&: %s\n",str);
 #endif
@@ -257,7 +245,7 @@ void check_for_center()
       else if CMP("CENTER", attr_ctnt) { push_align(CENTER); }
       else if CMP("RIGHT",  attr_ctnt) { push_align(RIGHT); }
       else if CMP("JUSTIFY", attr_ctnt) { push_align(LEFT); }		
-      else { if (errorlevel>=2) { fprintf(stderr, "Kein LEFT|CENTER|RIGHT gefunden!\n"); push_align(LEFT); } }
+      else { if (errorlevel>=2) { fprintf(stderr, "No LEFT|CENTER|RIGHT found!\n"); push_align(LEFT); } }
     }
   } 
   /* found no ALIGN  */

@@ -122,7 +122,7 @@ void output_string(CHAR *str)
 
 		result = wcstombs(input, str, DEF_STR_LEN);
 
-		if (result==-1) { printf("Couldn't convert string\n"); }
+		if (result==-1) { printf("Couldn't convert string\n"); } /* this should not happen */
 		insize = strlen(input);
 		outsize = DEF_STR_LEN;
 
