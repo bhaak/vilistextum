@@ -7,10 +7,8 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 											multibyte.h
 
 # profiling
-# CFLAGS = @CFLAGS@ -pg
-
-#CFLAGS = @CFLAGS@ -Wall 
-AM_CFLAGS = -Wall
+#AM_CFLAGS = -Wall -pg
+AM_CFLAGS = -Wall 
 
 EXTRA_DIST = kilistextum.kaptn
 
