@@ -1,0 +1,19 @@
+This is small testsuite for vilistextum.
+
+Tests:
+check_tags
+  A generic test which ensures that vilistextum is at least minimal
+  functional.
+
+check_entities
+  Checks if all named character entities are correctly translated with
+  locale iso-8859-1.
+
+check_utf8
+  If vilistextum is compiled as multibyte version, this check tests
+  vilistextum's UTF-8 ability.
+
+	The html file is taken from the great "UTF-8 Sampler" page
+	(http://www.columbia.edu/, used with permission) by Frank Cruz.
+
+

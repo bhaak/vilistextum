@@ -1,5 +1,5 @@
 <manual> 
-<info name="vilistextum" date="11 March 2004" author="Patric Mueller" email="bhaak@gmx.net"/>
+<info name="vilistextum" date="20 March 2004" author="Patric Mueller" email="bhaak@gmx.net" licence="GPLv2"/>
 
 <shortdescription>
 html to ascii converter
@@ -126,8 +126,7 @@ maximum line width.
 </shortdesc>
 <longdesc>
 Maximum width of the output text.
-Default: 72.
-</longdesc>
+Default: 72.</longdesc>
 </option>
 </optionlist>
 

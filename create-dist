@@ -1,0 +1,14 @@
+#1/usr/bin/tcsh -f
+
+make mydist
+
+set verbose
+#set echo
+
+set DEST=/home/bubi/homepage/xweb-1.0RC2/homepage/content/vilistextum 
+
+cp doc/*.xhtml $DEST
+cp doc/*.xml $DEST
+cp old/vilistextum* $DEST
+cp CHANGES $DEST
+

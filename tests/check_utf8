@@ -3,7 +3,9 @@
 echo ""
 echo "TEST: $0"
 
-../src/vilistextum -v | grep >/dev/null multibyte || (echo "no multibyte version. aborting..." && exit 0)
+../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. aborting..."
+../src/vilistextum -v | grep >/dev/null multibyte || exit 0
+
 ../src/vilistextum utf-8-sampler.html utf-8-sampler.output.test
 
 diff -q utf-8-sampler.output utf-8-sampler.output.test

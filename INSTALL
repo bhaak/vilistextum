@@ -20,3 +20,7 @@ Misc
 ====
 If GNU getopt is not installed, the POSIX getopt will be used. 
 In this case long options are not available.
+
+The GUI-frontend needs kaptain.
+http://kaptain.sourceforge.net/
+
