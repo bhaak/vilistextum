@@ -354,6 +354,7 @@ void href()
 	while (ch!='>')
   {
     ch=get_attr();
+
     if CMP("HREF", attr_name) {
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
 				references_count++;

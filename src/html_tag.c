@@ -330,17 +330,16 @@ void html_tag()
   /*  printf("ch1: %c %d\n", ch, ch); */
 
   /* Skip attributes */
+#ifdef debug
+	printf("\nTag:     %ls;\n", str); 
+#endif
   while (ch!='>')
   {
-#ifdef debug
-    printf("char %c %d\n", ch, ch);
-#endif
     ch = get_attr();
 		
 #ifdef debug
-		printf("Attribute: %s;\n", attr_name); 
-		printf("Content:   %s#\n", attr_ctnt);
+		printf("Attribute: %ls;\n", attr_name); 
+		printf("Content:   %ls#\n", attr_ctnt);
 #endif
   }
-	/*	printf("\nch2: %c\n", ch); */
 } /* end html_tag */
