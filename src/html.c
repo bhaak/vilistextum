@@ -200,7 +200,14 @@ void html()
 			case 173: /* soft hyphen, just swallow it */
 				break;
 
-      case    9: /* TAB */
+			case    9: /* TAB */
+				if (pre) { 
+					wort_plus_ch(0x09); 
+				} else { 
+					wort_ende(); 
+				}
+				break;
+
       case   13: /* CR */
       case '\n':
 #ifdef debug
