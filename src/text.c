@@ -226,9 +226,11 @@ void zeile_plus_wort(CHAR *s, int wl, int wp)
   printf("\nzeile_plus_wort()\n");
 #endif
 
-  while (i<zeilen_pos+wp) { zeile[i] = s[j]; j++; i++; }
-  zeile[i] = '\0';
-  zeilen_len += wl; zeilen_pos += wp;
+	if (zeilen_pos+wp<DEF_STR_LEN) {
+		while (i<zeilen_pos+wp) { zeile[i] = s[j]; j++; i++; }
+		zeile[i] = '\0';
+		zeilen_len += wl; zeilen_pos += wp;
+	}
 #ifdef proc_debug
   printf("zeile_plus_wort() ende\n");
 #endif
@@ -288,8 +290,10 @@ void wort_plus_ch(int c)
 #ifdef default_debug
   printf("==wort_plus_ch(%d)\n", c);
 #endif
-  wort[wort_pos++] = c;
-  wort_len++;
+	if (wort_pos<DEF_STR_LEN) {
+		wort[wort_pos++] = c;
+		wort_len++;
+	}
 } /* end wort_plus */
 
 /* ------------------------------------------------ */

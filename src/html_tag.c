@@ -11,6 +11,7 @@
  * 24.08.01 : Fixed Frisskommentar
  * 02.09.01 : Ignoring BLINK, /BLINK, CITE and /CITE
  * 10.04.02 : Ignoring NOBR, /NOBR, SELECT, /SELECT, OPTION
+ * 17.12.04 : html tags longer than DEF_STR_LEN are truncated
  *
  */
 
@@ -48,13 +49,16 @@ void html_tag()
     return;
   }
 
+	/* read html tag */
   while ((ch!='>') && (ch!=' ') && (ch!=13) && (ch!=10))
   {
-    str[i++] = ch;
-    if (i==DEF_STR_LEN) { fprintf(stderr, "Tagname too long!\n"); quit(); };
+    if (i<DEF_STR_LEN) { str[i] = ch; }
+		i++;
     ch = uppercase(read_char());
   }
-  str[i] = '\0';
+	if (i>=DEF_STR_LEN) { str[DEF_STR_LEN] = '\0'; }
+	else { str[i] = '\0';}
+
 #ifdef debug
   fprintf(stderr, "html_tag: %ls\n",str);
   status();
@@ -94,6 +98,7 @@ void html_tag()
 		else if CMP("Q", str)  { wort_plus_ch('"'); }
 		else if CMP("/Q", str) { wort_plus_ch('"'); }
 
+		/* Convert these Tags */
 #ifdef AMIGA
 		else if CMP("B", str)       { wort_plus_string_nocount("\033[1m");  }
 		else if CMP("/B", str)      { wort_plus_string_nocount("\033[22m"); }
@@ -106,7 +111,6 @@ void html_tag()
 		else if CMP("EM", str)      { wort_plus_string_nocount("\033[3m");  }
 		else if CMP("/EM", str)     { wort_plus_string_nocount("\033[23m"); }
 #else
-		/* Convert these Tags */
 		else if CMP("B", str)       { if (convert_tags) { wort_plus_ch('*'); } }
 		else if CMP("/B", str)      { if (convert_tags) { wort_plus_ch('*'); } }
 		else if CMP("I", str)       { if (convert_tags) { wort_plus_ch('/'); } }
@@ -323,17 +327,13 @@ void html_tag()
 			/*printf("ch_3: %c %d\n", ch, ch); */
 		} /* Comment */
 
-		/* these have to be ignored now, to avoid the following error to show up */
+		/* these have to be ignored, to avoid the following error to show up */
 		else if CMP("SCRIPT", str)    {}
 		else if CMP("/SCRIPT", str)   {}
 		else if CMP("STYLE", str)     {}
 		else if CMP("/STYLE", str)    {}
-		else if CMP("TITLE", str)     {}
-		else if CMP("/TITLE", str)    {}
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
 	}
-
-  /*  printf("ch1: %c %d\n", ch, ch); */
 
   /* Skip attributes */
 #ifdef debug

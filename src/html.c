@@ -14,6 +14,7 @@
  *  22.03.2002: process_meta crashed if Contenttype was provided, but no charset
  *  10.04.2002: corrected check_for_center to prevent align_errors.
  *  28.01.2003: TAB and CR treated as white space.
+ *  17.12.2004: fixed buffer overflow when attribute content longer than DEF_STR_LEN
  *
  */
 
@@ -34,12 +35,12 @@
 int pre=0; /* for PRE-Tag */
 int processed_meta=0; /* only parse meta tags once */
 
-CHAR attr_name[DEF_STR_LEN], /* Attribut Name of a HTML-Tag */
-	    attr_ctnt[DEF_STR_LEN]; /* Attribut Inhalt of a HTML-Tag */
+CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
+	    attr_ctnt[DEF_STR_LEN]; /* Attribut content of a HTML-Tag */
 
 /* ------------------------------------------------ */
 
-/* get the next attribute writes it to attr_name and attr_ctnt. */
+/* get the next attribute and writes it to attr_name and attr_ctnt. */
 /* attr_name is converted to uppercase.  */
 int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 {
@@ -54,6 +55,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 
 /* printf("character %c %d\n", ch, ch); */
 
+	/* skip whitespace */
   while ((isspace(ch)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
   if (ch=='>') { return '>'; };
   /*  printf("nach return %c %d\n", ch, ch); */
@@ -62,9 +64,12 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
   i=1;
   attr_name[0] = ch;
 
-	while ((ch!='=') && (ch!='>'))
-	{ ch=read_char(); attr_name[i++] = ch; }
-  attr_name[i-1] = '\0';
+	while ((ch!='=') && (ch!='>')) {
+		ch=read_char();
+		if (i<DEF_STR_LEN) { attr_name[i++] = ch; }
+	}
+  if (i<DEF_STR_LEN) { attr_name[i-1] = '\0'; }
+	else { attr_name[DEF_STR_LEN-1] = '\0'; }
 	
   if (ch=='>') { attr_ctnt[0]='\0'; return '>'; }
 
@@ -82,8 +87,12 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 		int quote=ch;
     i=0;
     ch=read_char();
-    while(quote!=ch) { temp[i++] = ch; ch=read_char(); }
-    temp[i] = '\0';
+    while(quote!=ch) {
+			if (i<DEF_STR_LEN) { temp[i++] = ch; }
+			ch=read_char(); 
+		}
+		if (i<DEF_STR_LEN) { temp[i] = '\0'; }
+    else { temp[DEF_STR_LEN] = '\0'; }
     ch=read_char();
   }
   else
@@ -91,20 +100,20 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 		/* attribute looks like alt=bla */
     i=1;
     temp[0] = ch;
-    while ((ch!='>') && (!isspace(ch))) { ch=read_char(); temp[i++] = ch; }
-    temp[i-1] = '\0';
+    while ((ch!='>') && (!isspace(ch))) {
+			ch=read_char();
+			if (i<DEF_STR_LEN) { temp[i++] = ch; }
+		}
+		if (i<DEF_STR_LEN) { temp[i-1] = '\0'; }
+    else { temp[DEF_STR_LEN-1] = '\0'; }
   }
 
-	/*	printf("AttributInhalt: #%s#\n", temp); */
 	uppercase_str(attr_name);
-	/*printf(" %s %s\n", attr_name, temp); */
   if CMP("ALT", attr_name) { parse_entities(temp); }
-  /*printf("AttributInhalt: %s#-#\n", temp); */
 	CPYSS(attr_ctnt, temp);
-	/*printf("Attribut: %s; Inhalt: %s#-#\n", attr_name, attr_ctnt); */
 
 #ifdef attr_debug
-  printf("Attribut: %s; Inhalt: %s#-#\n", attr_name, attr_ctnt);
+  printf("attribute: %s; content: %s#-#\n", attr_name, attr_ctnt);
 #endif
 #ifdef proc_debug
   printf("get_attr() ende\n");
@@ -149,11 +158,11 @@ void html()
         }
         while ((isalnum(ch)) || (ch=='#'));
 
-				/* if last char is no ';', then the string is no valid entity, maybe */
-				/* it is something like &nbsp or even '& ' */
+				/* if last char is no ';', then the string is no valid entity. */
+				/* maybe it is something like &nbsp or even '& ' */
 				if (ch!=';') { 
 				  /* save last char  */
-				  putback_char(ch); /*goback_char(1); */
+				  putback_char(ch);
 				  /* no ';' at end */
 				  str[i-1] = '\0'; }
 				else {					
@@ -181,7 +190,7 @@ void html()
 			case 173: /* soft hyphen, just swallow it */
 				break;
 
-			case    9: /* TAB */
+			case   9: /* TAB */
 				if (pre) { 
 					wort_plus_ch(0x09); 
 				} else { 
@@ -189,7 +198,7 @@ void html()
 				}
 				break;
 
-      case   13: /* CR */
+      case  13: /* CR */
       case '\n':
 #ifdef debug
         printf("\\n, TAB or CR: \n");
@@ -198,7 +207,7 @@ void html()
         if (pre) { line_break(); }
         break;
 
-      /* Microsoft... */
+      /* Microsoft ... */
 	case 0x80: case 0x81: case 0x82: case 0x83: case 0x84: case 0x85: case 0x86: case 0x87: 
 	case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d:	case 0x8e: case 0x8f:
 	case 0x90: case 0x91: case 0x92: case 0x93: case 0x94: case 0x95: case 0x96: case 0x97:

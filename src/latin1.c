@@ -112,14 +112,16 @@ void parse_entities(CHAR *s)
 	CHAR entity[DEF_STR_LEN];
 	int len=STRLEN(s);
 	CHAR result[DEF_STR_LEN];
-	
+
+	if (len>=DEF_STR_LEN) { len = DEF_STR_LEN-1; }
+
 	result[0] = '\0';
 
-	/*printf("Ganzer String -%s-\n", s); */
+	/*printf("parse_entities: whole string -%s-\n", s); */
 	
 	while(i<=len) {
 		j=0;
-		while((s[i]!='\0') && (s[i]!='&')) {
+		while((s[i]!='\0') && (s[i]!='&') && (i<DEF_STR_LEN)) {
 			tmp[j++] = s[i++];
 		}
 		tmp[j] = '\0';
@@ -127,7 +129,7 @@ void parse_entities(CHAR *s)
 
 		if (s[i]=='&') {
 		  k=0;
-			while((s[i]!='\0') && (s[i]!=';') && (!isspace(s[i]))) {
+			while((s[i]!='\0') && (s[i]!=';') && (!isspace(s[i])) && (i<DEF_STR_LEN)) {
 				entity[k++] = s[i++];
 			}
 			entity[k] = '\0';
@@ -138,7 +140,7 @@ void parse_entities(CHAR *s)
 		i++;
 	}
 
-	/*printf("Result: %s\n", result); */
+	/*printf("parse_entities: result: %s\n", result); */
 
 	CPYSS(s, result);
 } /* end parse_entities */
