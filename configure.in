@@ -6,6 +6,10 @@ AM_CONFIG_HEADER(config.h)
 dnl Set current date
 AC_DEFINE_UNQUOTED(RELEASEDATE, "`date +%d.%m.%Y`", "Release date of the program")
 
+dnl add /usr/local
+CFLAGS="$CFLAGS -I/usr/local/include"
+LDFLAGS="$LDFLAGS -L/usr/local/lib"
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PATH_PROG(KAPTAIN, kaptain, no)
@@ -15,7 +19,7 @@ AC_SYS_INTERPRETER
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(unistd.h)
+dnl AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(getopt.h) 	
 
 dnl checking for options
@@ -30,11 +34,17 @@ fi
 
 dnl Checks for libraries.
 if test "$multibyte" = "yes"; then
-	AC_CHECK_HEADERS(iconv.h,,
-		AC_MSG_ERROR(Need libiconv for multibyte support))
 	AC_CHECK_LIB(iconv, iconv,,
 		AC_MSG_ERROR(Need libiconv for multibyte support))
 fi
+
+dnl setting INTERNAL_LOCALE
+AC_MSG_CHECKING(if --with-unicode-locale option specified)
+DEFAULT_LOCALE="en_US.UTF8"
+AC_ARG_WITH(unicode-locale,
+	[  --with-unicode-locale=LOCALE  use this LOCALE instead of $DEFAULT_LOCALE],
+	AC_MSG_RESULT(yes); AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$with_unicode_locale", [preferred Unicode set]),
+	AC_MSG_RESULT(no) ; AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$DEFAULT_LOCALE", [preferred Unicode set]))
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

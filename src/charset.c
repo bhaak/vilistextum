@@ -43,8 +43,11 @@ iconv_t conv;
 void init_multibyte()
 {
 	char *ret;
-	ret = setlocale(LC_CTYPE, "en_US.utf-8"); 
-  if (ret==NULL) { fprintf(stderr, "setlocale failed with: en_US.utf8\n\n"); }
+	ret = setlocale(LC_CTYPE, INTERNAL_LOCALE); 
+  if (ret==NULL) { 
+		fprintf(stderr, "setlocale failed with: %s\n\n", INTERNAL_LOCALE); 
+		exit(1);
+	}
   /*else { fprintf(stderr, "%s\n", ret); } */
 }
 #endif

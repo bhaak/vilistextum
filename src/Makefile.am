@@ -1,4 +1,4 @@
-bin_PROGRAMS = vilistextum kilistextum
+bin_PROGRAMS = vilistextum 
 vilistextum_SOURCES = debug.h charset.c charset.h \
 											html.c html.h latin1.c latin1.h html_tag.c html_tag.h \
 											lists.c lists.h microsoft.c microsoft.h \
@@ -8,7 +8,7 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 
 # profiling
 #AM_CFLAGS = -Wall -pg
-AM_CFLAGS = -Wall -ansi -pedantic-errors 
+AM_CFLAGS = -Wall -ansi #-pedantic-errors 
 AM_LDFLAGS = $(STATIC)
 
 EXTRA_DIST = kilistextum.kaptn

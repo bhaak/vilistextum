@@ -116,7 +116,7 @@ void convert_string(char *str, CHAR *converted_string)
 	/*printf("output schluss -%s-\n", output); */
 	/*strcpy(converted_string, output); */
 
-	setlocale(LC_CTYPE, "en_US.utf-8");
+	setlocale(LC_CTYPE, INTERNAL_LOCALE);
 	mbstowcs(converted_string, output, strlen(output));
 
 	/*printf("converted_string -%ls-\n", converted_string); */
@@ -130,32 +130,13 @@ void convert_string(char *str, CHAR *converted_string)
 
 void output_string(CHAR *str)
 {
-  /*Fprintf(out,"%s\n", str); */
-  /*fprintf(stderr, "Hallo\n"); */
 #ifdef MULTIBYTE
-	/*printf("+1+\n"); */
-  /*use_locale(); */
-	/*print_locale(); */
-	/*printf("+2+\n");   */
-	/*printf("%ls\n", str); */
-	/*TODO */
-	/*char string[DEF_STR_LEN]; */
-	/*wcstombs(string, str, strlen(str)); */
-	/*fprintf(out,"%s\n", string); */
-
-  /*fprintf(out,"%ls\n", str); */
 	if (option_output_utf8) {
-		/* internal locale ist utf-8 */
+		/* internal locale is utf-8 */
 		fprintf(out,"%ls\n", str);
 	} else {
-		/*char string[DEF_STR_LEN]; */
-		/*int k; */
-		/*wcstombs(string, str, wcslen(str)); */
-		/*setlocale(LC_CTYPE, "en_US.utf-8"); */
-		/*fprintf(out,"%s\n", string); */
 		size_t result=(size_t)(-1);
-		/*wchar_t outstring[33];  */
-		/*wchar_t ret; */
+
 		iconv_t conv;
 		char input[DEF_STR_LEN], output[DEF_STR_LEN];
 		char *inp, *outp;
@@ -174,39 +155,18 @@ void output_string(CHAR *str)
 		if ((conv = iconv_open(get_iconv_charset(), "utf-8"))==(iconv_t)(-1))
 			{	printf("iconv_open failed in read_char: wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
 
-/*  		printf("\nstr: "); */
-/* 		for (k=0; k<wcslen(str); k++) { printf("0x%x ", str[k]); } */
-/*  		printf("\n"); */
-
-/* 		printf("input: "); */
-/* 		for (k=0; k<strlen(input); k++) { printf("%d %x ", input[k], input[k]); } */
-/* 		printf("\n"); */
-
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
-
-/* 		printf("errno %d result %d \n", fehlernr, result); */
-
-/* 		printf("output: "); */
-/* 		for (k=0; k<strlen(output); k++) { printf("%d %x ", output[k]& 255, output[k] &255); } */
-/* 		printf("\n"); */
-/* 		exit(0); */ 
 
 		if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
 		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ\n"); }
 		else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
 		
-		/*fprintf(out,"%s\n", output); */
-		/*fputs(output,out); fputc('\n', out); */
-		/*printf("strlen(output) %d\n", strlen(output)); */
-		/*write(out, output, strlen(output)); fputc('\n', out); */
 		output[DEF_STR_LEN-outsize] = '\0';
 		fwrite(output, sizeof(output[0]), strlen(output), out); fputc('\n', out);
 
 		iconv_close(conv);
 	}
-
-	/*printf("+3+\n"); */
 #else
   fprintf(out,"%s\n", str);
 #endif
@@ -222,7 +182,7 @@ void quit()
 
   fclose(in);
   fclose(out);
-  /*	fprintf(stderr, "Alles hat ein Ende nur die Wurst hat zwei\n");	 */
+
   exit(0);
 } /* end quit */
 
@@ -246,11 +206,6 @@ int read_char()
 	inp = input;
 	outp = output;
 
-	/*use_locale(); */
-  /*print_locale(); */
-
-	/*printf("iconv_charset %s\n", get_iconv_charset()); */
-
 	if ((conv = iconv_open("utf-8", get_iconv_charset()))==(iconv_t)(-1)) 
 		{	printf("iconv_open failed in read_char: wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
 
@@ -265,9 +220,9 @@ int read_char()
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 
-		if (c>=128) { 
-			/*printf("\n%c durchlauf i=%d c=%u %d \n", c, i, c, j);  */
-		}
+		/* 		if (c>=128) {  */
+		/* 			printf("\n%c durchlauf i=%d c=%u %d \n", c, i, c, j); */
+		/* 		} */
 		/*for (k=0; k<j; k++) { printf("%d %x ", input[k], input[k]); } */
 		/*printf("\n"); */
 		/*for (k=0; k<j; k++) { printf("%d %x ", output[k], output[k]); } */
@@ -304,7 +259,7 @@ int read_char()
 	i++;
 
 	errno = 0;
-	/*printf("%s strlen(output) %d\n", output, strlen(output)); */
+
 #else
 	c=fgetc(in);
 #endif
