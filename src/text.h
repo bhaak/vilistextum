@@ -29,6 +29,7 @@ int spaces;
 
 void print_zeile();
 int is_zeile_empty();
+void clear_line();
 
 void push_align(int a);
 void pop_align();
