@@ -10,6 +10,8 @@
  #define STRCMP(s1, s2)  wcscmp( L##s1, s2 )
  #define CMP(s1, s2) (wcscmp(L##s1, s2)==0) 
  #define STRCAT(dest, src) wcscat(dest, (wchar_t*) src)
+
+ #define wcstoi(tmp)  wcstol(tmp, (wchar_t **)NULL, 10)
  #define ATOI(n) wcstoi(n)
 
  #define ONESPACE L" "

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2001 Patric Müller
+ * Copyright (C) 1998-2004 Patric Müller
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
@@ -166,5 +166,33 @@ void print_error(char *error, CHAR *text)
 #else
 	fprintf(stderr, "%s%s\n", error, text);
 #endif
-
 } /* end print_error */
+
+/* ------------------------------------------------ */
+
+/* return the value of an numeric character entity
+	 e.g: 169 for "&#169;" or "&#xA9" */
+int extract_entity_number(CHAR *s)
+{
+	int number;
+	CHAR *tmp = s;
+
+  /* Numeric entity */
+  if ((s[0]=='&') && (s[1]=='#')) {
+		/* Hex entity */
+		if (uppercase(s[2])=='X')	{
+			tmp += 3;
+			number = x2dec(tmp, 16);
+		}
+		/* Decimal entity */
+		else {
+			tmp += 2;
+			number = ATOI(tmp);
+		}
+		return(number);
+	} else {
+		return(-1);
+	}
+} /* end extract_entity_number */
+
+/* ------------------------------------------------ */

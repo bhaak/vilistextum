@@ -4,7 +4,7 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 											lists.c lists.h microsoft.c microsoft.h \
 											text.c text.h fileio.c fileio.h \
 											main.c main.h util.c util.h \
-											multibyte.h
+											multibyte.h unicode_entities.c unicode_entities.h
 
 # profiling
 #AM_CFLAGS = -Wall -pg

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2001 Patric Müller
+ * Copyright (C) 1998-2004 Patric Müller
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  * 

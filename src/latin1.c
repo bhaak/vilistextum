@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2001 Patric Müller
+ * Copyright (C) 1998-2004 Patric Müller
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
@@ -153,21 +153,13 @@ void parse_entities(CHAR *s)
 int entity_number(CHAR *s)
 {
   int number;
-  CHAR *tmp = s;
 
-  /* Numeric entity */
-  if ((s[0]=='&') && (s[1]=='#')) {	   
-		/* Hex entity */
-		if (uppercase(s[2])=='X')	{
-			tmp += 3;
-			number = x2dec(tmp, 16);					 
-		}
-		/* Decimal entity */
-		else {
-			tmp += 2;
-			number = ATOI(tmp);	
-		}
+	number = extract_entity_number(s);
 
+	/* no numeric entity */
+  if (number==-1) { 
+		return(0); 
+	} else {
 		/* ascii printable character 32-127  */
 		if ((number>=32) && (number<=127)) { 
 #ifdef MULTIBYTE
@@ -179,7 +171,6 @@ int entity_number(CHAR *s)
 		}
 		/* ansi printable character 160-255 */
 		else if ((number>=160) && (number<=255)) {
-			/*if (sevenbit) { return(0); } */
 #ifdef MULTIBYTE
 			return(convert_character(number, s));
 #else
