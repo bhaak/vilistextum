@@ -1,0 +1,16 @@
+<!DOCTYPE downloads SYSTEM "/home/bubi/dtd/downloads.dtd">
+<downloads>
+<download name="Vilistextum">
+  <current version="2.8.0" date="10-Mar-2004" tgz="vilistextum-2.8.0.tar.gz" tbz2="vilistextum-2.8.0.tar.bz2"/> 
+  <old     version="2.6.3" date="11-Mar-2003" tgz="vilistextum-2.6.3.tar.gz" tbz2="vilistextum-2.6.3.tar.bz2"/> 
+  <old     version="2.6.2" date="06-Apr-2003" tgz="vilistextum-2.6.2.tar.gz" tbz2="vilistextum-2.6.2.tar.bz2"/> 
+  <old     version="2.6.1" date="01-Feb-2003" tgz="vilistextum-2.6.1.tar.gz" tbz2="vilistextum-2.6.1.tar.bz2"/> 
+  <old     version="2.6.0" date="31-Jan-2003" tgz="vilistextum-2.6.0.tar.gz" tbz2="vilistextum-2.6.0.tar.bz2"/> 
+  <old     version="2.4.1" date="02-Sep-2002" tgz="vilistextum-2.4.1.tar.gz" tbz2="vilistextum-2.4.1.tar.bz2"/> 
+  <old     version="2.4.0" date="01-Sep-2002" tgz="vilistextum-2.4.0.tar.gz" tbz2="vilistextum-2.4.0.tar.bz2"/> 
+  <old     version="2.3.2" date="22-May-2002" tgz="vilistextum-2.3.2.tar.gz" tbz2="vilistextum-2.3.2.tar.bz2"/> 
+  <old     version="2.3.1" date="03-May-2002" tgz="vilistextum-2.3.1.tar.gz" tbz2="vilistextum-2.3.1.tar.bz2"/> 
+  <old     version="2.3.0" date="20-Apr-2002" tgz="vilistextum-2.3.0.tar.gz" tbz2="vilistextum-2.3.0.tar.bz2"/> 
+  <old     version="2.22" date="11-Apr-2002" tgz="vilistextum-2.22.tar.gz"  tbz2="vilistextum-2.22.tar.bz2"/> 
+</download>
+</downloads>
