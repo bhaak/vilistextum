@@ -130,16 +130,16 @@ void html()
 #endif
 
     switch (ch)
-    {
-      case '<':
+			{
+			case '<':
 #ifdef debug
         printf("<: \n");
 #endif
         html_tag();
         break;
-
+				
 			/* Entities  */
-      case '&':
+			case '&':
 #ifdef debug
         printf("&: \n");
 #endif
@@ -196,6 +196,9 @@ void html()
         printf("&: %s\n",str);
 #endif
         break;
+
+			case 173: /* soft hyphen, just swallow it */
+				break;
 
       case    9: /* TAB */
       case   13: /* CR */

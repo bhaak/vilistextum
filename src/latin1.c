@@ -172,7 +172,12 @@ int entity_number(CHAR *s)
 		}
 		/* ansi printable character 160-255 */
 		else if ((number>=160) && (number<=255)) {
-#ifdef MULTIBYTE
+			/* latin1 soft hyphen, just swallow it and return empty string */
+			if (number==173) {
+				s[0] = '\0';
+				return(1); 
+			}
+#ifdef MULTIBYTE 
 			return(convert_character(number, s));
 #else
 			set_char(s, number);
@@ -219,7 +224,7 @@ int html_entity(CHAR *str)
 int latin1(CHAR *str)
 {
   if CMP("&nbsp;", str)         { return(set_char_wrapper(str, 160)); } /* no-break space  */
-  else if CMP("&iexcl;", str)    { return(set_char_wrapper(str, 161)); } /* inverted exclamation mark  */
+  else if CMP("&iexcl;", str)   { return(set_char_wrapper(str, 161)); } /* inverted exclamation mark  */
   else if CMP("&cent;", str)    { return(set_char_wrapper(str, 162)); } /* cent sign  */
   else if CMP("&pound;", str)   { return(set_char_wrapper(str, 163)); } /* pound sterling sign  */
   else if CMP("&curren;", str)  { return(set_char_wrapper(str, 164)); } /* general currency sign  */
@@ -231,7 +236,7 @@ int latin1(CHAR *str)
   else if CMP("&ordf;", str)    { return(set_char_wrapper(str, 170)); } /* ordinal indicator, feminine  */
   else if CMP("&laquo;", str)   { return(set_char_wrapper(str, 171)); } /* angle quotation mark, left  */
   else if CMP("&not;", str)     { return(set_char_wrapper(str, 172)); } /* not sign  */
-  else if CMP("&shy;", str)     { return(set_char_wrapper(str, 173)); } /* soft hyphen  */
+	else if CMP("&shy;", str)     { return(set_char_wrapper(str, '\0')); } /* soft hyphen, just swallow it */
   else if CMP("&reg;", str)     { return(set_char_wrapper(str, 174)); } /* registered sign  */
   else if CMP("&macr;", str)    { return(set_char_wrapper(str, 175)); } /* macron  */
   else if CMP("&deg;", str)     { return(set_char_wrapper(str, 176)); } /* degree sign  */
