@@ -153,7 +153,7 @@ void output_string(CHAR *str)
 
 void quit()
 {
-  if (!is_zeile_empty()) { print_zeile(); }
+  if (!is_zeile_empty()) { wort_ende(); print_zeile(); }
 
   href_output();
 
@@ -222,8 +222,6 @@ int read_char()
 #else
 	c=fgetc(in);
 #endif
-
-	if (errno!=0) { perror("Caution error: "); }
 
 	if (feof(in)) {
 		quit(); 
