@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>Reading HTML mail using vilistextum</title>
+</head>
+<body>
+<h4>&lt;COMMERCIAL&gt;</h4>
+
+Do you suffer from relatives that always send html mails?<br />
+ Do you hate those spam mails that are sent in html?<br />
+ Have you subscribed to a mailing list but it doesn't offer a plain
+ascii version? 
+
+<p>Stop puzzling what those tags mean! Stop trying to decipher
+those html entities!<br />
+ Try using the fabulous Vilistextum for converting your html mail
+into readable ascii!<br />
+</p>
+
+<h4>&lt;/COMMERCIAL&gt;</h4>
+
+<p>For the time being, I know how to convert HTML mails for <a href="#mutt">mutt</a>,
+<a href="#gnus588">Gnus 5.8.8</a> and <a href="#gnusoort">Gnus Oort</a>.<br />
+ Instructions for other mail reader are welcome.</p>
+
+<h3><a name="mutt">mutt</a></h3>
+
+Put this in your .mailcap:<br />
+ 
+
+<pre>
+text/html; vilistextum %s - ; copiousoutput
+</pre>
+
+<p>And this in your .muttrc:<br />
+</p>
+
+<pre>
+auto_view text/html
+</pre>
+
+<h3><a name="gnusoort">Gnus Oort</a></h3>
+Put the following lines into your .gnus:
+<pre>
+;; prefer to show plain text over markup for multipart/alternative
+(setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
+    '("text/html" "text/richtext")))
+
+(add-to-list 'mm-text-html-renderer-alist 
+		'(vilistextum mm-inline-render-with-file mm-links-remove-leading-blank
+		"vilistextum" "-l" "-r" "-c" "-s" file "-"))
+(add-to-list 'mm-text-html-washer-alist 
+		'(vilistextum mm-inline-wash-with-file mm-links-remove-leading-blank
+		"vilistextum" "-l" "-r" "-c" "-s" file "-"))
+(setq mm-text-html-renderer 'vilistextum)
+</pre>
+
+<h3><a name="gnus588">Gnus 5.8.8 resp. 5.9.0</a></h3>
+
+Put this in your .emacs, or .gnus or somewhere else where it might
+be appropriate: 
+
+<pre>
+;; ---------------------------------------------------------------------
+;; prefer to show plain text over markup for multipart/alternative
+(setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
+    '("text/html" "text/richtext")))
+
+;; adapted from Mark Thomas (swoon@bellatlantic.net)
+;; use external program to view inline HTML
+(when t ;; change to nil to comment out
+  (let ((old-text-html-test (assoc "text/html" mm-inline-media-tests))
+        (new-text-html-test '("text/html"
+                              my:gnus-html2text
+                              (lambda (handle)
+                                (fboundp 'my:gnus-html2text)))))
+    (if old-text-html-test
+        (setcdr old-text-html-test (cdr new-text-html-test))
+      (setq mm-inline-media-tests (cons new-text-html-test
+                                        mm-inline-media-tests)))))
+
+;; function to call to handle text/html attachments
+(defun my:gnus-html2text (handle)
+  (let (text)
+    (with-temp-buffer
+      (mm-insert-part handle)
+      (save-window-excursion
+        (my:html2text-region (point-min) (point-max))
+        (setq text (buffer-string))))
+    (mm-insert-inline handle text)))
+
+(defun my:html2text-region-vilistextum (min max)
+  "Replace the region with the result of running vilistextum --shrink-lines --remove-empty-alt --convert-tags --links on it. "
+  (interactive "r")
+  ;; vilistextum accepts html on stdin
+  (call-process-region min max "vilistextum" t t t "-clrs" "-" "-"))
+
+(defalias 'my:html2text-region 'my:html2text-region-vilistextum)
+;; ---------------------------------------------------------------------
+
+           
+</pre>
+
+<hr />
+<address><a href="mailto:bhaak@gmx.net">Patric
+M&#252;ller</a></address>
+
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>CHANGES</title>
+<link rel="stylesheet" title="Default" href="style.css" type="text/css" />
+</head>
+<body>
+
+<p class="update"> 2.6.4: ()</p>
+<ul class="update">
+<li>program uses POSIX getopt when GNU getopt is not available</li>
+</ul>
+
+<p class="update"> 2.6.3: (11.03.2003)</p>
+<ul class="update">
+<li>completely rewritten multibyte/unicode support</li>
+<li>BUGFIX: program aborted on &#255;</li>
+<li>BUGIFX: tabs and carriage return weren't treated as white space.</li>
+</ul>
+
+<p class="update"> 2.6.2: (06.04.2002)</p>
+<ul class="update">
+<li>full multibyte/unicode support</li>
+<li>man page added</li>
+<li>BUGFIX: fixed reading from stdin</li>
+<li>BUGIFX: changed align mechanism to dynamic memory allocation by Robert Baruch</li>
+</ul>
+
+<p class="update"> 2.6.1: (01.02.2002)</p>
+<ul class="update">
+<li>BUGFIX: compiles again on not linux systems</li>
+<li>BUGFIX: getopt broke compilation with -static and on systems without GNU getopt</li>
+<li>BUGFIX: some multibyte code was in non-multibyte sections</li>
+</ul>
+
+<p class="update"> 2.6.0: (31.01.2002)</p>
+<ul class="update">
+<li>experimental unicode support</li>
+<li>suppression of [Image] (--no-image, --no-alt)</li>
+<li>--no-microsoft is now --dont-convert-characters</li>
+<li>BUGFIX: --shrink-line number works correct now</li>
+</ul>
+
+<p class="update">2.4.1: (02.09.2002)</p>
+<ul class="update">
+<li>Static compilation failed because of name clashes</li>
+<li>BUGFIX: Centering. Only last align attributes in tag were considered</li>
+<li>Included instructions for reading html mail</li>
+<li>Parsing of hexadecimal entities was added</li>
+<li>--shrink-line accepts now number</li>
+</ul>
+
+<p class="update">2.4.0: (01.09.2002)</p>
+<ul class="update">
+<li>Using autoconf and automake</li>
+<li>BUGFIX: Comments like &lt;!--BLABLA--&gt; garbled output</li>
+</ul>
+
+<p class="update">2.3.2: (22.05.2002)</p>
+<ul class="update">
+<li>Fixed Makefiles, always compiled with cc</li>
+<li>BUGFIX: Compiles now with gcc-2.96</li>
+<li>Added GUI-frontend using kaptain</li>
+</ul>
+
+<p class="update">2.3.1: (03.05.2002)</p>
+<ul class="update">
+<li>BUGFIX: errors go to stderr</li>
+<li>BUGFIX: short arguments with option "-b test" lead to segmentation fault</li>
+<li>links can be shown as references similar to lynx -dump</li>
+<li>ALT attribute is parsed for IMG, AREA, APPLET, and INPUT tags</li>
+</ul>
+
+<p class="update">2.3.0: (20.04.2002)</p>
+<ul class="update">
+<li>new option --version</li>
+<li>parsing of ALT attribute</li>
+<li>source code splitted into multiple files</li>
+<li>incorporated patch by Luke Ravitch for using stdin/stdout</li>
+</ul>
+
+<p class="update">2.22: (11.04.2002)</p>
+<ul class="update">
+<li>initial public release</li>
+</ul>
+
+</body>
+</html>
+
