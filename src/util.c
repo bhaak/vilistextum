@@ -3,7 +3,7 @@
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
- * Released under the GNU GPL - http://www.gnu.org/copyleft/gpl.html
+ * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
  * 08.03.02: align[0] hasn't been set by push_align
  * 18.02.02: some multibyte code not enclosed by define's

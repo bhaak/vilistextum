@@ -3,7 +3,7 @@
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
- * Released under the GNU GPL - http://www.gnu.org/copyleft/gpl.html
+ * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
  * 23.04.01 : Ignoring SPAN, /SPAN and /LI
  *            IMG, APPLET, AREA and INPUT are searched for ALT attribute 

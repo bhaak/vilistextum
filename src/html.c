@@ -3,7 +3,7 @@
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
- * Released under the GNU GPL - http://www.gnu.org/copyleft/gpl.html
+ * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
  *
  *  history
