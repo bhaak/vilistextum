@@ -27,13 +27,14 @@ make
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"
 %makeinstall
 
+strip $RPM_BUILD_ROOT%{_bindir}/*
 
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"
 
 %files
 %defattr(-,root,root)
-%{_bindir}/vilistextum
+%{_bindir}/*
 %{_mandir}/man1/*
 %doc README CHANGES COPYING vilistextum.spec
 %doc doc/*.html
