@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2002 Patric Müller
+ * Copyright (C) 1998-2004 Patric Müller
  * bhaak@gmx.net
  * http://www.mysunrise.ch/users/bhaak/vilistextum/
  *
@@ -172,7 +172,7 @@ void set_locale(char *charset)
 	strcpy(this_complete_locale, country_charset); 
 	strcpy(this_locale, charset); 
   if (ret==NULL) { fprintf(stderr, "setlocale failed with: %s\n\n", country_charset); } 
-  else { } // fprintf(stderr, "%s\n", ret); }  */
+  else { } /* fprintf(stderr, "%s\n", ret); }  */
 #ifdef proc_debug 
 	printf("set_locale end\n"); 
 #endif
@@ -182,7 +182,6 @@ void set_locale(char *charset)
 
 /* ------------------------------------------------ */
 
-/*void use_locale()  { } printf("using this locale %s\n", this_locale); set_locale(this_locale); } */
 void use_default_charset() { set_iconv_charset(default_charset); }
 
 /* ------------------------------------------------ */

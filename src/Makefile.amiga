@@ -2,16 +2,17 @@
 # change what you need 
 
 CC = m68k-amigaos-gcc 
-CFLAGS = -Wall -I. -O2
+CFLAGS = -Wall -I. -O2 #-noixemul
 
 all: vilistextum copy
 
-vilistextum: getopt_l.o latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o
-	$(CC) -o vilistextum.amiga getopt_l.o latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o
+vilistextum: latin1.o microsoft.o fileio.o html_tag.o util.o html.o lists.o text.o main.o unicode_entities.o
+	$(CC) -o vilistextum.amiga latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o unicode_entities.o
+
 
 copy:
-	cp vilistextum.amiga /home/amiga/exchange/vilistextum
-	chmod 777 /home/amiga/exchange/vilistextum
+	cp vilistextum.amiga /home/amiga/tausch/vilistextum
+	chmod 777 /home/amiga/tausch/vilistextum
 
 clean: 
 	rm -f *.o vilistextum.amiga

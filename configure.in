@@ -1,6 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/debug.h)
 AM_INIT_AUTOMAKE(vilistextum, 2.6.4)
+
 AM_CONFIG_HEADER(config.h)
 
 dnl Set current date
@@ -19,7 +20,6 @@ AC_SYS_INTERPRETER
 
 dnl Checks for header files.
 AC_HEADER_STDC
-dnl AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(getopt.h) 	
 
 dnl checking for options
@@ -40,7 +40,7 @@ fi
 
 dnl setting INTERNAL_LOCALE
 AC_MSG_CHECKING(if --with-unicode-locale specified)
-DEFAULT_LOCALE=`locale -a | grep -i en_us.utf | line || echo en_US.UTF8`
+DEFAULT_LOCALE=`locale -a | grep -i en_us.utf | sed -e '2,$D' || echo en_US.UTF8`
 AC_ARG_WITH(unicode-locale,
 	[  --with-unicode-locale=LOCALE  use this LOCALE instead of $DEFAULT_LOCALE],
 	AC_MSG_RESULT(yes); AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$with_unicode_locale", [preferred Unicode set]),
@@ -52,7 +52,14 @@ AC_C_CONST
 dnl Checks for library functions.
 AC_CHECK_FUNCS(strstr)
 AC_CHECK_FUNCS(strcasecmp)
- 
-dnl AC_OUTPUT(src/Makefile vilistextumgui/Makefile Makefile)
-AC_OUTPUT(doc/Makefile src/Makefile Makefile)
+
+dnl create testsuite
+dnl AC_CONFIG_TESTDIR([tests])
+dnl AC_CONFIG_FILES([tests/Makefile tests/atlocal])
+dnl AM_MISSING_PROG([AUTOM4TE], [autom4te])
+
+AC_CONFIG_FILES([doc/Makefile
+                 src/Makefile
+                 Makefile])
+AC_OUTPUT
 

@@ -70,14 +70,9 @@ void convert_string(char *str, CHAR *converted_string)
 	char *inp, *outp;
 	int fehlernr=0;
 	size_t insize, outsize;
-	/*int k; */
 
 	/* set locale based on environment variables */
 	setlocale(LC_CTYPE, "");
-
-/* 	printf("\nstr: "); */
-/* 	for (k=0; k<strlen(str); k++) { printf("%c %x ", str[k], str[k]); } */
-/* 	printf("\n"); */
 
 	insize = strlen(str);
 	outsize = DEF_STR_LEN;
@@ -88,18 +83,8 @@ void convert_string(char *str, CHAR *converted_string)
 	if ((conv = iconv_open("utf-8", "char"))==(iconv_t)(-1))
 		{	printf("iconv_open failed in convert_string: Can't convert from %s to UTF-8?\n", locale_charset()); exit(1); }
 
-/* 	printf("convert_string str: "); */
-/* 	for (k=0; k<strlen(str); k++) { printf("0x%x ", str[k]&0xff); } */
-/* 	printf("\n"); */
-
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	fehlernr = errno;
-
-/* 		printf("errno %d result %d \n", fehlernr, result); */
-
-/* 	printf("convert_string output: "); */
-/* 	for (k=0; k<strlen(output); k++) { printf("%d ", output[k]& 255); } */
-/* 	printf("\n"); */
 
 	if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
 	else if (fehlernr==EILSEQ) { 
@@ -108,21 +93,13 @@ void convert_string(char *str, CHAR *converted_string)
 	}
 	else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
 		
-	/*fprintf(out,"%s\n", output); */
-	/*fputs(output,out); fputc('\n', out); */
-	/*printf("strlen(output) %d\n", strlen(output)); */
-	/*write(out, output, strlen(output)); fputc('\n', out); */
 	output[strlen(output)] = '\0';
-	/*printf("output schluss -%s-\n", output); */
-	/*strcpy(converted_string, output); */
 
 	setlocale(LC_CTYPE, INTERNAL_LOCALE);
 	mbstowcs(converted_string, output, strlen(output));
 
-	/*printf("converted_string -%ls-\n", converted_string); */
 	iconv_close(conv);
 
-	/*printf("+3+\n"); */
 } /* end convert_string */
 #endif
 
@@ -132,7 +109,7 @@ void output_string(CHAR *str)
 {
 #ifdef MULTIBYTE
 	if (option_output_utf8) {
-		/* internal locale is utf-8 */
+		/* internal locale is utf-8, no conversion needed */
 		fprintf(out,"%ls\n", str);
 	} else {
 		size_t result=(size_t)(-1);
@@ -220,38 +197,20 @@ int read_char()
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 
-		/* 		if (c>=128) {  */
-		/* 			printf("\n%c durchlauf i=%d c=%u %d \n", c, i, c, j); */
-		/* 		} */
-		/*for (k=0; k<j; k++) { printf("%d %x ", input[k], input[k]); } */
-		/*printf("\n"); */
-		/*for (k=0; k<j; k++) { printf("%d %x ", output[k], output[k]); } */
-		/*printf("\n"); */
-
-		/*printf("strlen(output) %d\n", strlen(output)); */
-
 		if (fehlernr==E2BIG) { printf("errno==E2BIG\n"); }
 		else if (fehlernr==EILSEQ) { 
 			printf("errno==EILSEQ\n"); 
-			/*printf("c=%d j=%d ", c, j); */
-			/*for (k=0; k<j; k++) { printf("%d %x ", input[k], input[k]); } */
-			/*printf("\n"); */
 		}
 		else if (fehlernr==EINVAL) { /* printf("errno==EINVAL\n");*/ }
 		else if (fehlernr==0) {
 			if (j>0) {
 				result = mbstowcs(outstring, output, strlen(output));
 				ret = outstring[0];
-				/*printf("result: %d j %d ", result, j); */
-				/*if (result!=-1) { printf("outstring %ls\n", outstring); } */
-				/*else { printf("c %x outstring[0..1] %ld %ld\n", c, outstring[0], outstring[1]);} */
-				/*printf("c %x outstring[0..1] %x %x %x\n", c, outstring[0], outstring[1], outstring[2]); */
-				/*printf("c %x  input[0..2] %x %x %x\n", c, input[0], input[1], input[2]); */
-				/*printf("c %x output[0..2] %x %x %x\n", c, output[0], output[1], output[2]); */
+
 				c = outstring[0];
 			}
 		}
-		/*printf("durchlauf %d %lc %d %d\n", i,c,feof(in), j++); */
+
 		j++;
 	} while ((fehlernr!=0) && (c!=EOF));
 	iconv_close(conv);
@@ -267,9 +226,6 @@ int read_char()
 	if (errno!=0) { perror("Caution error: "); }
 
 	if (feof(in)) {
-#ifdef MULTIBYTE
-			/*if (errno==EILSEQ) { printf("EILSEQ\n"); } */
-#endif			
 		quit(); 
 		return 0; 
 	} else {

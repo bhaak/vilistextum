@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = src doc
+SUBDIRS = src doc tests
 EXTRA_DIST = CHANGES COPYING INSTALL
 
 mydist: vilistextum documentation dist bzip2dist
@@ -26,5 +26,4 @@ documentation:
 	$(PACKAGE) -l doc/htmlmail.xhtml doc/htmlmail
 	rm -f CHANGES
 	$(PACKAGE) doc/changes.xhtml - | sed -e "1,2D" -e "s/^  \*/  -/" >CHANGES
-
 
