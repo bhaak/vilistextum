@@ -28,7 +28,6 @@ int LEFT = 1,
 int breite=76,
 	hr_breite=76,
 	paragraph=0,
-	leerer_paragraph=0,
 
 	tab=4,         /* tabulator */
 	spaces=0,      /* spaces at beginning of line */
@@ -40,10 +39,10 @@ int breite=76,
 CHAR wort[DEF_STR_LEN];
 
 CHAR zeile[DEF_STR_LEN];
-int  zeilen_len=0,       /* scheinbare Länge der Zeile  */
+int  zeilen_len=0,       /* apparent length of the line  */
   zeilen_len_old=0,
   zeilen_pos=0,       /* true length of line */
-  wort_len=0,         /* scheinbare Länge des Worts */
+  wort_len=0,         /* apparent length of the word */
   wort_pos=0,         /* true length of word */
   anz_leere_zeilen=0, /* how many line were blank */
   noleadingblanks=0;  /* remove blanks lines at the start of the ouput */
@@ -326,7 +325,7 @@ void wort_ende()
 			/* add space + word */
       zeile_plus_wort(ONESPACE,1,1); zeile_plus_wort(wort,wort_len, wort_pos);
     }
-    else /* zeilen_len==0 => neuer Paragraphenanfang */
+    else /* zeilen_len==0 => new beginning of a paragraph */
     {
 #ifdef wort_ende_debug
       printf(" z2: zeilen_len: %d\n",zeilen_len);
@@ -339,7 +338,6 @@ void wort_ende()
     }
     wort_pos = 0;
     wort_len = 0;
-    /* if (zeilen_len==0) { leerer_paragraph++; } */
   }
 
 #ifdef proc_debug
@@ -388,7 +386,6 @@ void neuer_paragraph()
   line_break();
   print_zeile();
   paragraph++;
-  /* leerer_paragraph--; */
 #ifdef proc_debug
   printf("neuer_paragraph() ende\n");
 #endif
@@ -406,7 +403,7 @@ void hr()
   {
     ch=get_attr();
 #ifdef attr_debug
-    printf(" HR-Attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
+    printf(" HR-attribute: %s; content: %s#\n",attr_name,attr_ctnt);
 #endif
     if CMP("ALIGN", attr_name)
     {
