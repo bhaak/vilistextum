@@ -95,9 +95,8 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 	while ((ch!='=') && (ch!='>')) {
 		ch=read_char();
 		if (i<DEF_STR_LEN) { attr_name[i++] = ch; }
-	}
-  if (i<DEF_STR_LEN) { attr_name[i-1] = '\0'; }
-	else { attr_name[DEF_STR_LEN-1] = '\0'; }
+	} /* post cond: i<=DEF_STR_LEN */
+	attr_name[i-1] = '\0';
 	
   if (ch=='>') { attr_ctnt[0]='\0'; return '>'; }
 
@@ -116,11 +115,10 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
     i=0;
     ch=read_char();
     while(quote!=ch) {
-			if (i<DEF_STR_LEN) { temp[i++] = ch; }
+			if (i<DEF_STR_LEN-1) { temp[i++] = ch; }
 			ch=read_char(); 
-		}
-		if (i<DEF_STR_LEN) { temp[i] = '\0'; }
-    else { temp[DEF_STR_LEN] = '\0'; }
+		} /* post cond: i<=DEF_STR_LEN-1 */
+		temp[i] = '\0';
     ch=read_char();
   }
   else
@@ -131,9 +129,8 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
     while ((ch!='>') && (!isspace(ch))) {
 			ch=read_char();
 			if (i<DEF_STR_LEN) { temp[i++] = ch; }
-		}
-		if (i<DEF_STR_LEN) { temp[i-1] = '\0'; }
-    else { temp[DEF_STR_LEN-1] = '\0'; }
+		} /* post cond: i<=DEF_STR_LEN */
+		temp[i-1] = '\0';
   }
 
 	uppercase_str(attr_name);

@@ -79,6 +79,7 @@ void convert_string(char *str, CHAR *converted_string)
 	setlocale(LC_CTYPE, "");
 
 	insize = strlen(str);
+	if (insize > DEF_STR_LEN) { insize = DEF_STR_LEN; }
 	outsize = DEF_STR_LEN;
 
 	inp = str;

@@ -253,7 +253,7 @@ void parse_args(int argc, char *argv[])
 		case 's': 
 			shrink_lines = atoi(argument); if (shrink_lines==0) { shrink_lines = 1; } break;
 
-		case 'r': remove_empty_alt = 1; /* printf("remove_empty_alt\n"); */ break;
+		case 'r': remove_empty_alt = 1; break;
 		case 'i': 
 #ifdef MULTIBYTE
 			convert_string(argument, user_image);

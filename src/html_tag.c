@@ -52,12 +52,10 @@ void html_tag()
 	/* read html tag */
   while ((ch!='>') && (ch!=' ') && (ch!=13) && (ch!=10))
   {
-    if (i<DEF_STR_LEN) { str[i] = ch; }
-		i++;
+    if (i<DEF_STR_LEN-1) { str[i++] = ch; }
     ch = uppercase(read_char());
-  }
-	if (i>=DEF_STR_LEN) { str[DEF_STR_LEN] = '\0'; }
-	else { str[i] = '\0';}
+  } /* post cond: i<=DEF_STR_LEN-1 */
+	str[i] = '\0';
 
 #ifdef debug
   fprintf(stderr, "html_tag: %ls\n",str);
@@ -332,6 +330,8 @@ void html_tag()
 		else if CMP("/SCRIPT", str)   {}
 		else if CMP("STYLE", str)     {}
 		else if CMP("/STYLE", str)    {}
+		else if CMP("TITLE", str)     {}
+		else if CMP("/TITLE", str)    {}
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
 	}
 
