@@ -170,9 +170,9 @@ int read_char()
 {
 	int c = ' ';
 #ifdef MULTIBYTE
-	int fehlernr=0;
+	int fehlernr=0; /* tmp variable for errno */
 	static int i=0;
-	int j=0; 
+	int j=0,k; 
 	size_t result=(size_t)(-1);
 	wchar_t outstring[33]; 
 	iconv_t conv;
@@ -199,10 +199,19 @@ int read_char()
 		fehlernr = errno;
 
 		if (fehlernr==E2BIG) { printf("errno==E2BIG\n"); }
+		/* character is invalid  */
 		else if (fehlernr==EILSEQ) { 
-			printf("errno==EILSEQ in read_char\n"); 
+			fprintf(stderr, "errno==EILSEQ; invalid byte sequence in read_char for %s: ", get_iconv_charset()); 
+			for (k=0; k<j;k++) {
+				fprintf(stderr, "%d ",(unsigned char)input[k]);
+			}
+			printf("\n");
+			fehlernr=0; j=0;
+			c = '?';
 		}
+		/* incomplete but still valid byte sequence */
 		else if (fehlernr==EINVAL) { /* printf("errno==EINVAL\n"); */ }
+		/* valid character found */
 		else if (fehlernr==0) {
 			/* printf("\n1: c=%d ; %d\n",c,c); */
 				result = mbstowcs(outstring, output, strlen(output));
