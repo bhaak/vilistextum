@@ -6,6 +6,7 @@
  * Released under the GNU GPL - http://www.gnu.org/copyleft/gpl.html
  * 
  * 04.09.01: added some more bullet_styles.
+ * 15.03.04: lists generate less newlines
  *
  */
 
@@ -47,26 +48,22 @@ void start_uls()
 #ifdef proc_debug
   printf("start_uls()\n");
 #endif
+  line_break();
 
   push_align(LEFT);
-/*  ret=check_style();
-  if (ret==0)
-  {*/
+
   /* * o + # @ - = ~ $ % */
-    if (bullet_style==' ') { bullet_style='*'; }
-    else if (bullet_style=='*') { bullet_style='o'; }
-    else if (bullet_style=='o') { bullet_style='+'; }
-    else if (bullet_style=='+') { bullet_style='#'; }
+	if (bullet_style==' ') { bullet_style='*'; }
+	else if (bullet_style=='*') { bullet_style='o'; }
+	else if (bullet_style=='o') { bullet_style='+'; }
+	else if (bullet_style=='+') { bullet_style='#'; }
 	else if (bullet_style=='#') { bullet_style='@'; }
 	else if (bullet_style=='@') { bullet_style='-'; }
 	else if (bullet_style=='-') { bullet_style='='; }
 	else if (bullet_style=='=') { bullet_style='~'; }
 	else if (bullet_style=='~') { bullet_style='$'; }
 	else if (bullet_style=='$') { bullet_style='%'; }
-
-/*  } else {
-    bullet_style=ret;
-  }*/
+	
   spaces += tab;
 #ifdef proc_debug
   printf("start_uls() ende\n");
@@ -98,7 +95,6 @@ void end_uls()
 void start_ols()
 {
 	start_uls();
-	/*	spaces+=2; orderedlist++; */
 } /* end start_ols */
 
 /* ------------------------------------------------ */
@@ -106,7 +102,6 @@ void start_ols()
 void end_ols()
 {
 	end_uls();
-	/*	spaces-=2; orderedlist--; */
 } /* end end_ols */
 
 /* ------------------------------------------------ */
@@ -114,12 +109,14 @@ void end_ols()
 void start_lis()
 {
   spaces-=2;
-  line_break();
-  
-	/*wort_plus_ch(bullet_style); */
 
-	/*if (orderedlist>0) { wort_plus_string("-"); } */
-	/*else  {  */
+	printf("is_zeile_empty() %d\n", is_zeile_empty());
+
+	/* don't output line break, if this list item is immediately
+		 after a start or end list tag. start_uls and end_uls have
+		 already take care of the line break */
+	if (!is_zeile_empty()) { line_break(); }
+
 	wort_plus_ch(bullet_style);
 	/* } */
 
@@ -129,6 +126,9 @@ void start_lis()
 
 /* ------------------------------------------------ */
 
+void end_lis() { }
+
+/* ------------------------------------------------ */
 
 int definition_list=0;
 void end_dd();

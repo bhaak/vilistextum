@@ -129,6 +129,7 @@ void html_tag()
   else if CMP("A", str)   { href(); }
 
   else if CMP("LI", str)    { start_lis(); }
+  else if CMP("/LI", str)   { end_lis(); }
   else if CMP("UL", str)    { start_uls(); }
   else if CMP("/UL", str)   { end_uls(); return; }
   else if CMP("DIR", str)   { start_uls(); }       /* deprecated */
@@ -294,7 +295,6 @@ void html_tag()
   else if CMP("/OPTGROUP", str) {}
 
   else if CMP("/AREA", str)     {}
-  else if CMP("/LI", str)       {}
   else if CMP("/A", str)        {}
 
   else if (STRNCMP("!--", str, 3)==0)  { 

@@ -163,7 +163,7 @@ use the //TRANSLIT feature of libiconv. Consult the iconv manual for details.
 
 <option short="y" long="charset" argument="CHARSET">
 <shortdesc>
-if the HTML document doesn't provide a character set in the meta tags, use DEFAULTCHARSET.
+if the HTML document doesn't provide a character set in the meta tags, use CHARSET.
 </shortdesc>
 </option>
 </optionlist>

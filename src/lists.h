@@ -6,7 +6,7 @@ void end_uls();
 void start_ols();
 void end_ols();
 void start_lis();
-void end_dd();
+void end_lis();
 void start_dl();
 void end_dl();
 void start_dt();
