@@ -1,0 +1,194 @@
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/*Your Code*/
+public class Option2 extends javax.swing.JPanel{
+
+
+    /*members*/
+    javax.swing.JCheckBox    palm;
+    javax.swing.JCheckBox    shrink_lines;
+    javax.swing.JCheckBox    remove_empty_alt_tags;
+    javax.swing.JCheckBox    nomicrosoft;
+    javax.swing.JCheckBox    show_links;
+    javax.swing.JCheckBox    convert_tags;
+
+    /*constructor*/
+    public Option2(){
+        this.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        this.setLayout(new GridBagLayout());
+        this.init();
+        this.addListeners();
+    }//end constructor
+
+    /*init() to initialize Components*/
+    public void init() {
+
+        /*palm*/
+        palm = new javax.swing.JCheckBox();
+        palm.setText("Optimize for PDA");
+        palm.setToolTipText("palm");
+        this.add(palm,new GridBagConstraints(
+            1,3,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(10,10,0,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+
+        /*shrink_lines*/
+        shrink_lines = new javax.swing.JCheckBox();
+        shrink_lines.setText("Only one empty line between lines");
+        shrink_lines.setToolTipText("shrink_lines");
+        this.add(shrink_lines,new GridBagConstraints(
+            1,4,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(0,10,0,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+
+        /*remove_empty_alt_tags*/
+        remove_empty_alt_tags = new javax.swing.JCheckBox();
+        remove_empty_alt_tags.setText("Remove empty alt tags");
+        remove_empty_alt_tags.setSelected(true);
+        remove_empty_alt_tags.setToolTipText("remove_empty_alt_tags");
+        this.add(remove_empty_alt_tags,new GridBagConstraints(
+            1,5,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(0,10,0,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+
+        /*nomicrosoft*/
+        nomicrosoft = new javax.swing.JCheckBox();
+        nomicrosoft.setText("Don't convert Microsoft entities and characters");
+        nomicrosoft.setToolTipText("nomicrosoft");
+        this.add(nomicrosoft,new GridBagConstraints(
+            1,6,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(0,10,0,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+
+        /*show_links*/
+        show_links = new javax.swing.JCheckBox();
+        show_links.setText("Show links");
+        show_links.setSelected(true);
+        show_links.setToolTipText("show_links");
+        this.add(show_links,new GridBagConstraints(
+            1,7,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(0,10,0,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+
+        /*convert_tags*/
+        convert_tags = new javax.swing.JCheckBox();
+        convert_tags.setText("Convert tags (eg B, I, U)");
+        convert_tags.setSelected(true);				
+        convert_tags.setToolTipText("convert_tags");
+        this.add(convert_tags,new GridBagConstraints(
+            1,8,    //gridx, gridy
+            1,1,    //gridwidth, gridheight
+            0.0,0.0,    //weightx, weighty
+            GridBagConstraints.WEST,    //anchor
+            GridBagConstraints.REMAINDER,    //fill
+                new Insets(0,10,10,0),    //Insets TLBR
+            0,0            //ipadx, ipady
+            ));
+
+    }//end init()
+
+
+
+    /*addListeners*/
+		/*
+    public void addListeners() {
+
+            /*palm...addItemListener*/
+            palm.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    palm_itemStateChanged(e);
+                }
+            });
+
+            /*shrink_lines...addItemListener*/
+            shrink_lines.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    shrink_lines_itemStateChanged(e);
+                }
+            });
+
+            /*remove_empty_alt_tags...addItemListener*/
+            remove_empty_alt_tags.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    remove_empty_alt_tags_itemStateChanged(e);
+                }
+            });
+
+            /*nomicrosoft...addItemListener*/
+            nomicrosoft.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    nomicrosoft_itemStateChanged(e);
+                }
+            });
+
+            /*show_links...addItemListener*/
+            show_links.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    show_links_itemStateChanged(e);
+                }
+            });
+
+            /*convert_tags...addItemListener*/
+            convert_tags.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    convert_tags_itemStateChanged(e);
+                }
+            });
+
+    }//end addListeners()
+*/
+
+    /*EventHandlers*/
+/*
+    public void palm_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void palm_itemStateChanged(ItemEvent e){Debug.println(e);}
+    public void shrink_lines_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void shrink_lines_itemStateChanged(ItemEvent e){Debug.println(e);}
+    public void remove_empty_alt_tags_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void remove_empty_alt_tags_itemStateChanged(ItemEvent e){Debug.println(e);}
+    public void nomicrosoft_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void nomicrosoft_itemStateChanged(ItemEvent e){Debug.println(e);}
+    public void show_links_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void show_links_itemStateChanged(ItemEvent e){Debug.println(e);}
+    public void convert_tags_actionPerformed(ActionEvent e){Debug.println(e);}
+    public void convert_tags_itemStateChanged(ItemEvent e){Debug.println(e);}
+*/
+    //end EventHandlers
+
+   
+}//end class
