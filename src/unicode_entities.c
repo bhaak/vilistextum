@@ -26,9 +26,9 @@ int unicode_entity(CHAR *s)
 	number = extract_entity_number(s);
 
 	switch (number) {
-	case 8209: /* 0x2010 HYPHEN */
-	case 8210: /* 0x2011 NON-BREAKING HYPHEN */
-		set_char(s, '-'); break;
+	case 8208: /* 0x2010 HYPHEN */
+	case 8209: /* 0x2011 NON-BREAKING HYPHEN */
+	 set_char(s, '-'); break;
   default: 
 		return(0); 
 	}
