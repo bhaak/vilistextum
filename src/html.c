@@ -122,15 +122,13 @@ void html()
 
 	for (i=0; i<DEF_STR_LEN; i++) { str[i]=0x00; }
 
-  for (;;)
-  {
+  for (;;) {
     ch = read_char();
 #ifdef default_debug
     printf("default: ch=%c ; %d\n",ch,ch);
 #endif
 
-    switch (ch)
-			{
+    switch (ch) {
 			case '<':
 #ifdef debug
         printf("<: \n");
@@ -145,8 +143,7 @@ void html()
 #endif
         i=1;
         str[0] = ch;
-        do
-        {
+        do {
           ch = read_char();
           str[i++] = ch;
         }
@@ -154,14 +151,12 @@ void html()
 
 				/* if last char is no ';', then the string is no valid entity, maybe */
 				/* it is something like &nbsp or even '& ' */
-				if (ch!=';') 
-				{ 
+				if (ch!=';') { 
 				  /* save last char  */
 				  putback_char(ch); /*goback_char(1); */
 				  /* no ';' at end */
 				  str[i-1] = '\0'; }
-				else 
-				{					
+				else {					
 					/* valid entity */
 					str[i] = '\0';
 					/* strcpy(tmpstr, str); */
@@ -177,13 +172,11 @@ void html()
 				parse_entity(&str[0]);
 				wort_plus_string(str);
 				#if 0
- 				if ((entity_number(str)) || (latin1(str)) || (microsoft_entities(str))) 
-				{
+ 				if ((entity_number(str)) || (latin1(str)) || (microsoft_entities(str))) {
 					/* if true entity was known */
 					wort_plus_string(str);
 				}
-        else
-        {
+        else {
 					if (errorlevel>=1) { fprintf(stderr, "entity %s unknown\n",tmpstr); }
 					wort_plus_string(tmpstr);
 					/* FIXME MAYBE??? */
