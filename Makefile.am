@@ -17,6 +17,7 @@ bzip2dist:
 	bzip2 -f -k $(distdir).tar
 	gzip -f $(distdir).tar
 	cp $(distdir).tar.gz old
+	cp $(distdir).tar.bz2 old
 
 documentation:
 	$(PACKAGE) -l doc/README.xhtml doc/README

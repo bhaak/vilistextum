@@ -33,114 +33,110 @@
 		<p>				
 			If you want to use the GUI-frontend, you need to have
 			<a href="http://kaptain.sourceforge.net/">kaptain</a> installed.</p>
-							
-			<h3>INSTALL:</h3>
-			./configure <br />
+		
+		<h3>INSTALL:</h3>
+		./configure <br />
 			make <br />
-				make install (as root)<br />
-					<br />
+			make install (as root)<br />
+		<br />
 						If you want to compile in the multibyte support:<br />
 							./configure --enable-multibyte<br />
 							make <br />
 								make install (as root)
 								<br />
-									<h3>DOWNLOAD:</h3>
 									
-									<a href="vilistextum-2.6.4.tar.gz" type="application/x-zip-compressed">vilistextum-2.6.4.tar.gz</a><br />
-										<a href="vilistextum-2.6.4.tar.bz2" type="application/x-bzip2">vilistextum-2.6.4.tar.bz2</a><br />
+									<h3>USAGE:</h3>
+									<h4>vilistextum [OPTIONS] [inputfile|-] [outputfile|-]</h4>
 
-											<h3>USAGE:</h3>
-											<h4>vilistextum [OPTIONS] [inputfile|-] [outputfile|-]</h4>
+									<h4>kilistextum</h4>
 
-											<h4>kilistextum</h4>
+									GUI-frontend using kaptain. Its usage should be obvious, even if you haven't
+									read this manual.
+									<br />
+										Start with "kilistextum". The makefile tries to guess where kaptain resides.
+										If it fails you can add something like "#!/pathto/kaptain" to the first line
+								or start it with "kaptain kilistextum". 
 
-											GUI-frontend using kaptain. Its usage should be obvious, even if you haven't
-											read this manual.
+								<h4>Command line arguments</h4>
+								<dl>
+									<dt>inputfile,- resp. outputfile,-</dt>
+
+									<dd>Replace inputfile with '-' for reading from standard input, likewise
+										outputfile with '-' for writing to standard output.<br /> </dd>
+
+									<dt>--version</dt>
+									<dd>Report version number and release date.<br />
+									</dd>
+
+									<dt>-h,--help</dt>
+									<dd>Print a list of the command line options.<br />
 											<br />
-												Start with "kilistextum". The makefile tries to guess where kaptain resides.
-												If it fails you can add something like "#!/pathto/kaptain" to the first line
-										or start it with "kaptain kilistextum". 
+									</dd>
 
-										<h4>Command line arguments</h4>
-										<dl>
-											<dt>inputfile,- resp. outputfile,-</dt>
+									<dt>-c, --convert-tags</dt>
+									<dd>Some of the tags will be converted to special characters.<br />
+											Eg: "&lt;B&gt;Bold&lt;/B&gt; isn't &lt;I&gt;italic&lt;/I&gt; isn't
+							&lt;U&gt;underlined&lt;/U&gt; isn't &lt;EM&gt;emphasized&lt;EM&gt; but is
+						like &lt;STRONG&gt;strong&lt;/STRONG&gt;."<br />
+						will be output as "*Bold* isn't /italic/ isn't _underlined_ isn't
+				/emphasized/ but is like *strong*."</dd>
 
-											<dd>Replace inputfile with '-' for reading from standard input, likewise
-												outputfile with '-' for writing to standard output.<br /> </dd>
+		<dt>-p, --palm</dt>
+		<dd>This outputs text more suitable for reading on a PDA.<br />
+				Palm textreader do their own wordwrapping, so the width is set to infinity
+				and the program doesn't rightjustify or center the text.<br />
+		</dd>
 
-											<dt>--version</dt>
-											<dd>Report version number and release date.<br />
-											</dd>
+		<dt>-w, --width number</dt>
+		<dd>Maximum width of the output text.<br />
+				Default: 72.</dd>
 
-											<dt>-h,--help</dt>
-											<dd>Print a list of the command line options.<br />
-													<br />
-											</dd>
+		<dt>-m, --dont-convert-characters</dt>
+		<dd>The entities from windows1252 (&amp;#128 - &amp;#159 and their
+			proper entitiy names) will not be converted.<br />
+				<br />
+		</dd>
 
-											<dt>-c, --convert-tags</dt>
-											<dd>Some of the tags will be converted to special characters.<br />
-													Eg: "&lt;B&gt;Bold&lt;/B&gt; isn't &lt;I&gt;italic&lt;/I&gt; isn't
-									&lt;U&gt;underlined&lt;/U&gt; isn't &lt;EM&gt;emphasized&lt;EM&gt; but is
-								like &lt;STRONG&gt;strong&lt;/STRONG&gt;."<br />
-								will be output as "*Bold* isn't /italic/ isn't _underlined_ isn't
-						/emphasized/ but is like *strong*."</dd>
+		<dt>-s, --shrink-lines [number]</dt>
+		<dd>If there are more than number empty lines, output only &lt;number&gt;.<br />
+				Default: 1.</dd>
 
-				<dt>-p, --palm</dt>
-				<dd>This outputs text more suitable for reading on a PDA.<br />
-						Palm textreader do their own wordwrapping, so the width is set to infinity
-						and the program doesn't rightjustify or center the text.<br />
-				</dd>
-
-				<dt>-w, --width number</dt>
-				<dd>Maximum width of the output text.<br />
-						Default: 72.</dd>
-
-				<dt>-m, --dont-convert-characters</dt>
-				<dd>The entities from windows1252 (&amp;#128 - &amp;#159 and their
-					proper entitiy names) will not be converted.<br />
-						<br />
-				</dd>
-
-				<dt>-s, --shrink-lines [number]</dt>
-				<dd>If there are more than number empty lines, output only &lt;number&gt;.<br />
-						Default: 1.</dd>
-
-				<dt>-l, --links</dt>
-				<dd>Numbers the links in the document and creates footnotes of each link at
-					the end of the file. Similar to 'lynx -dump'. Note: Relative URIs are not
-					resolved and won't be printed.<br />
-				</dd>
-				
-				<dt>-t, --no-title</dt>
-				<dd>Don't output title of the HTML document</dd>
-				
-				<dt>-e, --errorlevel number</dt>
-				<dd>Increase level of verbosity for error messages. <br />
-						&#160;0: No error messages<br />
-							&#160;1: Show unrecognized entities<br />
-								&#160;2: Show unknown tags<br />
-									&gt;2: Mostly debugging information<br /><br /></dd>
-				
+		<dt>-l, --links</dt>
+		<dd>Numbers the links in the document and creates footnotes of each link at
+			the end of the file. Similar to 'lynx -dump'. Note: Relative URIs are not
+			resolved and won't be printed.<br />
+		</dd>
+		
+		<dt>-t, --no-title</dt>
+		<dd>Don't output title of the HTML document</dd>
+		
+		<dt>-e, --errorlevel number</dt>
+		<dd>Increase level of verbosity for error messages. <br />
+				&#160;0: No error messages<br />
+					&#160;1: Show unrecognized entities<br />
+						&#160;2: Show unknown tags<br />
+							&gt;2: Mostly debugging information<br /><br /></dd>
+		
 
 
-				<dt>-i, --defimage string</dt>
-				<dd>IMG tags without alt attribute are output as [string].<br />
-						Default: Image.</dd>
+		<dt>-i, --defimage string</dt>
+		<dd>IMG tags without alt attribute are output as [string].<br />
+				Default: Image.</dd>
 
-				<dt>-r, --remove-empty-alt</dt>
-				<dd>If there is an empty ALT attribute in a IMG tag (eg &lt;IMG href="..."
-					alt=""&gt;), don't output '[]'.</dd>
+		<dt>-r, --remove-empty-alt</dt>
+		<dd>If there is an empty ALT attribute in a IMG tag (eg &lt;IMG href="..."
+			alt=""&gt;), don't output '[]'.</dd>
 
-				<dt>-n, --no-image</dt>
-				<dd>Don't output [Image] for IMG tags that have no ALT attribute</dd>
+		<dt>-n, --no-image</dt>
+		<dd>Don't output [Image] for IMG tags that have no ALT attribute</dd>
 
-				<dt>-a, --no-alt</dt>
-				<dd>Don't output anything for IMG tags even if they have an ALT attribute.<br />
-						Implies --no-image.<br /><br /></dd>
-</dl>
+		<dt>-a, --no-alt</dt>
+		<dd>Don't output anything for IMG tags even if they have an ALT attribute.<br />
+				Implies --no-image.<br /><br /></dd>
+	</dl>
 
-<b>Multibyte Options (Only available if compiled with multibyte support)</b><br />
-<dl>
+		<b>Multibyte Options (Only available if compiled with multibyte support)</b><br />
+			<dl>
 				<dt>--charset defaultcharset</dt>
 				<dd>If the HTML document doesn't provide a character set in the meta tags,
 					the program uses defaultcharset.<br />

@@ -100,7 +100,6 @@ void html_tag()
 
   else if CMP("TITLE", str)  \
 	{ 
-		printf("option_title %d\n", option_title);
 		if (option_title) { push_align(LEFT); neuer_paragraph(); } 
 		else { wort_ende(); print_zeile(); nooutput = 1; }
 	}

@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="generator" content="HTML Tidy, see www.w3.org" />
 <title>CHANGES</title>
 <link rel="stylesheet" title="Default" href="style.css" type="text/css" />
 </head>
@@ -11,11 +10,12 @@
 <ul class="update">
 <li>program uses POSIX getopt when GNU getopt is not available</li>
 <li>code: changed all comments to C90</li>
-<li>BUGFIX: all entities are now converted to utf-8 with --output-utf-8</li>
-<li>transliteration of some of the more often used character entities added</li>
-<li>improved treatment of &shy;</li>
+<li>improved treatment of &amp;shy;</li>
 <li>multibyte version compiles on FreeBSD</li>
-<li>&apos; added</li>
+<li>&amp;apos; added</li>
+<li>transliteration of some of the more often used character entities added</li>
+<li>BUGFIX: all entities are now converted to utf-8 with --output-utf-8</li>
+<li>BUGFIX: no line break for tabs between &lt;pre&gt;...&lt;/pre&gt;</li>
 </ul>
 
 <p class="update"> 2.6.3: (11.03.2003)</p>

@@ -60,6 +60,7 @@ dnl AM_MISSING_PROG([AUTOM4TE], [autom4te])
 
 AC_CONFIG_FILES([doc/Makefile
                  src/Makefile
+                 tests/Makefile
                  Makefile])
 AC_OUTPUT
 
