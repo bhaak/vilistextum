@@ -423,7 +423,8 @@ void process_meta()
 {
 #ifdef MULTIBYTE
 	int found_ctnt=0;
-	CHAR *locale;
+	int found_chst=0;
+	CHAR *locale=NULL;
 	char stripped_locale[DEF_STR_LEN];
 #endif
 #ifdef proc_debug
@@ -432,38 +433,40 @@ void process_meta()
 
 	if (!processed_meta)
 	{
-		/* printf("in process_meta()\n"); // DEBUG */
+		/* printf("in process_meta()\n");  DEBUG */
 		/*processed_meta=1; */
 #ifdef MULTIBYTE
 		while (ch!='>')
 		{
-			/*printf("vor get_attr()\n");  // DEBUG */
+			/* printf("before get_attr()\n");   DEBUG */
 			ch=get_attr();
-			/* printf("nach get_attr()\n"); // DEBUG */
-			/* printf("%ls %ls\n", attr_name, attr_ctnt); // DEBUG */
+			/* printf("after get_attr()\n");  DEBUG */
+			/* printf("%ls %ls\n", attr_name, attr_ctnt);  DEBUG */
 			if ((CMP("HTTP-EQUIV", attr_name)) || (CMP("NAME", attr_name))) 
 			{
 				if CMP("Content-Type", attr_ctnt) { found_ctnt=1; }
+				else if CMP("charset", attr_ctnt) { found_chst=1; }
 			} else if CMP("CONTENT", attr_name)
 			{
-				if (found_ctnt)
+				if (found_ctnt||found_chst)
 				{
-					/*printf("2.5\n"); // DEBUG */
-					found_ctnt=0;
+					/* printf("found\n"); */
+					if (found_ctnt) {
+						locale = wcsstr(attr_ctnt, L"charset=");
+						if (locale!=NULL) { locale += 8; }
+					} else if (found_chst) {
+						locale = attr_ctnt;
+					}
+					
+					found_ctnt=0; found_chst=0;
 					/* search and set character set */
-					locale = wcsstr(attr_ctnt, L"charset=");
-					/*printf("3 locale %ls\n", locale); // DEBUG */
+					/* printf("locale %ls\n", locale); DEBUG */
 					if (locale!=NULL) {
 						processed_meta=1;
-						locale += 8;
-						/*printf("3\n"); // DEBUG */
-						/*printf("locale gefunden -%ls-  \n", locale); // DEBUG */
-						/*printf("4\n"); // DEBUG */
+						/* printf("locale found -%ls-  \n", locale);  DEBUG */
 						strip_wchar(locale, stripped_locale);
-						/*printf("strip_wchar %s\n", stripped_locale); // DEBUG */
-						/*set_locale(stripped_locale);				 */
+						/* printf("strip_wchar %s\n", stripped_locale); DEBUG */
 						set_iconv_charset(stripped_locale);
-						/*files_reopen(); // PROBABLY USELESS? */
 					}
 				}
 			}
