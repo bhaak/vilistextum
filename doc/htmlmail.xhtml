@@ -44,13 +44,15 @@ Put the following lines into your .gnus:
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
                                     '("text/html" "text/richtext")))
 
+;; add buttons and emphasize for html MIME parts
+(add-to-list 'gnus-buttonized-mime-types '"text/html")
+(add-to-list 'gnus-article-treat-types "text/html")
+
 (add-to-list 'mm-text-html-renderer-alist
-             '(vilistextum mm-inline-render-with-file
-               mm-links-remove-leading-blank
+             '(vilistextum mm-inline-render-with-file nil
                "vilistextum" "-l" "-r" "-c" "-s" file "-"))
 (add-to-list 'mm-text-html-washer-alist 
-             '(vilistextum mm-inline-wash-with-file
-               mm-links-remove-leading-blank
+             '(vilistextum mm-inline-wash-with-file nil
                "vilistextum" "-l" "-r" "-c" "-s" file "-"))
 (setq mm-text-html-renderer 'vilistextum)
 </pre>
