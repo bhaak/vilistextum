@@ -9,11 +9,11 @@ out "Output file" -> @outfile ;
 
 opt:framed :horizontal  -> extropt createopt ;
 
-createopt "" -> palm shrink remove nomicrosoft links converttags noimage noalt;
+createopt "" -> palm shrink remove nomicrosoft links converttags noimage noalt ;
 extropt "Options" -> defimage width ;
 
 palm "Optimize for PDA" -> @ | "-p " ;
-shrink "Only one empty line between lines" -> @ | "-s " ;
+shrink "Only one empty line between lines" -> @ | "-s 1 " ;
 remove "Remove empty alt tags" -> @ | !"-r " ;
 nomicrosoft "Don't convert Microsoft entities and characters" -> @ | "-m " ;
 links "Show links" -> @ | !"-l " ;
@@ -24,5 +24,4 @@ noalt "Suppress [Image] and [alttext]" -> @ | "-a " ;
 defimage "Default image name" -> " -i " '"' @string="Image" '"' " ";
 width "Width of output" -> "-w " @integer(1)=72 " " ;
  
-buttons :horizontal -> @action(vilistextum)="OK" @close="Quit";
-
+buttons :horizontal -> @echo(vilistextum)="OK" @close="Quit";

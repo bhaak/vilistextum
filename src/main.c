@@ -226,7 +226,6 @@ void parse_args(int argc, char *argv[])
 			break;
 		case 'w': 
 		  breite = atoi(argument);
-		  printf("breite: %d; argument %s\n", breite, argument);
 		  hr_breite = breite;
 		  if (breite>DEF_STR_LEN) { fprintf(stderr, "max(breite)=%d\n", DEF_STR_LEN); breite=DEF_STR_LEN; }
 		  break;

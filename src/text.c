@@ -27,27 +27,27 @@ int LEFT = 1,
   RIGHT  = 3;
 
 int breite=76,
-    hr_breite=76,
-    paragraph=0,
-    leerer_paragraph=0,
+	hr_breite=76,
+	paragraph=0,
+	leerer_paragraph=0,
 
-    tab=4,         /* Tabulator Schrittweite */
-    spaces=0,      /* Space einfügen bei Zeilenanfang */
-	  nooutput=0,    /* für SCRIPT u.ä.: keine Ausgabe */
-  	orderedlist=0, /* OL */
-
-    div_test=0;
+	tab=4,         /* tabulator */
+	spaces=0,      /* spaces at beginning of line */
+	nooutput=0,    /* for SCRIPT, etc: no output */ 
+	orderedlist=0, /* OL */
+	
+	div_test=0;
 
 CHAR wort[DEF_STR_LEN];
 
 CHAR zeile[DEF_STR_LEN];
-int     zeilen_len=0,       /* scheinbare Länge der Zeile  */
+int  zeilen_len=0,       /* scheinbare Länge der Zeile  */
   zeilen_len_old=0,
-  zeilen_pos=0,       /* wahre Länge der Zeile  */
+  zeilen_pos=0,       /* true length of line */
   wort_len=0,         /* scheinbare Länge des Worts */
-  wort_pos=0,         /* wahre Länge des Worts  */
-  anz_leere_zeilen=0, /* wieviele Zeilen waren bisher leer */
-  noleadingblanks=0;  /* keine Leerzeilen am Anfang. */
+  wort_pos=0,         /* true length of word */
+  anz_leere_zeilen=0, /* how many line were blank */
+  noleadingblanks=0;  /* no leading blanks at the beginning of line */
 
 /* ------------------------------------------------ */
 
@@ -140,6 +140,7 @@ int only_spaces(CHAR *z)
 
 /* ------------------------------------------------ */
 
+/* print line */
 void print_zeile()
 {
   int printzeile;
@@ -317,7 +318,7 @@ void wort_ende()
       printf(" z1: zeilen_len: %d ; wort_len %d \n",zeilen_len, wort_len);
       printf(" z1: zeilen_pos: %d ; wort_pos %d\n",zeilen_pos, wort_pos);
 #endif
-			/* Leerzeichen + Wort */
+			/* add space + word */
       zeile_plus_wort(ONESPACE,1,1); zeile_plus_wort(wort,wort_len, wort_pos);
     }
     else /* zeilen_len==0 => neuer Paragraphenanfang */
