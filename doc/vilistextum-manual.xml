@@ -75,7 +75,7 @@ Relative URIs are not resolved and won't be printed.
 don't convert the entities from windows1252 (&amp;#128;-&amp;#159; and their proper entity names)
 </shortdesc>
 <longdesc>
-The entities from windows1252 (&amp;#128; - &amp;#159; and their proper entitiy names) will not be converted.
+The entities from windows1252 (&amp;#128; - &amp;#159; and their proper entity names) will not be converted.
 </longdesc>
 </option>
 
@@ -91,7 +91,7 @@ output text more suitable for reading on a PDA.
 </shortdesc>
 <longdesc>
 This outputs text more suitable for reading on a PDA.
-Palm textreader do their own wordwrapping, so the width is set to infinity and the program doesn't rightjustify or center the text.
+Palm textreaders do their own word wrapping, so the width is set to infinity and the program doesn't right justify or center the text.
 </longdesc>
 </option>
 
