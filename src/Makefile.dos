@@ -1,0 +1,17 @@
+# compile options
+# change what you need 
+CC = gcc 
+CFLAGS = -O2 -Wall -g
+LDFLAGS = -g
+
+all: vilistextum
+
+vilistextum: getopt_l.o latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o
+	$(CC) -o vilistextum.exe getopt_l.o latin1.o microsoft.o fileio.o html_tag.o main.o util.o html.o lists.o text.o
+#	stubedit vilistextum.exe minstack=2048k
+	copy vilistextum.exe ..\vilistextumgui
+	copy vilistextum.exe ..\temp
+
+clean: 
+	del *.o 
+	del vilistextum.exe
