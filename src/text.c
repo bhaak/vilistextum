@@ -69,9 +69,9 @@ void center_zeile()
       for (i=zeilen_pos+j+2; i>=0; i--)
       {
 #ifdef center_debug
-	printf(" %c",zeile[i]);
+				printf(" %c",zeile[i]);
 #endif
-	zeile[i+j]=zeile[i];
+				zeile[i+j]=zeile[i];
       }
       for (i=0; i<j; i++) { zeile[i]=' '; }
 #ifdef center_debug
@@ -249,9 +249,11 @@ void wort_plus_string_nocount(CHAR *s)
 
   if (!palm)
   {
-    while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
-    wort[i] = '\0';
-    wort_pos += len;
+		if (wort_pos+len<DEF_STR_LEN) {
+			while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
+			wort[i] = '\0';
+			wort_pos += len;
+		}
   }
 
 #ifdef proc_debug
@@ -264,8 +266,8 @@ void wort_plus_string_nocount(CHAR *s)
 void wort_plus_string(CHAR *s)
 {
   int len=STRLEN(s),
-      i=wort_pos,
-      j=0;
+		  i=wort_pos,
+		  j=0;
 #ifdef wort_ende_debug
   printf("\nwort_plus_string()\n");
 #endif
@@ -273,9 +275,11 @@ void wort_plus_string(CHAR *s)
   printf("s: %ls len: %d\n", s,len);
 #endif
 
-  while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
-  wort[i] = '\0';
-  wort_pos += len; wort_len += len;
+	if (wort_pos+len<DEF_STR_LEN) {
+		while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
+		wort[i] = '\0';
+		wort_pos += len; wort_len += len;
+	}
 
 #ifdef proc_debug
   printf("wort_plus_string() ende\n");
