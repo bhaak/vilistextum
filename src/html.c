@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 1998-2004 Patric Müller
  * bhaak@gmx.net
- * http://www.mysunrise.ch/users/bhaak/vilistextum/
+ * http://bhaak.dyndns.org/vilistextum/
  *
  * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
