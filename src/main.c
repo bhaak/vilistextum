@@ -81,8 +81,7 @@
  *
  * TO DO
  * -----
- * check OL vs UL
- * align_nr stimmt was nicht
+ * fix OL vs UL
  * CENTER and table don't get along well
  *
  */
