@@ -2,6 +2,7 @@
 
 echo ""
 echo "TEST: $0"
+rm -f entities.output.test
 ../src/vilistextum 2>/dev/null -m entities.html entities.output.test
 
 diff -q entities.output entities.output.test
