@@ -43,9 +43,9 @@ int microsoft_entities(CHAR *s)
   else if CMP("&bdquo;", s)   { CPYSL(s, "\""); }
   else if (number==8222)      { CPYSL(s, "\""); }
 
-  else if (number==133)       { CPYSL(s, "... "); } /* Horizontal Ellipsis */
-  else if CMP("&hellip;", s)  { CPYSL(s, "... "); } /* Horizontal Ellipsis */
-  else if (number==8230)      { CPYSL(s, "... "); } /* Horizontal Ellipsis */
+  else if (number==133)       { CPYSL(s, "..."); } /* Horizontal Ellipsis */
+  else if CMP("&hellip;", s)  { CPYSL(s, "..."); } /* Horizontal Ellipsis */
+  else if (number==8230)      { CPYSL(s, "..."); } /* Horizontal Ellipsis */
 
   /* Dagger */
   else if (number==134)       { CPYSL(s, "/-"); }   

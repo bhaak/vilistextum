@@ -140,7 +140,7 @@ void set_iconv_charset(char *charset) {
 	/* set charset for iconv conversion */
 	strcpy(iconv_charset, charset);
 	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");}
-	/* printf("iconv_charset %s\n", iconv_charset); */
+	/* printf("iconv_charset %s\n", iconv_charset); DEBUG */
 }
 
 /* ------------------------------------------------ */

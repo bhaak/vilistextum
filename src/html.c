@@ -429,11 +429,11 @@ void process_meta()
 		while (ch!='>') {
 			/* printf("before get_attr()\n");   DEBUG */
 			ch=get_attr();
-			/* printf("after get_attr()\n");  DEBUG */
-			/* printf("%ls %ls\n", attr_name, attr_ctnt);  DEBUG */
+			/* printf("after get_attr()\n"); DEBUG */
+			/* printf("%ls %ls\n", attr_name, attr_ctnt); DEBUG */
 			if ((CMP("HTTP-EQUIV", attr_name)) || (CMP("NAME", attr_name))) {
-				if CMP("Content-Type", attr_ctnt) { found_ctnt=1; }
-				else if CMP("charset", attr_ctnt) { found_chst=1; }
+				if STRCASECMP("Content-Type", attr_ctnt) { found_ctnt=1; }
+				else if STRCASECMP("charset", attr_ctnt) { found_chst=1; }
 			} else if CMP("CONTENT", attr_name) {
 				CPYSS(temp_locale, attr_ctnt);
 			}
@@ -452,7 +452,7 @@ void process_meta()
 			/* printf("locale %ls\n", locale); DEBUG */
 			if (locale!=NULL) {
 				processed_meta=1;
-				/* printf("locale found -%ls-  \n", locale);  DEBUG */
+				/* printf("locale found -%ls-  \n", locale); DEBUG */
 				strip_wchar(locale, stripped_locale);
 				/* printf("strip_wchar %s\n", stripped_locale); DEBUG */
 				set_iconv_charset(stripped_locale);
