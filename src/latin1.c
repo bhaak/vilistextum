@@ -150,6 +150,7 @@ int entity_number(CHAR *s)
   int number;
 
 	number = extract_entity_number(s);
+	/* printf("entity_number: %d\n", number); */
 
 	/* no numeric entity */
   if (number==-1) { 

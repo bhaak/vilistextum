@@ -132,11 +132,12 @@ void output_string(CHAR *str)
 		if ((conv = iconv_open(get_iconv_charset(), "utf-8"))==(iconv_t)(-1))
 			{	printf("iconv_open failed in read_char: wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
 
+		/* printf("%s %s\n", get_iconv_charset(), inp); */
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 
 		if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
-		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ\n"); }
+		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ in output_string\n"); }
 		else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
 		
 		output[DEF_STR_LEN-outsize] = '\0';
@@ -174,9 +175,9 @@ int read_char()
 	int j=0; 
 	size_t result=(size_t)(-1);
 	wchar_t outstring[33]; 
-	wchar_t ret;
 	iconv_t conv;
 	char input[33], output[33];
+	CHAR tmpstr[33];
 	char *inp, *outp;
 	size_t insize = 1, outsize = 32;
 
@@ -199,16 +200,18 @@ int read_char()
 
 		if (fehlernr==E2BIG) { printf("errno==E2BIG\n"); }
 		else if (fehlernr==EILSEQ) { 
-			printf("errno==EILSEQ\n"); 
+			printf("errno==EILSEQ in read_char\n"); 
 		}
-		else if (fehlernr==EINVAL) { /* printf("errno==EINVAL\n");*/ }
+		else if (fehlernr==EINVAL) { /* printf("errno==EINVAL\n"); */ }
 		else if (fehlernr==0) {
-			if (j>0) {
+			/* printf("\n1: c=%d ; %d\n",c,c); */
 				result = mbstowcs(outstring, output, strlen(output));
-				ret = outstring[0];
-
-				c = outstring[0];
-			}
+				if (convert_character(outstring[0], tmpstr)) {
+					c = outstring[0];
+					/* printf("2: c=%d ; %d\n",c,c); */
+				} else {
+					printf("microsoft character: %d\n", c);
+				}
 		}
 
 		j++;

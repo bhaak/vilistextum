@@ -9,9 +9,16 @@ check_entities
   Checks if all named character entities are correctly translated with
   locale iso-8859-1.
 
+
+The following tests only work when vilistextum is compiled as 
+multibyte version.
+
+check_latin2
+	Checks if reading and writing of a iso-8859 charset other than
+	iso-8859-1(latin1) is working.
+
 check_utf8
-  If vilistextum is compiled as multibyte version, this check tests
-  vilistextum's UTF-8 ability.
+  This check tests vilistextum's UTF-8 ability.
 
 	The html file is taken from the great "UTF-8 Sampler" page
 	(http://www.columbia.edu/, used with permission) by Frank Cruz.

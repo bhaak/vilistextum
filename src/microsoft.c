@@ -192,7 +192,7 @@ void microsoft_character(int c)
   case 0x88: /* Modifier Letter Circumflex Accent */
 	wort_plus_ch('^'); break;
   case 0x89: /* Per Mille Sign */
-	WORT_PLUS_STRING("O/oo"); break;
+	WORT_PLUS_STRING("0/00"); break;
   case 0x8a: /* Latin Capital Letter S With Caron */
 	wort_plus_ch('S'); break;
   case 0x8b: /*  Single Left-Pointing Angle Quotation Mark */

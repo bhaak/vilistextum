@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo ""
+echo "TEST: $0"
+
+../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. aborting..."
+../src/vilistextum -v | grep >/dev/null multibyte || exit 0
+
+rm -f latin2.output.test
+../src/vilistextum latin2.html latin2.output.test
+
+diff -q latin2.output latin2.output.test
+
