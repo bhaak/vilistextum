@@ -39,6 +39,34 @@ CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
 	    attr_ctnt[DEF_STR_LEN]; /* Attribut content of a HTML-Tag */
 
 /* ------------------------------------------------ */
+#if defined(MULTIBYTE) && ! defined(__GNU_LIBRARY__)
+#include <wchar.h>
+static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
+{
+	size_t i;
+	wint_t c1, c2;
+
+	for (i = 0; s1[i] != L'\0' && s2[i] != L'\0'; i ++)
+	{
+		c1 = towlower(s1[i]);
+		c2 = towlower(s2[i]);
+
+		if (c1 != c2)
+			return c1 - c2;
+	}
+
+	if (s1[i] != L'\0' && s2[i] == L'\0')
+		return s1[i];
+
+	if (s1[i] == L'\0' && s2[i] != L'\0')
+		return -s2[i];
+
+	return 0;
+}
+#endif
+
+/* ------------------------------------------------ */
+
 
 /* get the next attribute and writes it to attr_name and attr_ctnt. */
 /* attr_name is converted to uppercase.  */

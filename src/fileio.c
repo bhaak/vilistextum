@@ -27,7 +27,11 @@
 #ifdef MULTIBYTE
   #include <iconv.h>
   #include <locale.h>
-  #include <localcharset.h>
+  #if defined(__sun__)
+    #include <libcharset.h>
+  #else
+    #include <localcharset.h>
+  #endif
 #endif
 
 FILE *in, *out;
