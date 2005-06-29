@@ -1,7 +1,8 @@
 Standard version
 ================
 
-./configure && make && make install
+$ ./configure --enable-multibyte && make
+# make install (as root)
 
 The standard version of vilistextum should compile on any system with a
 C-Compiler. It has been successfully compiled on Linux, FreeBSD and Solaris
@@ -11,10 +12,19 @@ systems.
 Multibyte/Unicode version
 =========================
 
-./configure --enable-multibyte && make && make install
+$ ./configure --enable-multibyte && make
+# make install (as root)
 
-The multibyte version needs libiconv.
+The multibyte version needs a good iconv implementation. The best and
+most portable implementation is libiconv. 
 http://www.gnu.org/software/libiconv
+The glibc (GNU C Library) implementation is also sufficient. For
+non-glibc systems, libiconv is recommended.
+
+The configure script detects if libiconv is installed and falls back
+to the standard iconv implementation if not. 
+
+"make test" will fail if the iconv implementation is insufficient.
 
 Misc
 ====

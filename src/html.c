@@ -493,7 +493,11 @@ void find_encoding()
 				processed_meta=1;
 				/* printf("locale found -%ls-  \n", locale); DEBUG */
 				strip_wchar(locale, stripped_locale);
-				/* printf("strip_wchar %s\n", stripped_locale); DEBUG */
+				/* printf("strip_wchar -%s-\n", stripped_locale); DEBUG */
+				/* Yahoo Search does strange things to cached pages */
+				/*if (strcmp(stripped_locale, "Array")!=0) {
+					set_iconv_charset(stripped_locale);
+					}*/
 				set_iconv_charset(stripped_locale);
 			}
 		}

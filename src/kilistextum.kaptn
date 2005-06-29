@@ -24,4 +24,4 @@ noalt "Suppress [Image] and [alttext]" -> @ | "-a " ;
 defimage "Default image name" -> " -i " '"' @string="Image" '"' " ";
 width "Width of output" -> "-w " @integer(1)=72 " " ;
  
-buttons :horizontal -> @echo(vilistextum)="OK" @close="Quit";
+buttons :horizontal -> @action(vilistextum)="OK" @close="Quit";

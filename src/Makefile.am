@@ -8,7 +8,7 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 
 # profiling
 #AM_CFLAGS = -Wall -pg
-AM_CFLAGS = -O2 -Wall #-ansi #-pedantic-error -funsigned-char
+AM_CFLAGS = -Wall #-O2 -ansi # -pedantic-error -funsigned-char
 AM_LDFLAGS = $(STATIC)
 
 EXTRA_DIST = kilistextum.kaptn
