@@ -105,13 +105,14 @@
 #include "debug.h"
 
 /* commandline options */
-int palm = 0,             /* if true, enable pda specific restrictions    */
-  convert_tags = 0,       /* if true, convert some tags (eg B,I) to ASCII characters */
-  errorlevel = 1,         /* 0, no errormessages; 1, missing entities; 2, missing tags */
-  convert_characters = 1, /* if true,  convert 0x128-0x159 to latin1-characters */
-  shrink_lines = 0,       /* no more than 2 empty lines */
-  option_links = 0,       /* show links at end of output */
-  option_title = 1,       /* true -> show title tag, else dont */
+int palm = 0,              /* if true, enable pda specific restrictions    */
+  convert_tags = 0,        /* if true, convert some tags (eg B,I) to ASCII characters */
+  errorlevel = 1,          /* 0, no errormessages; 1, missing entities; 2, missing tags */
+  convert_characters = 1,  /* if true,  convert 0x128-0x159 to latin1-characters */
+  shrink_lines = 0,        /* no more than 2 empty lines */
+  option_links = 0,        /* show links at end of output */
+  option_links_inline = 0, /* show links after tag */
+  option_title = 1,        /* true -> show title tag, else dont */
 
   remove_empty_alt = 0,   /* dont show [] for <IMG ALT="">  */
 	option_no_image = 0,    /* don't show [Image] */
@@ -136,6 +137,7 @@ char help_text[] =
 "  -e, --errorlevel NUMBER       \n"
 "  -i, --defimage STRING         \n"
 "  -l, --links                   \n"
+"  -k, --links-inline            \n"
 "  -m, --dont-convert-characters \n"
 "  -n, --no-image                \n"
 "  -p, --palm                    \n"
@@ -185,6 +187,7 @@ void parse_args(int argc, char *argv[])
 			{"help", 0, 0, 'h'},
 			{"version", 0, 0, 'v'},
 			{"links", 0, 0, 'l'},
+			{"links-inline", 0, 0, 'k'},
 			{"no-title", 0, 0, 't'},
 
 			{"remove-empty-alt", 0, 0, 'r'},
@@ -209,7 +212,7 @@ void parse_args(int argc, char *argv[])
 #endif
 		
 #ifdef  HAVE_GETOPT_H
-		c = getopt_long (argc, argv, "pmsi:ce:hltrnavy:xuw:",
+		c = getopt_long (argc, argv, "pmsi:ce:hkltrnavy:xuw:",
 										 long_options, &option_index);
  #ifdef DEBUG
 		fprintf(stderr, "c: %d c: %c \n\n", c,c); 
@@ -267,7 +270,8 @@ void parse_args(int argc, char *argv[])
 		case 'c': convert_tags = 1; break;
 		case 'e': errorlevel = atoi(argument); break;
 		case 'h': help(); break;
-		case 'l': option_links = 1; break;
+		case 'l': option_links = 1; option_links_inline = 0; break;
+		case 'k': option_links_inline = 1; option_links = 0; break;
 		case 't': option_title = 0; break;
 
 		case '?': /* unknown option */

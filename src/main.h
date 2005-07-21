@@ -10,6 +10,7 @@ int convert_characters;
 int shrink_lines;
 int remove_empty_alt;
 int option_links;
+int option_links_inline;
 int option_title;
 int sevenbit;
 int transliteration;

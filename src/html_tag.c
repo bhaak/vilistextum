@@ -142,6 +142,7 @@ void html_tag()
 		else if CMP("HR/", str) { hr(); } /* xhtml */
 
 		else if CMP("A", str)   { href(); }
+		else if CMP("/A", str)  { href_link_inline_output(); }
 
 		else if CMP("LI", str)    { start_lis(); }
 		else if CMP("/LI", str)   { end_lis(); }
@@ -305,7 +306,6 @@ void html_tag()
 		else if CMP("/OPTGROUP", str) {}
 
 		else if CMP("/AREA", str)     {}
-		else if CMP("/A", str)        {}
 
 		else if (STRNCMP("!--", str, 3)==0)  { 
 			/*#ifdef debug */

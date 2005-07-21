@@ -70,6 +70,12 @@ Relative URIs are not resolved and won't be printed.
 </longdesc>
 </option>
 
+<option short="k" long="links-inline">
+<shortdesc>
+print the links directly after the html tag.
+</shortdesc>
+</option>
+
 <option short="m" long="dont-convert-characters">
 <shortdesc>
 don't convert the entities from windows1252 (&amp;#128;-&amp;#159; and their proper entity names)

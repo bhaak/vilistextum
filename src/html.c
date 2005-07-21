@@ -36,7 +36,8 @@ int pre=0; /* for PRE-Tag */
 int processed_meta=0; /* only parse meta tags once */
 
 CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
-	    attr_ctnt[DEF_STR_LEN]; /* Attribut content of a HTML-Tag */
+	attr_ctnt[DEF_STR_LEN], /* Attribut content of a HTML-Tag */
+	link_inline[DEF_STR_LEN]; /* Link of a HTML-Tag */
 
 /* ------------------------------------------------ */
 #if defined(MULTIBYTE) && ! defined(__GNU_LIBRARY__)
@@ -371,25 +372,30 @@ void href()
 {  
 	CHAR tmp[DEF_STR_LEN];
 
-	if (!option_links) { return; }
-
 	while (ch!='>')
   {
     ch=get_attr();
 
     if CMP("HREF", attr_name) {
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
-				references_count++;
+				if (option_links) {
+					references_count++;
+					
+					/* I think, this is completely unnecessary.
+						 There can't be any entities in URLs.
+					*/
+					/* parse_entities(attr_ctnt); */
+					print_footnote_number(tmp, references_count);
+					wort_plus_string(tmp);
 
-				parse_entities(attr_ctnt);
-				print_footnote_number(tmp, references_count);
-				wort_plus_string(tmp);
-
-				construct_footnote(tmp, references_count, attr_ctnt);
-				STRCAT(references, tmp);
+					construct_footnote(tmp, references_count, attr_ctnt);
+					STRCAT(references, tmp);
+				} else if (option_links_inline) {
+					CPYSS(link_inline, attr_ctnt);
+				}
 			}
     }
-  } 
+  }
 } /* end href */
 
 /* ------------------------------------------------ */
@@ -403,6 +409,22 @@ void href_output()
 		}
 	}
 } /* end href_output */
+
+/* ------------------------------------------------ */
+
+void href_link_inline_output() 
+{
+	if (option_links_inline) {
+		if (STRLEN(link_inline)>0) {
+			wort_ende();
+			wort_plus_string(STRING("<"));
+			wort_plus_string(link_inline);
+			wort_plus_string(STRING(">"));
+			wort_ende();
+			link_inline[0] = '\0';
+		}
+	}
+} /* end href_link_inline_output */
 
 /* ------------------------------------------------ */
 
