@@ -45,7 +45,7 @@ int  zeilen_len=0,       /* apparent length of the line  */
   wort_len=0,         /* apparent length of the word */
   wort_pos=0,         /* true length of word */
   anz_leere_zeilen=0, /* how many line were blank */
-  noleadingblanks=0;  /* remove blanks lines at the start of the ouput */
+  noleadingblanks=0;  /* remove blanks lines at the start of the output */
 
 /* ------------------------------------------------ */
 
@@ -58,27 +58,33 @@ void center_zeile()
 
   if (!palm)
   {
+		/* ensure that the string is not the empty string */
     if (zeilen_len!=0)
     {
-      j=(breite-zeilen_len)/2;
+			/* ensure that centering is possible */
+			if (zeilen_pos<breite) {
+				j=(breite-zeilen_len)/2;
 
 #ifdef center_debug
-      printf(" center-zeile; len: %d; j: %d\n",zeilen_len,j);
-      printf(" %s\n",zeile);
+				printf(" center-zeile; zeilen_len: %d; j: %d; breite: %d; zeilen_pos: %d\n",zeilen_len,j,breite,zeilen_pos);
+				printf(" %s\n",zeile);
 #endif
-      for (i=zeilen_pos+j+2; i>=0; i--)
-      {
+				for (i=zeilen_pos+j; i>=0; i--)
+				{
 #ifdef center_debug
-				printf(" %c",zeile[i]);
+					printf(" %c",zeile[i]);
+					printf("1: i: %d; j: %d; i+j: %d\n",i,j,i+j);
 #endif
-				zeile[i+j]=zeile[i];
-      }
-      for (i=0; i<j; i++) { zeile[i]=' '; }
+					zeile[i+j]=zeile[i];
+				}
+				for (i=0; i<j; i++) { zeile[i]=' '; }
 #ifdef center_debug
-      printf(" \n%s\n\n",zeile);
-      printf(" --------------------------------------------------\n");
+				printf("2: i: %d; j: %d; i+j: %d\n",i,j,i+j);
+				printf(" \n%s\n\n",zeile);
+				printf(" --------------------------------------------------\n");
 #endif
-    }
+			}
+		}
 #ifdef proc_debug
   printf("center_zeile() ende\n");
 #endif

@@ -244,13 +244,13 @@ void parse_args(int argc, char *argv[])
 		case 'p':
 		  /* settings for PDAs */
 		  hr_breite = 30;
-		  breite=DEF_STR_LEN; 
+		  breite = DEF_STR_LEN-1; 
 		  palm = 1;
 			break;
 		case 'w': 
 		  breite = atoi(argument);
 		  hr_breite = breite;
-		  if (breite>DEF_STR_LEN) { fprintf(stderr, "max(breite)=%d\n", DEF_STR_LEN); breite=DEF_STR_LEN; }
+		  if (breite>=DEF_STR_LEN) { fprintf(stderr, "max(breite)=%d\n", DEF_STR_LEN); breite=DEF_STR_LEN-1; }
 		  break;
 		case 'm': convert_characters = 0; break;
 		case 's': 
