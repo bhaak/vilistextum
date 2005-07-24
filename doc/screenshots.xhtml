@@ -25,7 +25,8 @@ _underlined_
 </pre>
 
 <h3>Links</h3>
-While processing the html document, vilistextum collects all external links and lists them at the end of the output.
+While processing the html document, vilistextum can collect all external links and
+list them at the end or output them immediatley after the closing a tag.
 <pre>Hypertext links:&lt;br&gt;
 &lt;a href="http://www.w3.org/"&gt;W3C Web site&lt;/a&gt;&lt;br&gt;
 &lt;a href="http://www.cnn.com/"&gt;CNN&lt;/a&gt;&lt;br&gt;
@@ -42,6 +43,13 @@ A local document
    2. http://www.cnn.com/
 </pre>
 
+Output of "vilistextum --links-inline"
+<pre>
+Hypertext links:
+W3C Web site &lt;http://www.w3.org/&gt;
+CNN &lt;http://www.cnn.com/&gt;
+A local document
+</pre>
 
 <h3>Transliteration</h3>
 When not using the multibyte version, vilistextum transliterates some entities that don't are
