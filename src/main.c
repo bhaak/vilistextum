@@ -212,14 +212,14 @@ void parse_args(int argc, char *argv[])
 #endif
 		
 #ifdef  HAVE_GETOPT_H
-		c = getopt_long (argc, argv, "pmsi:ce:hkltrnavy:xuw:",
-										 long_options, &option_index);
+		c = getopt_long (argc, argv, "pmsi:ce:hkltrnavy:xuw:", long_options, &option_index);
+#else
+		c = getopt(argc, argv,       "pmsi:ce:hkltrnavy:xuw:");
+#endif
  #ifdef DEBUG
 		fprintf(stderr, "c: %d c: %c \n\n", c,c); 
  #endif
-#else
-		c = getopt(argc, argv, "pmsi:ce:hltrnavy:xuw:");
-#endif
+
 		/* get argument */
 		if (optarg==NULL) { argument = argv[optind]; }
 		else { argument = optarg; } 
