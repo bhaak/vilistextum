@@ -420,7 +420,6 @@ void href_link_inline_output()
 			wort_plus_string(STRING("<"));
 			wort_plus_string(link_inline);
 			wort_plus_string(STRING(">"));
-			wort_ende();
 			link_inline[0] = '\0';
 		}
 	}
