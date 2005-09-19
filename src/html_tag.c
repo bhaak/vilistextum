@@ -173,7 +173,7 @@ void html_tag()
 		else if CMP("/TABLE", str)   { paragraphen_ende(); }
 		else if CMP("TD", str)       { wort_plus_ch(' '); }
 		else if CMP("/TD", str)      {}
-		else if CMP("TH", str)       {}
+		else if CMP("TH", str)       { wort_plus_ch(' '); }
 		else if CMP("/TH", str)      {}
 		else if CMP("TR", str)       { line_break(); } /* start_p();  */
 		else if CMP("/TR", str)      { /*paragraphen_ende();*/ }
