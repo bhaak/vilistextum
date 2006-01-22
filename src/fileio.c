@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2004 Patric Müller
+ * Copyright (C) 1998-2005 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
  *
@@ -192,9 +192,20 @@ int read_char()
 
 	inp = input;
 	outp = output;
+	
+	/* make source the strings are cleared */
+	for (j=0; j<33; j++) {
+		input[j] = '\0';
+		output[j] = '\0';
+	}
 
-	if ((conv = iconv_open("utf-8", get_iconv_charset()))==(iconv_t)(-1)) 
-		{	printf("iconv_open failed in read_char: wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
+	/* check if the conversion from the character set from the HTML document
+	   to utf-8 is possible */
+	if ((conv = iconv_open("utf-8", get_iconv_charset()))==(iconv_t)(-1)) {
+		printf("iconv_open failed in read_char: wrong character set?\n");
+		perror(get_iconv_charset());
+		exit(1);
+	}
 
 	j=0;
 	do { 	 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2004 Patric Müller
+ * Copyright (C) 1998-2005 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
  *
@@ -232,7 +232,7 @@ void zeile_plus_wort(CHAR *s, int wl, int wp)
   printf("\nzeile_plus_wort()\n");
 #endif
 
-	if (zeilen_pos+wp<DEF_STR_LEN) {
+	if (zeilen_pos+wp<DEF_STR_LEN-1) {
 		while (i<zeilen_pos+wp) { zeile[i] = s[j]; j++; i++; }
 		zeile[i] = '\0';
 		zeilen_len += wl; zeilen_pos += wp;
@@ -255,7 +255,7 @@ void wort_plus_string_nocount(CHAR *s)
 
   if (!palm)
   {
-		if (wort_pos+len<DEF_STR_LEN) {
+		if (wort_pos+len<DEF_STR_LEN-1) {
 			while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
 			wort[i] = '\0';
 			wort_pos += len;
@@ -281,7 +281,7 @@ void wort_plus_string(CHAR *s)
   printf("s: %ls len: %d\n", s,len);
 #endif
 
-	if (wort_pos+len<DEF_STR_LEN) {
+	if (wort_pos+len<DEF_STR_LEN-1) {
 		while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
 		wort[i] = '\0';
 		wort_pos += len; wort_len += len;
@@ -300,7 +300,7 @@ void wort_plus_ch(int c)
 #ifdef default_debug
   printf("==wort_plus_ch(%d)\n", c);
 #endif
-	if (wort_pos<DEF_STR_LEN) {
+	if (wort_pos<DEF_STR_LEN-1) {
 		wort[wort_pos++] = c;
 		wort_len++;
 	}

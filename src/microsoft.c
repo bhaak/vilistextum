@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1998-2004 Patric Müller
+ * Copyright (C) 1998-2005 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
  * 
