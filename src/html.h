@@ -24,6 +24,7 @@ void find_encoding();
 
 void href();
 void href_output();
+void href_link_inline_output();
 
 void start_nooutput();
 void end_nooutput();
