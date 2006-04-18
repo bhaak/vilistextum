@@ -1,8 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(src/debug.h)
+AC_INIT
+AC_CONFIG_SRCDIR([src/debug.h])
 AM_INIT_AUTOMAKE(vilistextum, 2.6.9-devel)
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 dnl Set current date
 AC_DEFINE_UNQUOTED(RELEASEDATE, "??.??.2005", "Release date of the program")
@@ -27,7 +28,7 @@ LDFLAGS="$LDFLAGS -L/usr/local/lib"
 dnl checking for options
 AC_MSG_CHECKING(if --enable-multibyte specified)
 AC_ARG_ENABLE(multibyte,
-  AC_HELP_STRING([--enable-multibyte], [Enable multibyte support.]),
+  AS_HELP_STRING(--enable-multibyte,Enable multibyte support.),
   [use_multibyte=$enableval], [use_multibyte=no])
 AC_MSG_RESULT($use_multibyte)
 
