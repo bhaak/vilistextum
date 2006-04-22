@@ -477,10 +477,8 @@ void find_encoding()
 	printf("process_meta()\n");
 #endif
 
-	if (!processed_meta)
-	{
+	if (!processed_meta) {
 		/* printf("in process_meta()\n");  DEBUG */
-		/*processed_meta=1; */
 #ifdef MULTIBYTE
 		while (ch!='>') {
 			/* printf("before get_attr()\n");   DEBUG */
@@ -525,9 +523,30 @@ void find_encoding()
 #endif
 	}
 #ifdef proc_debug
-  printf("process_meta ende\n");
+  printf("find_encoding ende\n");
 #endif
-} /* end process_meta */
+} /* end find_encoding */
+
+/* ------------------------------------------------ */
+
+/* extract encoding information ?xml tags */
+void find_xml_encoding()
+{
+#ifdef proc_debug
+	printf("find_utf8_encoding()\n");
+#endif
+
+	if (!processed_meta) {
+#ifdef MULTIBYTE
+		/* xml default charset is utf-8 */
+		set_iconv_charset("utf-8");
+		find_encoding();
+#endif
+	}
+#ifdef proc_debug
+  printf("find_utf8_encoding ende\n");
+#endif
+} /* end find_utf8_encoding */
 
 /* ------------------------------------------------ */
 

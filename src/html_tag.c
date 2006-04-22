@@ -79,11 +79,7 @@ void html_tag()
 		if CMP("/HTML", str) { /* fprintf(stderr, "File ended!\n"); */ quit(); }
 		else if CMP("!DOCTYPE", str)  { while ((ch=read_char())!='>'); }
 		else if CMP("META", str)      { find_encoding(); }
-		else if CMP("?XML", str)      {
-			/* xml default charset is utf-8 */
-			set_iconv_charset("utf-8");
-			find_encoding(); 
-		}
+		else if CMP("?XML", str)      { find_xml_encoding(); }
 
 		/* Linebreak */
 		else if CMP("BR", str)  { line_break(); }

@@ -21,6 +21,7 @@ void image(CHAR *, int);
 CHAR friss_kommentar();
 
 void find_encoding();
+void find_xml_encoding();
 
 void href();
 void href_output();
