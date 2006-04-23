@@ -45,13 +45,13 @@ void open_files(char *input, char *output)
 
   if ((in = (strcmp(input, "-") ? fopen(input, "r") : stdin))==0)  
   {
-    fprintf(stderr, "Couldn't open %s!\n",input);
+    fprintf(stderr, "Couldn't open input file %s!\n",input);
     exit(20);
   }
 
   if ((out = (strcmp(output, "-") ? fopen(output, "w") : stdout))==0)
   {
-    fprintf(stderr, "Couldn't open %s!\n",output);
+    fprintf(stderr, "Couldn't open output file %s!\n",output);
     exit(20);
   }
 } /* end open_files */
@@ -86,17 +86,17 @@ void convert_string(char *str, CHAR *converted_string)
 	outp = output;
 
 	if ((conv = iconv_open("utf-8", "char"))==(iconv_t)(-1))
-		{	printf("iconv_open failed in convert_string: Can't convert from %s to UTF-8?\n", getenv("LC_CTYPE")); exit(1); }
+		{	fprintf(stderr, "convert_string: iconv_open failed. Can't convert from %s to UTF-8.\n", getenv("LC_CTYPE")); exit(1); }
 
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	fehlernr = errno;
 
 	if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
 	else if (fehlernr==EILSEQ) { 
-		fprintf(stderr, "Can't interpret '%s' as character from charset %s\n", str, getenv("LC_CTYPE"));
-		fprintf(stderr, "Check your language settings with locale(1)\n");
+		fprintf(stderr, "convert_string: Can't interpret '%s' as character from charset %s\n", str, getenv("LC_CTYPE"));
+		fprintf(stderr, "convert_string: Check your language settings with locale(1)\n");
 	}
-	else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
+	else if (fehlernr==EINVAL) { fprintf(stderr, "convert_string: errno==EINVAL\n"); }
 		
 	output[strlen(output)] = '\0';
 
@@ -131,7 +131,10 @@ void output_string(CHAR *str)
 
 		result = wcstombs(input, str, DEF_STR_LEN);
 
-		if (result==-1) { printf("Couldn't convert string\n"); } /* this should not happen */
+		if (result==-1) {
+			/* this should not happen */
+			fprintf(stderr, "output_string: Couldn't convert string: %ls\n", str);
+		}
 		insize = strlen(input);
 		outsize = DEF_STR_LEN;
 
@@ -139,15 +142,15 @@ void output_string(CHAR *str)
 		outp = output;
 
 		if ((conv = iconv_open(get_iconv_charset(), "utf-8"))==(iconv_t)(-1))
-			{	printf("iconv_open failed in read_char: wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
+			{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
 
 		/* printf("%s %s\n", get_iconv_charset(), inp); */
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 
-		if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
-		else if (fehlernr==EILSEQ) { fprintf(stderr, "errno==EILSEQ in output_string\n"); fprintf(stderr, "input: %s\n", inp); }
-		else if (fehlernr==EINVAL) { fprintf(stderr, "errno==EINVAL\n"); }
+		if (fehlernr==E2BIG) { fprintf(stderr, "output_string: errno==E2BIG\n"); }
+		else if (fehlernr==EILSEQ) { fprintf(stderr, "output_string: errno==EILSEQ in output_string\n"); fprintf(stderr, "input: %s\n", inp); }
+		else if (fehlernr==EINVAL) { fprintf(stderr, "output_string: errno==EINVAL\n"); }
 		
 		output[DEF_STR_LEN-outsize] = '\0';
 		fwrite(output, sizeof(output[0]), strlen(output), out); fputc('\n', out);
@@ -202,7 +205,7 @@ int read_char()
 	/* check if the conversion from the character set from the HTML document
 	   to utf-8 is possible */
 	if ((conv = iconv_open("utf-8", get_iconv_charset()))==(iconv_t)(-1)) {
-		printf("iconv_open failed in read_char: wrong character set?\n");
+		fprintf(stderr, "read_char: iconv_open failed, wrong character set?\n");
 		perror(get_iconv_charset());
 		exit(1);
 	}
@@ -218,10 +221,10 @@ int read_char()
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 
-		if (fehlernr==E2BIG) { printf("errno==E2BIG\n"); }
+		if (fehlernr==E2BIG) { fprintf(stderr, "read_char: errno==E2BIG\n"); }
 		/* character is invalid  */
 		else if (fehlernr==EILSEQ) { 
-			fprintf(stderr, "errno==EILSEQ; invalid byte sequence in read_char for %s: ", get_iconv_charset()); 
+			fprintf(stderr, "read_char: errno==EILSEQ; invalid byte sequence for %s: ", get_iconv_charset()); 
 			for (k=0; k<j;k++) {
 				fprintf(stderr, "%d ",(unsigned char)input[k]);
 			}
