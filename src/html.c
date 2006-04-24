@@ -509,15 +509,14 @@ void find_encoding()
 			/* search and set character set */
 			/* printf("locale %ls\n", locale); DEBUG */
 			if (locale!=NULL) {
-				processed_meta=1;
 				/* printf("locale found -%ls-  \n", locale); DEBUG */
 				strip_wchar(locale, stripped_locale);
 				/* printf("strip_wchar -%s-\n", stripped_locale); DEBUG */
 				/* Yahoo Search does strange things to cached pages */
-				/*if (strcmp(stripped_locale, "Array")!=0) {
-					set_iconv_charset(stripped_locale);
-					}*/
-				set_iconv_charset(stripped_locale);
+				if (strcmp(stripped_locale, "Array")!=0) {
+				  processed_meta=1;
+				  set_iconv_charset(stripped_locale);
+				}
 			}
 		}
 #endif
