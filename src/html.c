@@ -514,8 +514,12 @@ void find_encoding()
 				/* printf("strip_wchar -%s-\n", stripped_locale); DEBUG */
 				/* Yahoo Search does strange things to cached pages */
 				if (strcmp(stripped_locale, "Array")!=0) {
+					if (strcmp(stripped_locale, "x-user-defined")==0) {
+						use_default_charset();
+					} else {
+						set_iconv_charset(stripped_locale);
+					}
 				  processed_meta=1;
-				  set_iconv_charset(stripped_locale);
 				}
 			}
 		}
