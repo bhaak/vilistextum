@@ -6,5 +6,5 @@ echo "TEST: $0"
 rm -f tags.output.test
 ../src/vilistextum 2>/dev/null -l -m -c -r tags.html tags.output.test
 
-diff -q tags.output tags.output.test
+diff >/dev/null tags.output tags.output.test
 
