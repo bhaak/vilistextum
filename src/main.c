@@ -86,6 +86,12 @@
  *
  */
 
+/* Solaris needs this to activate getopt */
+#if defined (__SVR4) && defined (__sun)
+ #define _XOPEN_SOURCE
+ #define _XOPEN_VERSION 4
+#endif
+
 #include <../config.h>
 
 #include <unistd.h>
