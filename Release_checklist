@@ -1,0 +1,27 @@
+- testsuite ausführen:
+1. normal
+2. src/Mafile.am: AM_CFLAGS = -Wall -g -fbounds-checking -ansi 
+3. valgrind --show-reachable=yes --db-attach=yes --leak-check=full src/vilistextum input.html output
+
+- Version ändern:
+configure.in
+doc/README.xhtml
+doc/download.xml
+website.xweb
+
+- Datei freshmeat mit neuesten Zahlen updaten
+
+- Datum anpassen:
+configure.in
+doc/vilistextum-manual.xml
+doc/README.xhtml
+doc/changes.xhtml
+Homepage: history.xml
+
+- Upload
+Hochladen nach Sourceforge (Details fehlen)
+
+- Ankündigungen
+Newsgroup comp.os.linux.announce
+News in Sourceforge
+Freshmeat
