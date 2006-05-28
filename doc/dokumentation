@@ -1,0 +1,15 @@
+*** Ligaturen
+
+Die folgenden Ligaturen werden in ihre Einzelbuchstaben getrennt,
+sollte der Ausgabezeichensatz diese Ligaturen nicht darstellen können:
+
+U+0132 | IJ
+U+0133 | ij
+U+FB00 | ff
+U+FB01 | fi
+U+FB02 | fl
+U+FB03 | ffi
+U+FB04 | ffl
+U+FB05 | ft
+U+FB06 | st
+
