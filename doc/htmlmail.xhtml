@@ -40,7 +40,7 @@ Put this in your .mailcap:<br />
 
 <h3><a name="gnusoort">Gnus Oort and newer (5.10, No Gnus)</a></h3>
 Put the following lines into your .gnus:
-<pre>;; prefer to show plain text over markup for multipart/alternative
+<pre><code>;; prefer to show plain text over markup for multipart/alternative
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
                                     '("text/html" "text/richtext")))
 
@@ -55,14 +55,14 @@ Put the following lines into your .gnus:
              '(vilistextum mm-inline-wash-with-file nil
                "vilistextum" "-l" "-r" "-c" "-s" file "-"))
 (setq mm-text-html-renderer 'vilistextum)
-</pre>
+</code></pre>
 
 <h3><a name="gnus588">Gnus 5.8.8 resp. 5.9.0</a></h3>
 
 Put this in your .emacs, or .gnus or somewhere else where it might
 be appropriate: 
 
-<pre>;; ---------------------------------------------------------------------
+<pre><code>;; ---------------------------------------------------------------------
 ;; prefer to show plain text over markup for multipart/alternative
 (setq  mm-discouraged-alternatives (append mm-discouraged-alternatives 
     '("text/html" "text/richtext")))
@@ -98,7 +98,7 @@ be appropriate:
 
 (defalias 'my:html2text-region 'my:html2text-region-vilistextum)
 ;; ---------------------------------------------------------------------
-</pre>
+</code></pre>
 
 <hr />
 <address><a href="mailto:bhaak@gmx.net">Patric Mueller</a></address>
