@@ -87,7 +87,12 @@ void parse_entity(CHAR *str)
 	}
 	/* printf("tmpstr: -%ls-\n", tmpstr); */
 
-	if ((entity_number(tmpstr))||(html_entity(tmpstr))||(latin1(tmpstr))||(microsoft_entities(tmpstr))||unicode_entity(tmpstr)) {
+	if (entity_number(tmpstr) ||
+			html_entity(tmpstr) ||
+			latin1(tmpstr) ||
+			microsoft_entities(tmpstr) ||
+			unicode_entity(tmpstr) ||
+			ligature_entity(tmpstr)) {
 		/* if true entity was known */
 		CPYSS(str, tmpstr);
 		/*fprintf(stdout, "Entity String found %ls\n", str); */

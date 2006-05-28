@@ -4,5 +4,6 @@
 #include "multibyte.h"
 
 int unicode_entity(CHAR *s);
+int ligature_entity(CHAR *s);
 
 #endif 
