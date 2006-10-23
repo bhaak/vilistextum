@@ -6,10 +6,7 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 											main.c main.h util.c util.h \
 											multibyte.h unicode_entities.c unicode_entities.h
 
-# profiling
-#AM_CFLAGS = -Wall -pg
-AM_CFLAGS = -Wall #-O2 -ansi # -pedantic-error -funsigned-char
-AM_CFLAGS = -Wall -g -fbounds-checking -ansi #-pedantic-errors
+AM_CFLAGS = -Wall -O2 -ansi
 AM_LDFLAGS = $(STATIC)
 
 EXTRA_DIST = kilistextum.kaptn

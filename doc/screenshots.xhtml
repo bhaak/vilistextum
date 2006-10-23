@@ -41,14 +41,14 @@ While processing the html document, vilistextum can collect all external links a
 list them at the end or output them immediately after the closing tag.
 <pre>Hypertext links:&lt;br&gt;
 &lt;a href="http://www.w3.org/"&gt;W3C Web site&lt;/a&gt;&lt;br&gt;
-&lt;a href="http://www.cnn.com/"&gt;CNN&lt;/a&gt;&lt;br&gt;
-&lt;a href="other_localdocument.html"&gt;A local document&lt;/a&gt;
+&lt;a href="localdocument.html"&gt;A local document&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://www.cnn.com/"&gt;CNN&lt;/a&gt;
 </pre>
 Output of "vilistextum --links"
 <pre>Hypertext links:
 [1]W3C Web site
-[2]CNN
 A local document
+[2]CNN
 
  References:
    1. http://www.w3.org/
@@ -59,28 +59,35 @@ Output of "vilistextum --links-inline"
 <pre>
 Hypertext links:
 W3C Web site &lt;http://www.w3.org/&gt;
-CNN &lt;http://www.cnn.com/&gt;
 A local document
+CNN &lt;http://www.cnn.com/&gt;
 </pre>
 
 <h3>Transliteration</h3>
-When not using the multibyte version, vilistextum transliterates some entities that don't are
-in ISO-8859-1 (mainly entities and characters from windows1252). The multibyte version only transliterates when the entities don't fit into the used
-character set. This behavior can be switched off with "--dont-convert-characters".
+Vilistextum transliterates some entities that are not included in ISO-8859-1 (mainly
+entities and characters from windows1252). The multibyte version of vilistextum only
+transliterates when the entities don't fit into the target character set. This
+behavior can be switched off with "--dont-convert-characters".
 <pre>&amp;euro;   &amp;#8364; &amp;#128;&lt;br&gt;
 &amp;hellip; &amp;#8230; &amp;#133;&lt;br&gt;
 &amp;trade;  &amp;#8482; &amp;#153;
 </pre>
-Output
+Output of standard vilistextum
 <pre>EUR EUR EUR
 ...  ...  ... 
 [tm] [tm] [tm]
 </pre>
 
+Output of multibyte-enabled vilistextum
+<pre>&#8364; &#8364; &#8364;
+&#8230; &#8230; &#8230;
+&#8482; &#8482; &#8482;
+</pre>
+
 <h3>Image options</h3>
-<pre>&lt;IMG href="..."&gt;&lt;BR&gt;
-&lt;IMG href="..." alt=""&gt;&lt;BR&gt;
-&lt;IMG href="..." alt="picture"&gt;&lt;BR&gt;
+<pre>&lt;img href="..."&gt;&lt;br&gt;
+&lt;img href="..." alt=""&gt;&lt;br&gt;
+&lt;img href="..." alt="picture"&gt;&lt;br&gt;
 </pre>
 Output with default options<br />
 <pre>[Image]
