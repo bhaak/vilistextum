@@ -21,6 +21,9 @@ doc/changes.xhtml
 Homepage: history.xml
 
 - Upload
+http://owen.sj.ca.us/~rk/howto/cvs.html#tag
+cvs tag -r vilistextum_2_6_9
+make dist
 Hochladen nach Sourceforge (Details fehlen)
 
 - Ankündigungen
