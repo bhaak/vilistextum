@@ -330,6 +330,30 @@ void html_tag()
 		else if CMP("/STYLE", str)    {}
 		else if CMP("TITLE", str)     {}
 		else if CMP("/TITLE", str)    {}
+
+		/* Tags used by heise.de */
+		else if CMP("HEISETEXT", str)    {}
+		else if CMP("/HEISETEXT", str)    {}
+		else if CMP("TPXAZ", str)    {}
+		else if CMP("/TPXAZ", str)    {}
+		else if CMP("TPXAZXTEXT", str)    {}
+		else if CMP("/TPXAZXTEXT", str)    {}
+		else if CMP("TPXB", str)    {}
+		else if CMP("/TPXB", str)    {}
+		else if CMP("TPXBUT", str)    {}
+		else if CMP("/TPXBUT", str)    {}
+		else if CMP("TPXBXIMG", str)    {}
+		else if CMP("/TPXBXIMG", str)    {}
+		else if CMP("TPXBXTEXT", str)    {}
+		else if CMP("/TPXBXTEXT", str)    {}
+		else if CMP("TPXLINK", str)    {}
+		else if CMP("/TPXLINK", str)    {}
+		else if CMP("TPXLINKXICON", str)    {}
+		else if CMP("/TPXLINKXICON", str)    {}
+		else if CMP("TPXLINKXTEXT", str)    {}
+		else if CMP("/TPXLINKXTEXT", str)    {}
+
+		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
 	}
 
