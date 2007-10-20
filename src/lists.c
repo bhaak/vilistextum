@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include "html.h"
+#include "main.h"
 #include "text.h"
 
 #include "debug.h"
@@ -63,6 +64,12 @@ void start_uls()
 	else if (bullet_style=='=') { bullet_style='~'; }
 	else if (bullet_style=='~') { bullet_style='$'; }
 	else if (bullet_style=='$') { bullet_style='%'; }
+
+	if (option_latex) {
+		line_break();
+		wort_plus_string_escape("\\begin{itemize}", FALSE);
+		line_break();
+	}
 	
   spaces += tab;
 #ifdef proc_debug
@@ -87,6 +94,11 @@ void end_uls()
   else if (bullet_style=='o') { bullet_style='*'; }
   else if (bullet_style=='*') { bullet_style=' '; }
 
+	if (option_latex) {
+		wort_plus_string_escape("\\end{itemize}", FALSE);
+		line_break();
+	}
+
   pop_align();
 } /* end end_uls */
 
@@ -94,20 +106,38 @@ void end_uls()
 
 void start_ols()
 {
-	start_uls();
+	if (option_latex) {
+		line_break();
+		wort_plus_string_escape("\\begin{enumerate}", FALSE);
+		line_break();
+    spaces += tab;
+	} else {
+		start_uls();
+	}
 } /* end start_ols */
 
 /* ------------------------------------------------ */
 
 void end_ols()
 {
-	end_uls();
+	if (option_latex) {
+		line_break();
+    spaces -= tab;
+		wort_plus_string_escape("\\end{enumerate}", FALSE);
+		line_break();
+	} else {
+	  end_uls();
+	}
 } /* end end_ols */
 
 /* ------------------------------------------------ */
 
 void start_lis()
 {
+	if (option_latex) {
+		if (!is_zeile_empty()) { line_break(); }
+		wort_plus_string_escape("\\item ", FALSE);
+	} else {
   spaces-=2;
 
 	/* don't output line break, if this list item is immediately
@@ -116,15 +146,16 @@ void start_lis()
 	if (!is_zeile_empty()) { line_break(); }
 
 	wort_plus_ch(bullet_style);
-	/* } */
 
   wort_ende();
   spaces+=2;
+	}
 } /* end start_lis */
 
 /* ------------------------------------------------ */
 
-void end_lis() { }
+void end_lis() {
+}
 
 /* ------------------------------------------------ */
 
@@ -136,6 +167,10 @@ void start_dl()
 {
 	end_dd();
 	start_p();
+  if (option_latex) {
+		line_break();
+	  wort_plus_string_escape("\\begin{description}", FALSE);
+	}
 } /* end start_dl */
 
 void end_dl()
@@ -143,6 +178,10 @@ void end_dl()
 	paragraphen_ende();
 
 	end_dd();
+
+  if (option_latex) {
+	  wort_plus_string_escape("\\end{description}", FALSE);
+	}
 } /* end_dl */
 
 /* Definition Title */
@@ -151,10 +190,16 @@ void start_dt()
 	end_dd();
 	
 	line_break();
+  if (option_latex) {
+	  wort_plus_string_escape("\\item[", FALSE);
+	}
 } /* end start_dt */
 
 void end_dt()
 {
+  if (option_latex) {
+	  wort_plus_string_escape("]", FALSE);
+	}
 } /* end_dt */
 
 /* Definition Description */

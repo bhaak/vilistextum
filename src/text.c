@@ -244,6 +244,31 @@ void zeile_plus_wort(CHAR *s, int wl, int wp)
 
 /* ------------------------------------------------ */
 
+void wort_plus_ch(int c)
+{
+
+#ifdef default_debug
+  printf("==wort_plus_ch(%d)\n", c);
+#endif
+	if (wort_pos<DEF_STR_LEN-1) {
+		wort[wort_pos++] = c;
+		wort_len++;
+	}
+} /* end wort_plus_ch_nocount */
+
+void wort_plus_ch_nocount(int c)
+{
+
+#ifdef default_debug
+  printf("==wort_plus_ch_nocount(%d)\n", c);
+#endif
+	if (wort_pos<DEF_STR_LEN-1) {
+		wort[wort_pos++] = c;
+	}
+} /* end wort_plus_ch_nocount */
+
+/* ------------------------------------------------ */
+
 void wort_plus_string_nocount(CHAR *s)
 {
   int len=STRLEN(s),
@@ -269,19 +294,41 @@ void wort_plus_string_nocount(CHAR *s)
 
 /* ------------------------------------------------ */
 
-void wort_plus_string(CHAR *s)
+char latex_special_characters[] = {'$', '%', '_', '}', '{', '#', '&'};
+/* returns true, if c has to be escaped */
+int latex_must_escapable(char c) {
+	int i;
+	for (i=0; i<sizeof(latex_special_characters); i++) {
+	  if (latex_special_characters[i] == c) {
+		  return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+
+void wort_plus_string_escape(CHAR *s, int do_escape)
 {
   int len=STRLEN(s),
 		  i=wort_pos,
 		  j=0;
 #ifdef wort_ende_debug
-  printf("\nwort_plus_string()\n");
+  printf("\nwort_plus_string_escape()\n");
 #endif
 #ifdef wort_ende_debug
   printf("s: %ls len: %d\n", s,len);
 #endif
 
 	if (wort_pos+len<DEF_STR_LEN-1) {
+		/*while (j<len) {
+			if ((do_escape) && (option_latex)) {
+				if (latex_must_escapable(s[j])) {
+				  wort_plus_ch_nocount('\\');
+				}
+			}
+			wort_plus_ch(s[j]);
+			j++;
+		}*/
 		while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
 		wort[i] = '\0';
 		wort_pos += len; wort_len += len;
@@ -292,19 +339,10 @@ void wort_plus_string(CHAR *s)
 #endif
 } /* end wort_plus_string */
 
-/* ------------------------------------------------ */
-
-void wort_plus_ch(int c)
+void wort_plus_string(CHAR *s)
 {
-
-#ifdef default_debug
-  printf("==wort_plus_ch(%d)\n", c);
-#endif
-	if (wort_pos<DEF_STR_LEN-1) {
-		wort[wort_pos++] = c;
-		wort_len++;
-	}
-} /* end wort_plus */
+  wort_plus_string_escape(s, TRUE);
+}
 
 /* ------------------------------------------------ */
 
@@ -413,23 +451,26 @@ void hr()
 #ifdef proc_debug
   printf("hr()\n");
 #endif
-  while (ch!='>')
-  {
+  if (option_latex) {
+    neuer_paragraph();
+		wort_plus_string("\\htmlHr");
+    paragraphen_ende();
+	} else {
+  while (ch!='>') {
     ch=get_attr();
 #ifdef attr_debug
     printf(" HR-attribute: %s; content: %s#\n",attr_name,attr_ctnt);
 #endif
-    if CMP("ALIGN", attr_name)
-    {
+    if CMP("ALIGN", attr_name) {
       uppercase_str(attr_ctnt);
       if CMP("LEFT", attr_ctnt) { hr_align=LEFT;   }
       else if CMP("CENTER",  attr_ctnt) { hr_align=CENTER; }
       else if CMP("RIGHT",   attr_ctnt) { hr_align=RIGHT;  }
       else if CMP("JUSTIFY", attr_ctnt) { hr_align=LEFT;  }			
-      else { if (errorlevel>=2) { fprintf(stderr, "No LEFT|CENTER|RIGHT found!\n");} }
-    }
-    else if CMP("WIDTH", attr_name)
-    {
+      else { if (errorlevel>=2) {
+			  fprintf(stderr, "No LEFT|CENTER|RIGHT found!\n");}
+			}
+    } else if CMP("WIDTH", attr_name) {
       i=STRLEN(attr_ctnt);
       if (attr_ctnt[i-1]=='%') {
         attr_ctnt[i-1] = '\0';
@@ -447,6 +488,7 @@ void hr()
   push_align(hr_align);
   for (i=0; i<hr_width; i++) { wort_plus_ch('-'); }
   paragraphen_ende();
+	}
 #ifdef proc_debug
   printf("hr() ende\n");
 #endif

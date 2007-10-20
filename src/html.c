@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2006 Patric Müller
+ * Copyright (c) 1998-2007 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
  *
@@ -47,8 +47,7 @@ static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 	size_t i;
 	wint_t c1, c2;
 
-	for (i = 0; s1[i] != L'\0' && s2[i] != L'\0'; i ++)
-	{
+	for (i = 0; s1[i] != L'\0' && s2[i] != L'\0'; i ++) {
 		c1 = towlower(s1[i]);
 		c2 = towlower(s2[i]);
 
@@ -108,8 +107,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 	temp[0] = '\0';
 
 	/* if quoted */
-  if ((ch=='"') || (ch=='\''))
-  {
+  if ((ch=='"') || (ch=='\'')) {
 		/* attribute looks like alt="bla" or alt='bla'. */
 		/* we'll have to remember what the quote was. */
 		int quote=ch;
@@ -247,11 +245,18 @@ void html()
 #ifdef default_debug
         printf("default: ch=%c ; %d\n",ch,ch);
 #endif
+        {
+				CHAR str[] = {ch, '\0'};
         if (pre==0) {
-          if (ch==' ') { wort_ende(); }
-          else { wort_plus_ch(ch); }
-        }
-        else { wort_plus_ch(ch); }
+          if (ch==' ') {
+					  wort_ende();
+					} else {
+				    wort_plus_string(str);
+					}
+        } else {
+				  wort_plus_string(str);
+				}
+				}
         break;
     }
   } /* next */
@@ -266,14 +271,12 @@ void check_for_center()
 #ifdef proc_debug
   printf("check_for_center()\n");
 #endif
-  while (ch!='>')
-  {
+  while (ch!='>') {
     ch=get_attr();
 #ifdef debug
     printf(" Attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
 #endif
-    if CMP("ALIGN", attr_name)
-    {
+    if CMP("ALIGN", attr_name) {
 			found=1;
       uppercase_str(attr_ctnt);
       if CMP("LEFT",   attr_ctnt) { push_align(LEFT);  }
@@ -367,29 +370,32 @@ int references_count=0;
 CHAR references[DEF_STR_LEN];
 char *schemes[] = {"ftp://","file://" ,"http://" ,"gopher://" ,"mailto:" ,"news:" ,"nntp://" ,"telnet://" ,"wais://" ,"prospero://" };
 
-/* handles <A href"..."></A> */
+/* handles <a href="..."></a> */
 void href()
 {  
 	CHAR tmp[DEF_STR_LEN];
 
-	while (ch!='>')
-  {
+	while (ch!='>') {
     ch=get_attr();
 
     if CMP("HREF", attr_name) {
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
-				if (option_links) {
-					references_count++;
-					
-					/* I think, this is completely unnecessary.
-						 There can't be any entities in URLs.
-					*/
-					/* parse_entities(attr_ctnt); */
-					print_footnote_number(tmp, references_count);
-					wort_plus_string(tmp);
+				if (option_latex) {
+					wort_plus_string_escape("\\htmlLink{", FALSE);
+					wort_plus_string(attr_ctnt);
+					wort_plus_string_escape("}{", FALSE);
+				} else if (option_links) {
+				  references_count++;
+				
+				  /* I think, this is completely unnecessary.
+					   There can't be any entities in URLs.
+				  */
+				  /* parse_entities(attr_ctnt); */
+				  print_footnote_number(tmp, references_count);
+				  wort_plus_string(tmp);
 
-					construct_footnote(tmp, references_count, attr_ctnt);
-					STRCAT(references, tmp);
+				  construct_footnote(tmp, references_count, attr_ctnt);
+				  STRCAT(references, tmp);
 				} else if (option_links_inline) {
 					CPYSS(link_inline, attr_ctnt);
 				}
@@ -414,7 +420,9 @@ void href_output()
 
 void href_link_inline_output() 
 {
-	if (option_links_inline) {
+	if (option_latex) {
+    wort_plus_string_escape("}", FALSE);
+	} else if (option_links_inline) {
 		if (STRLEN(link_inline)>0) {
 			wort_ende();
 			wort_plus_string(STRING("<"));
@@ -431,29 +439,34 @@ void href_link_inline_output()
 void image(CHAR *alt_text, int show_alt)
 {
   int found_alt=0;
+	if (option_latex) {
+	  found_alt=1; /* WORKAROUND */
+	}
 #ifdef proc_debug
   printf("image()\n");
 #endif
 #ifdef DEBUG
 	printf("alt_text %ls alt %d, image %d, remove_empty_alt %d\n", alt_text, option_no_alt, option_no_image, remove_empty_alt);
 #endif
-  while (ch!='>')
-  {
+  while (ch!='>') {
     ch=get_attr();
-    if CMP("ALT", attr_name)
-    {
+    if CMP("ALT", attr_name) {
 			/*printf("+1+\n"); */
 			if (!(remove_empty_alt && CMP("", attr_ctnt))) { 
 				/*printf("+2+\n"); */
-				if (!option_no_alt)
-				{ wort_plus_ch('['); wort_plus_string(attr_ctnt); wort_plus_ch(']');}
+				if (!option_no_alt) {
+				  wort_plus_ch('['); wort_plus_string(attr_ctnt); wort_plus_ch(']');
+				}
 			}
       found_alt=1;
-    }
+    } else if CMP("SRC", attr_name) {
+			html_img(attr_ctnt);
+		}
   }
   if ((found_alt==0) && (show_alt)) {
-		if (!option_no_image)
-		{	wort_plus_ch('['); wort_plus_string(alt_text); wort_plus_ch(']'); }
+		if (!option_no_image) {
+		 	wort_plus_ch('['); wort_plus_string(alt_text); wort_plus_ch(']');
+		}
 	}
 #ifdef proc_debug
   printf("image() ende\n");
@@ -560,20 +573,17 @@ CHAR friss_kommentar()
 #ifdef proc_debug
 	printf("Frisskommentar start\n");
 #endif
-	while (dontquit) 
-	{
+	while (dontquit) {
 		c=read_char();
 		/*#ifdef debug */
 		/*printf("%c", c); */
 		/*#endif */
-		if (c=='-')
-		{
+		if (c=='-') {
 		  c=read_char();
 		  /*#ifdef debug */
 			/*printf("%c", c); */
 			/*#endif */
-			while (c=='-') 
-		  {
+			while (c=='-') {
 			  c=read_char();
 			  /*#ifdef debug */
 				/*printf("%c", c); */
@@ -600,12 +610,10 @@ void start_nooutput()
 	print_zeile();
 	nooutput = 1;
 	 
-	while (ch!='>')
-	{
+	while (ch!='>') {
     ch=get_attr();
 		/* printf("attr_name: %ls\nattr_ctnt: %ls\n", attr_name, attr_ctnt); */
-		if CMP("/", attr_name) 
-		{
+		if CMP("/", attr_name) {
 			printf("Empty tag\n");
 			nooutput = 0;
 		}

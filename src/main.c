@@ -123,6 +123,8 @@ int palm = 0,              /* if true, enable pda specific restrictions    */
   remove_empty_alt = 0,   /* dont show [] for <IMG ALT="">  */
 	option_no_image = 0,    /* don't show [Image] */
 	option_no_alt   = 0,    /* don't show [alt text] for <IMG ALT="alt text" */
+
+	option_latex = 0,    /* LaTeX output, experimental */
 #ifdef MULTIBYTE
 	option_output_utf8 = 0, /* true -> output everything in utf8 */
   sevenbit = 1,           /* true -> don't touch any character >127  */
@@ -204,6 +206,8 @@ void parse_args(int argc, char *argv[])
 			{"translit", 0, 0, 'x'},
 			{"output-utf-8", 0, 0, 'u'},
 
+			{"latex", 0, 0, 'L'},
+
 			{0, 0, 0, 0}
 		};
 #endif
@@ -218,9 +222,9 @@ void parse_args(int argc, char *argv[])
 #endif
 		
 #ifdef  HAVE_GETOPT_H
-		c = getopt_long (argc, argv, "pmsi:ce:hkltrnavy:xuw:", long_options, &option_index);
+		c = getopt_long (argc, argv, "pmsi:ce:hklLtrnavy:xuw:", long_options, &option_index);
 #else
-		c = getopt(argc, argv,       "pmsi:ce:hkltrnavy:xuw:");
+		c = getopt(argc, argv,       "pmsi:ce:hklLtrnavy:xuw:");
 #endif
  #ifdef DEBUG
 		fprintf(stderr, "c: %d c: %c \n\n", c,c); 
@@ -279,6 +283,8 @@ void parse_args(int argc, char *argv[])
 		case 'l': option_links = 1; option_links_inline = 0; break;
 		case 'k': option_links_inline = 1; option_links = 0; break;
 		case 't': option_title = 0; break;
+
+		case 'L': option_latex = 1; break;
 
 		case '?': /* unknown option */
 		  help();

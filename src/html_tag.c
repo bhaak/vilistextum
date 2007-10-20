@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2006 Patric Müller
+ * Copyright (c) 1998-2007 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
  *
@@ -29,6 +29,7 @@
 #include "debug.h"
 #include "charset.h"
 #include "util.h"
+#include "html_tags.h"
 
 void html_tag()
 {
@@ -68,10 +69,12 @@ void html_tag()
   else if CMP("STYLE", str)   { start_nooutput(); }
   else if CMP("/STYLE", str)  { end_nooutput(); }
   else if CMP("TITLE", str) { 
-		if (option_title) { push_align(LEFT); neuer_paragraph(); } 
+		if (option_latex) { neuer_paragraph(); wort_plus_string_escape("\\title{", FALSE); } 
+		else if (option_title) { push_align(LEFT); neuer_paragraph(); } 
 		else { wort_ende(); print_zeile(); nooutput = 1; }
 	} else if CMP("/TITLE", str) {
-		if (option_title) { paragraphen_ende(); print_zeile(); } 
+		if (option_latex) { wort_plus_string_escape("}", FALSE); paragraphen_ende(); print_zeile(); } 
+		else if (option_title) { paragraphen_ende(); print_zeile(); } 
 		else { wort_ende(); clear_line(); print_zeile(); nooutput = 0; }
 	}
 
@@ -82,8 +85,8 @@ void html_tag()
 		else if CMP("?XML", str)      { find_xml_encoding(); }
 
 		/* Linebreak */
-		else if CMP("BR", str)  { line_break(); }
-		else if CMP("BR/", str) { line_break(); } /* xhtml */
+		else if CMP("BR", str)  { html_br(); }
+		else if CMP("BR/", str) { html_br(); } /* xhtml */
 
 		else if CMP("P", str)  { start_p(); }
 		else if CMP("/P", str) { paragraphen_ende(); }
@@ -105,34 +108,34 @@ void html_tag()
 		else if CMP("EM", str)      { wort_plus_string_nocount("\033[3m");  }
 		else if CMP("/EM", str)     { wort_plus_string_nocount("\033[23m"); }
 #else
-		else if CMP("B", str)       { if (convert_tags) { wort_plus_ch('*'); } }
-		else if CMP("/B", str)      { if (convert_tags) { wort_plus_ch('*'); } }
-		else if CMP("I", str)       { if (convert_tags) { wort_plus_ch('/'); } }
-		else if CMP("/I", str)      { if (convert_tags) { wort_plus_ch('/'); } }
-		else if CMP("U", str)       { if (convert_tags) { wort_plus_ch('_'); } } /* deprecated */
-		else if CMP("/U", str)      { if (convert_tags) { wort_plus_ch('_'); } } /* deprecated */
-		else if CMP("STRONG", str)  { if (convert_tags) { wort_plus_ch('*'); } }
-		else if CMP("/STRONG", str) { if (convert_tags) { wort_plus_ch('*'); } }
-		else if CMP("EM", str)      { if (convert_tags) { wort_plus_ch('/'); } }
-		else if CMP("/EM", str)     { if (convert_tags) { wort_plus_ch('/'); } }
-		else if CMP("EMPH", str)    { if (convert_tags) { wort_plus_ch('/'); } } /* sometimes used, but doesn't really exist */
-		else if CMP("/EMPH", str)   { if (convert_tags) { wort_plus_ch('/'); } } /* sometimes used, but doesn't really exist */
+		else if CMP("B", str)       { if (convert_tags) { html_b(); } }
+		else if CMP("/B", str)      { if (convert_tags) { html_b_end(); } }
+		else if CMP("I", str)       { if (convert_tags) { html_i(); } }
+		else if CMP("/I", str)      { if (convert_tags) { html_i_end(); } }
+		else if CMP("U", str)       { if (convert_tags) { html_u(); } } /* deprecated */
+		else if CMP("/U", str)      { if (convert_tags) { html_u_end(); } } /* deprecated */
+		else if CMP("STRONG", str)  { if (convert_tags) { html_strong(); } }
+		else if CMP("/STRONG", str) { if (convert_tags) { html_strong_end(); } }
+		else if CMP("EM", str)      { if (convert_tags) { html_em(); } }
+		else if CMP("/EM", str)     { if (convert_tags) { html_em_end(); } }
+		else if CMP("EMPH", str)    { if (convert_tags) { html_em(); } } /* sometimes used, but doesn't really exist */
+		else if CMP("/EMPH", str)   { if (convert_tags) { html_em_end(); } } /* sometimes used, but doesn't really exist */
 #endif
 
 
 		/* headings */
-		else if CMP("H1", str)  { start_p();          }
-		else if CMP("/H1", str) { paragraphen_ende(); }
-		else if CMP("H2", str)  { start_p();          }
-		else if CMP("/H2", str) { paragraphen_ende(); }
-		else if CMP("H3", str)  { start_p();          }
-		else if CMP("/H3", str) { paragraphen_ende(); }
-		else if CMP("H4", str)  { start_p();          }
-		else if CMP("/H4", str) { paragraphen_ende(); }
-		else if CMP("H5", str)  { start_p();          }
-		else if CMP("/H5", str) { paragraphen_ende(); }
-		else if CMP("H6", str)  { start_p();          }
-		else if CMP("/H6", str) { paragraphen_ende(); }
+		else if CMP("H1", str)  { html_hn(1);     }
+		else if CMP("/H1", str) { html_hn_end(1); }
+		else if CMP("H2", str)  { html_hn(2);     }
+		else if CMP("/H2", str) { html_hn_end(2); }
+		else if CMP("H3", str)  { html_hn(3);     }
+		else if CMP("/H3", str) { html_hn_end(3); }
+		else if CMP("H4", str)  { html_hn(4);     }
+		else if CMP("/H4", str) { html_hn_end(4); }
+		else if CMP("H5", str)  { html_hn(5);     }
+		else if CMP("/H5", str) { html_hn_end(5); }
+		else if CMP("H6", str)  { html_hn(6);     }
+		else if CMP("/H6", str) { html_hn_end(6); }
 
 		else if CMP("HR", str)  { hr(); }
 		else if CMP("HR/", str) { hr(); } /* xhtml */
@@ -228,6 +231,11 @@ void html_tag()
 		else if CMP("STRIKE", str)    {} /* deprecated */
 		else if CMP("/STRIKE", str)   {} /* deprecated */
 
+		else if CMP("FONT", str)      { html_font(); } /* deprecated */
+		else if CMP("/FONT", str)     { html_font_end();} /* deprecated */
+		else if CMP("BODY", str)      { html_body(); }
+		else if CMP("/BODY", str)     {}
+
 		/* those tags are ignored */
 		else if CMP("HTML", str)      {}
 		else if CMP("BASE", str)      {}
@@ -236,10 +244,6 @@ void html_tag()
 
 		else if CMP("HEAD", str)      {}
 		else if CMP("/HEAD", str)     {}
-		else if CMP("BODY", str)      {}
-		else if CMP("/BODY", str)     {}
-		else if CMP("FONT", str)      {} /* deprecated */
-		else if CMP("/FONT", str)     {} /* deprecated */
 		else if CMP("MAP", str)       {}
 		else if CMP("/MAP", str)      {}
 		else if CMP("SUP", str)       {}
