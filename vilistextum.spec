@@ -1,8 +1,8 @@
 Summary: a HTML to text converter
 Name: vilistextum
-Version: 2.6.7
+Version: 2.6.9
 Release: 1
-Source: vilistextum-2.6.7.tar.gz
+Source: vilistextum-2.6.9.tar.gz
 Copyright: GPL version 2
 Group: System/Utilities
 Packager:  Patric Mueller <bhaak@gmx.net>

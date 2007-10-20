@@ -22,8 +22,9 @@ Homepage: history.xml
 
 - Upload
 http://owen.sj.ca.us/~rk/howto/cvs.html#tag
-cvs tag -r vilistextum_2_6_9
-make dist
+cvs tag -r vilistextum_2_6_10
+./create-dist
+change date and version in configure.in
 Hochladen nach Sourceforge (Details fehlen)
 
 - Ankündigungen
@@ -31,3 +32,4 @@ Newsgroup comp.os.linux.announce
 News in Sourceforge
 Freshmeat
 Gentoo
+Gnu-Seite 

@@ -4,9 +4,9 @@
 
 make mydist
 
-rpmbuild -tb --target i386 vilistextum-*.tar.gz
-cp /usr/src/packages/SRPMS/vilistextum-*.src.rpm .
-cp /usr/src/packages/RPMS/i386/vilistextum-*.rpm .
+# rpmbuild -tb --target i386 vilistextum-*.tar.gz
+# cp /usr/src/packages/SRPMS/vilistextum-*.src.rpm .
+# cp /usr/src/packages/RPMS/i386/vilistextum-*.rpm .
 
 
 set verbose
