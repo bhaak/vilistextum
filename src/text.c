@@ -294,13 +294,21 @@ void wort_plus_string_nocount(CHAR *s)
 
 /* ------------------------------------------------ */
 
-char latex_special_characters[] = {'$', '%', '_', '}', '{', '#', '&'};
+char latex_special_characters[] = {'$', '%', '_', '}', '{', '#', '&', '"', '~', '^', '\\'};
+CHAR* latex_escaped_characters[] = {STRING("\\$"), STRING("\\%"), STRING("\\_"),
+       STRING("\\}"), STRING("\\{"), STRING("\\#"), STRING("\\&"),
+			 STRING("{\\textquotedbl}"),
+			 STRING("{\\textasciitilde}"),
+			 STRING("{\\textasciicircum}"),
+			 STRING("{\\textbackslash}")
+			 };
+
 /* returns true, if c has to be escaped */
-int latex_must_escapable(char c) {
+CHAR* latex_must_escapable(char c) {
 	int i;
 	for (i=0; i<sizeof(latex_special_characters); i++) {
 	  if (latex_special_characters[i] == c) {
-		  return TRUE;
+		  return latex_escaped_characters[i];
 		}
 	}
 	return FALSE;
@@ -323,11 +331,15 @@ void wort_plus_string_escape(CHAR *s, int do_escape)
 		while (j<len) {
 			if ((do_escape) && (option_latex)) {
 				if (latex_must_escapable(s[j])) {
-				  wort_plus_ch_nocount('\\');
+				  wort_plus_string_escape(latex_must_escapable(s[j]), FALSE);
+				} else {
+			    wort_plus_ch(s[j]);
 				}
-			}
-			wort_plus_ch(s[j]);
-			j++;
+			  j++;
+			} else {
+			  wort_plus_ch(s[j]);
+			  j++;
+		  }
 		}
 		/*while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
 		wort[i] = '\0';
@@ -453,7 +465,7 @@ void hr()
 #endif
   if (option_latex) {
     neuer_paragraph();
-		wort_plus_string(STRING("\\htmlHr"));
+		wort_plus_string_escape(STRING("\\htmlHr"), FALSE);
     paragraphen_ende();
 	} else {
   while (ch!='>') {
