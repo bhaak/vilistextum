@@ -154,7 +154,7 @@ void html_img(CHAR *src_location) {
 		if ((len > 4) && (src_location[len-4] == '.')) {
 		  src_location[len-4] = '\0';
 		}
-		wort_plus_string(src_location);
+		wort_plus_string_escape(src_location, FALSE);
 		wort_plus_string_escape(STRING("}"), FALSE);
 	}
 } /* html_img */

@@ -383,7 +383,7 @@ void href()
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
 				if (option_latex) {
 					wort_plus_string_escape(STRING("\\htmlLink{"), FALSE);
-					wort_plus_string(attr_ctnt);
+					wort_plus_string_escape(attr_ctnt, FALSE);
 					wort_plus_string_escape(STRING("}{"), FALSE);
           html_a_opened++;
 				} else if (option_links) {
