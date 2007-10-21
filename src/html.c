@@ -369,6 +369,7 @@ void construct_footnote(CHAR *temp, int number, CHAR *link)
 int references_count=0;
 CHAR references[DEF_STR_LEN];
 char *schemes[] = {"ftp://","file://" ,"http://" ,"gopher://" ,"mailto:" ,"news:" ,"nntp://" ,"telnet://" ,"wais://" ,"prospero://" };
+int html_a_opened = 0;
 
 /* handles <a href="..."></a> */
 void href()
@@ -384,6 +385,7 @@ void href()
 					wort_plus_string_escape(STRING("\\htmlLink{"), FALSE);
 					wort_plus_string(attr_ctnt);
 					wort_plus_string_escape(STRING("}{"), FALSE);
+          html_a_opened++;
 				} else if (option_links) {
 				  references_count++;
 				
@@ -421,7 +423,10 @@ void href_output()
 void href_link_inline_output() 
 {
 	if (option_latex) {
-    wort_plus_string_escape(STRING("}"), FALSE);
+	  if (html_a_opened > 0) {
+      wort_plus_string_escape(STRING("}"), FALSE);
+      html_a_opened--;
+		}
 	} else if (option_links_inline) {
 		if (STRLEN(link_inline)>0) {
 			wort_ende();
