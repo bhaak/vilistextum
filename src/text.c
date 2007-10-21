@@ -320,7 +320,7 @@ void wort_plus_string_escape(CHAR *s, int do_escape)
 #endif
 
 	if (wort_pos+len<DEF_STR_LEN-1) {
-		/*while (j<len) {
+		while (j<len) {
 			if ((do_escape) && (option_latex)) {
 				if (latex_must_escapable(s[j])) {
 				  wort_plus_ch_nocount('\\');
@@ -328,10 +328,10 @@ void wort_plus_string_escape(CHAR *s, int do_escape)
 			}
 			wort_plus_ch(s[j]);
 			j++;
-		}*/
-		while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
+		}
+		/*while (i<wort_pos+len) { wort[i] = s[j]; j++; i++; }
 		wort[i] = '\0';
-		wort_pos += len; wort_len += len;
+		wort_pos += len; wort_len += len;*/
 	}
 
 #ifdef proc_debug
@@ -453,7 +453,7 @@ void hr()
 #endif
   if (option_latex) {
     neuer_paragraph();
-		wort_plus_string("\\htmlHr");
+		wort_plus_string(STRING("\\htmlHr"));
     paragraphen_ende();
 	} else {
   while (ch!='>') {

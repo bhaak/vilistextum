@@ -381,9 +381,9 @@ void href()
     if CMP("HREF", attr_name) {
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
 				if (option_latex) {
-					wort_plus_string_escape("\\htmlLink{", FALSE);
+					wort_plus_string_escape(STRING("\\htmlLink{"), FALSE);
 					wort_plus_string(attr_ctnt);
-					wort_plus_string_escape("}{", FALSE);
+					wort_plus_string_escape(STRING("}{"), FALSE);
 				} else if (option_links) {
 				  references_count++;
 				
@@ -421,7 +421,7 @@ void href_output()
 void href_link_inline_output() 
 {
 	if (option_latex) {
-    wort_plus_string_escape("}", FALSE);
+    wort_plus_string_escape(STRING("}"), FALSE);
 	} else if (option_links_inline) {
 		if (STRLEN(link_inline)>0) {
 			wort_ende();

@@ -67,7 +67,7 @@ void start_uls()
 
 	if (option_latex) {
 		line_break();
-		wort_plus_string_escape("\\begin{itemize}", FALSE);
+		wort_plus_string_escape(STRING("\\begin{itemize}"), FALSE);
 		line_break();
 	}
 	
@@ -95,7 +95,7 @@ void end_uls()
   else if (bullet_style=='*') { bullet_style=' '; }
 
 	if (option_latex) {
-		wort_plus_string_escape("\\end{itemize}", FALSE);
+		wort_plus_string_escape(STRING("\\end{itemize}"), FALSE);
 		line_break();
 	}
 
@@ -108,7 +108,7 @@ void start_ols()
 {
 	if (option_latex) {
 		line_break();
-		wort_plus_string_escape("\\begin{enumerate}", FALSE);
+		wort_plus_string_escape(STRING("\\begin{enumerate}"), FALSE);
 		line_break();
     spaces += tab;
 	} else {
@@ -123,7 +123,7 @@ void end_ols()
 	if (option_latex) {
 		line_break();
     spaces -= tab;
-		wort_plus_string_escape("\\end{enumerate}", FALSE);
+		wort_plus_string_escape(STRING("\\end{enumerate}"), FALSE);
 		line_break();
 	} else {
 	  end_uls();
@@ -136,7 +136,7 @@ void start_lis()
 {
 	if (option_latex) {
 		if (!is_zeile_empty()) { line_break(); }
-		wort_plus_string_escape("\\item ", FALSE);
+		wort_plus_string_escape(STRING("\\item "), FALSE);
 	} else {
   spaces-=2;
 
@@ -169,7 +169,7 @@ void start_dl()
 	start_p();
   if (option_latex) {
 		line_break();
-	  wort_plus_string_escape("\\begin{description}", FALSE);
+	  wort_plus_string_escape(STRING("\\begin{description}"), FALSE);
 	}
 } /* end start_dl */
 
@@ -180,7 +180,7 @@ void end_dl()
 	end_dd();
 
   if (option_latex) {
-	  wort_plus_string_escape("\\end{description}", FALSE);
+	  wort_plus_string_escape(STRING("\\end{description}"), FALSE);
 	}
 } /* end_dl */
 
@@ -191,14 +191,14 @@ void start_dt()
 	
 	line_break();
   if (option_latex) {
-	  wort_plus_string_escape("\\item[", FALSE);
+	  wort_plus_string_escape(STRING("\\item["), FALSE);
 	}
 } /* end start_dt */
 
 void end_dt()
 {
   if (option_latex) {
-	  wort_plus_string_escape("]", FALSE);
+	  wort_plus_string_escape(STRING("]"), FALSE);
 	}
 } /* end_dt */
 

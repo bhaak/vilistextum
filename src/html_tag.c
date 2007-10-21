@@ -69,11 +69,11 @@ void html_tag()
   else if CMP("STYLE", str)   { start_nooutput(); }
   else if CMP("/STYLE", str)  { end_nooutput(); }
   else if CMP("TITLE", str) { 
-		if (option_latex) { neuer_paragraph(); wort_plus_string_escape("\\title{", FALSE); } 
+		if (option_latex) { neuer_paragraph(); wort_plus_string_escape(STRING("\\title{"), FALSE); } 
 		else if (option_title) { push_align(LEFT); neuer_paragraph(); } 
 		else { wort_ende(); print_zeile(); nooutput = 1; }
 	} else if CMP("/TITLE", str) {
-		if (option_latex) { wort_plus_string_escape("}", FALSE); paragraphen_ende(); print_zeile(); } 
+		if (option_latex) { wort_plus_string_escape(STRING("}"), FALSE); paragraphen_ende(); print_zeile(); } 
 		else if (option_title) { paragraphen_ende(); print_zeile(); } 
 		else { wort_ende(); clear_line(); print_zeile(); nooutput = 0; }
 	}
