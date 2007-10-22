@@ -234,3 +234,22 @@ void html_body()
 #endif
 } /* html_font */
 
+/* ------------------------------------------------ */
+
+void html_pre() {
+	start_p();
+	pre=TRUE;
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\begin{htmlPre}"), FALSE);
+	}
+} /* html_pre */
+
+void html_pre_end() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\end{htmlPre}"), FALSE);
+	}
+	paragraphen_ende();
+	pre=FALSE;
+} /* html_pre_end */
+
+/* ------------------------------------------------ */

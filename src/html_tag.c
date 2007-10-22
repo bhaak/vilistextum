@@ -179,8 +179,8 @@ void html_tag()
 		else if CMP("CAPTION", str)  {}
 		else if CMP("/CAPTION", str) {}
 
-		else if CMP("PRE", str)   { start_p();  pre=1; }
-		else if CMP("/PRE", str)  { paragraphen_ende(); pre=0; }
+		else if CMP("PRE", str)   { html_pre(); }
+		else if CMP("/PRE", str)  { html_pre_end(); }
 
 		else if CMP("DL", str)  { start_dl();} /* Definition List */
 		else if CMP("/DL", str) { end_dl(); }
