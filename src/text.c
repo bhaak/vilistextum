@@ -253,7 +253,7 @@ void wort_plus_ch(int c)
 	if (wort_pos<DEF_STR_LEN-1) {
 		wort[wort_pos++] = c;
 		wort_len++;
-	}
+	} 
 } /* end wort_plus_ch_nocount */
 
 void wort_plus_ch_nocount(int c)
@@ -318,7 +318,6 @@ CHAR* latex_must_escapable(char c) {
 void wort_plus_string_escape(CHAR *s, int do_escape)
 {
   int len=STRLEN(s),
-		  i=wort_pos,
 		  j=0;
 #ifdef wort_ende_debug
   printf("\nwort_plus_string_escape()\n");

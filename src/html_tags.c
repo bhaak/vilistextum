@@ -253,3 +253,25 @@ void html_pre_end() {
 } /* html_pre_end */
 
 /* ------------------------------------------------ */
+
+void html_blockquote() {
+	if (option_latex) {
+		line_break();
+		wort_plus_string_escape(STRING("\\begin{htmlBlockquote}"), FALSE);
+		line_break();
+	} else {
+	  start_p();
+	}
+} /* html_pre */
+
+void html_blockquote_end() {
+	if (option_latex) {
+		line_break();
+		wort_plus_string_escape(STRING("\\end{htmlBlockquote}"), FALSE);
+		line_break();
+	} else {
+	  paragraphen_ende();
+	}
+} /* html_pre_end */
+
+/* ------------------------------------------------ */

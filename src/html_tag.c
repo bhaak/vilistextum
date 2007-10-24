@@ -90,8 +90,8 @@ void html_tag()
 
 		else if CMP("P", str)  { start_p(); }
 		else if CMP("/P", str) { paragraphen_ende(); }
-		else if CMP("BLOCKQUOTE", str)  { start_p(); }
-		else if CMP("/BLOCKQUOTE", str) { paragraphen_ende(); }
+		else if CMP("BLOCKQUOTE", str)  { html_blockquote(); }
+		else if CMP("/BLOCKQUOTE", str) { html_blockquote_end(); }
 		else if CMP("Q", str)  { wort_plus_ch('"'); }
 		else if CMP("/Q", str) { wort_plus_ch('"'); }
 
