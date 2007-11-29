@@ -206,8 +206,8 @@ void html_tag()
 		/* tags that have no visible effect */
 		else if CMP("SAMP", str)      {}
 		else if CMP("/SAMP", str)     {}
-		else if CMP("CODE", str)      {}
-		else if CMP("/CODE", str)     {}
+		else if CMP("CODE", str)      { html_code(); }
+		else if CMP("/CODE", str)     { html_code_end(); }
 		else if CMP("ABBR", str)      {}
 		else if CMP("/ABBR", str)     {}
 		else if CMP("ACRONYM", str)      {}

@@ -275,3 +275,17 @@ void html_blockquote_end() {
 } /* html_pre_end */
 
 /* ------------------------------------------------ */
+
+void html_code() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\htmlCode{"), FALSE);
+	}
+} /* html_code */
+
+void html_code_end() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("}"), FALSE);
+	}
+} /* html_code_end */
+
+/* ------------------------------------------------ */
