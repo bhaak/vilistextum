@@ -59,7 +59,7 @@ AC_ARG_WITH(unicode-locale,
 		AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$DEFAULT_LOCALE", [preferred Unicode set]))
 
 if test "$INTERNAL_LOCALE" = ""; then
-		AC_MSG_ERROR(Couldn't find utf-8 encoding. Use --with-unicode-locale.)
+		AC_MSG_ERROR(Couldn't find utf-8 encoding. Use --with-unicode-locale=LOCALE.)
 fi
 fi
 
