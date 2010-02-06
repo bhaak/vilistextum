@@ -27,6 +27,8 @@
 #ifdef MULTIBYTE
   #include <iconv.h>
   #include <locale.h>
+
+extern char internal_locale;
 #endif
 
 FILE *in, *out;
@@ -100,9 +102,9 @@ void convert_string(char *str, CHAR *converted_string)
 		
 	output[strlen(output)] = '\0';
 
-	ret = setlocale(LC_CTYPE, INTERNAL_LOCALE);
-  if (ret==NULL) { 
-		fprintf(stderr, "setlocale failed with: %s\n\n", INTERNAL_LOCALE);
+	ret = setlocale(LC_CTYPE, internal_locale);
+	if (ret==NULL) { 
+		fprintf(stderr, "setlocale failed with: %s\n\n", internal_locale);
 		exit(1);
 	}
 	mbstowcs(converted_string, output, strlen(output));

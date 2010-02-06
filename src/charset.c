@@ -12,6 +12,7 @@
 
 #include <../config.h>
 
+#define _POSIX_C_SOURCE 2 /* for popen, pclose */
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -34,20 +35,54 @@ int usr=0;
 
 #ifdef MULTIBYTE
 iconv_t conv;
+char internal_locale[256];
 #endif
 
 /* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
+static int suffix(const char * str, const char * suffix)
+{
+	if ( strlen(str) < strlen(suffix) ) return 0;
+	if ( ! strcmp(suffix, str + ( strlen(str) - strlen(suffix) ) ) ) return 1;
+	return 0;
+}
+
+static int utf_8_locale(const char * locale)
+{
+	if (!locale) return 0;
+	return suffix(locale,".utf8") || suffix(locale, ".UTF-8");
+}
+
 void init_multibyte()
 {
-	char *ret;
-	ret = setlocale(LC_CTYPE, INTERNAL_LOCALE); 
-  if (ret==NULL) { 
-		fprintf(stderr, "setlocale failed with: %s\n\n", INTERNAL_LOCALE); 
-		exit(1);
+	char *locale_found;
+	if ((locale_found = setlocale(LC_CTYPE, INTERNAL_LOCALE))) {
+		strcpy(internal_locale, INTERNAL_LOCALE);
+	} else {
+		/* read all available locales */
+		FILE *fp = popen("locale -a", "r");
+		if (fp) {
+			while (!feof(fp) && !locale_found) {
+				char buf[256];
+				if (fgets(buf, sizeof(buf), fp) != NULL) {
+					/* remove newline */
+					buf[strlen(buf)-1] = '\0';
+					/* check for a working UTF-8 locale */
+					if (utf_8_locale(buf) &&
+					    (locale_found = setlocale(LC_CTYPE, buf))) {
+						strcpy(internal_locale, buf);
+					}
+				}
+			}
+		}
+
+		if (locale_found == NULL) {
+			fprintf(stderr, "Could not find a UTF-8 locale! Please enable en_US.UTF-8!\n");
+			exit(EXIT_FAILURE);
+		}
+		pclose(fp);
 	}
-  /*else { fprintf(stderr, "%s\n", ret); } */
 }
 #endif
 
