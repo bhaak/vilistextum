@@ -92,7 +92,8 @@ void parse_entity(CHAR *str)
 			latin1(tmpstr) ||
 			microsoft_entities(tmpstr) ||
 			unicode_entity(tmpstr) ||
-			ligature_entity(tmpstr)) {
+			ligature_entity(tmpstr) ||
+			fallback_entity(tmpstr)) {
 		/* if true entity was known */
 		CPYSS(str, tmpstr);
 		/*fprintf(stdout, "Entity String found %ls\n", str); */

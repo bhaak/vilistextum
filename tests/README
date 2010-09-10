@@ -10,7 +10,7 @@ check_entities
   locale iso-8859-1.
 
 
-The following tests only work when vilistextum is compiled as 
+The following tests only work when vilistextum is compiled as
 multibyte version.
 
 check_latin2
@@ -23,4 +23,8 @@ check_utf8
 	The html file is taken from the great "UTF-8 Sampler" page
 	(http://www.columbia.edu/, used with permission) by Frank Cruz.
 
+check_fallback_entities
+  Check the html entity replacements for several unicode codepoints when
+  converting a HTML file using an encoding that don't contain that
+  codepoints.
 

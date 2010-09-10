@@ -15,6 +15,7 @@
 #include "main.h"
 #include "util.h"
 #include "multibyte.h"
+#include "fallback_entities.h"
 
 /* ------------------------------------------------ */
 
@@ -74,5 +75,27 @@ int ligature_entity(CHAR *s)
 
 	return(1); /* found a transcription for entity */
 } /* end ligature_entity */
+
+/* ------------------------------------------------ */
+
+/* Return some replacement string for generic unicode code points. */
+int fallback_entity(CHAR *s)
+{
+	int number, i=0;
+	if (!convert_characters) { return(0); }
+
+	number = extract_entity_number(s);
+
+	while (fallback_entities[i].codepoint != 0){
+		if (number == fallback_entities[i].codepoint) {
+			CPYSS(s, fallback_entities[i].replacement);
+			return(1); /* found a transcription for entity */
+		}
+		i++;
+	}
+
+	return(0);
+
+} /* end fallback_entity */
 
 /* ------------------------------------------------ */
