@@ -8,7 +8,7 @@ int fallback_entity(CHAR *s);
 struct fallback_entities_struct {
 	int codepoint;
 	char *description;
-	char *replacement;
+	CHAR *replacement;
 };
 
 struct fallback_entities_struct fallback_entities[] = {
