@@ -2,7 +2,7 @@
  * Copyright (c) 1998-2006 Patric Müller
  * bhaak@gmx.net
  * http://bhaak.dyndns.org/vilistextum/
- * 
+ *
  * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
  */
@@ -21,14 +21,14 @@
 
 int microsoft_entities(CHAR *s)
 {
-	int number = extract_entity_number(s);
+  int number = extract_entity_number(s);
 
-	if (!convert_characters) { return(0); }
+  if (!convert_characters) { return(0); }
   /* Euro */
   else if (number==128)       { CPYSL(s, "EUR"); }
   else if CMP("&euro;", s)    { CPYSL(s, "EUR"); }
   else if (number==8364)      { CPYSL(s, "EUR"); }
-  
+
   /* Single Low-9 Quotation Mark */
   else if (number==130)       { set_char(s, ','); }
   else if CMP("&sbquo;", s)   { set_char(s, ','); }
@@ -48,7 +48,7 @@ int microsoft_entities(CHAR *s)
   else if (number==8230)      { CPYSL(s, "..."); } /* Horizontal Ellipsis */
 
   /* Dagger */
-  else if (number==134)       { CPYSL(s, "/-"); }   
+  else if (number==134)       { CPYSL(s, "/-"); }
   else if CMP("&dagger;", s)  { CPYSL(s, "/-"); }
   else if (number==8224)      { CPYSL(s, "/-"); }
 
@@ -56,7 +56,7 @@ int microsoft_entities(CHAR *s)
   else if (number==135)       { CPYSL(s, "/="); }
   else if CMP("&Dagger;", s)  { CPYSL(s, "/="); }
   else if (number==8225)      { CPYSL(s, "/="); }
-  
+
   /* Modifier Letter Circumflex Accent */
   else if (number==136)       { set_char(s, '^'); }
   else if CMP("&circ;", s)    { set_char(s, '^'); }
@@ -65,7 +65,7 @@ int microsoft_entities(CHAR *s)
   /* Per Mille Sign */
   else if (number==137)       { CPYSL(s, "0/00"); }
   else if CMP("&permil;", s)  { CPYSL(s, "0/00"); }
-  else if (number==8240)      { CPYSL(s, "0/00"); } 
+  else if (number==8240)      { CPYSL(s, "0/00"); }
 
   /* Latin Capital Letter S With Caron */
   else if (number==138)       { set_char(s, 'S'); }
@@ -78,9 +78,9 @@ int microsoft_entities(CHAR *s)
   else if (number==8249)      { set_char(s, '<'); }
 
   /* Latin Capital Ligature OE */
-  else if (number==140)       { CPYSL(s, "OE"); }  
-  else if CMP("&OElig;", s)   { CPYSL(s, "OE"); }   
-  else if (number==338)       { CPYSL(s, "OE"); }  
+  else if (number==140)       { CPYSL(s, "OE"); }
+  else if CMP("&OElig;", s)   { CPYSL(s, "OE"); }
+  else if (number==338)       { CPYSL(s, "OE"); }
 
   /* Z\/ */
   else if (number==142)       { set_char(s, 'Z'); }
@@ -110,7 +110,7 @@ int microsoft_entities(CHAR *s)
   else if (number==149)       { set_char(s, '*'); }
   else if CMP("&bull;", s)    { set_char(s, '*'); }
   else if (number==8226)      { set_char(s, '*'); }
-  
+
   /* En Dash */
   else if (number==150)       { set_char(s, '-'); }
   else if CMP("&ndash;", s)   { set_char(s, '-'); }
@@ -120,11 +120,11 @@ int microsoft_entities(CHAR *s)
   else if (number==151)       { CPYSL(s, "--"); }
   else if CMP("&mdash;", s)   { CPYSL(s, "--"); }
   else if (number==8212)      { CPYSL(s, "--"); }
-  
+
   /* Small Tilde */
   else if (number==152)       { set_char(s, '~'); }
   else if CMP("&tilde;", s)   { set_char(s, '~'); }
-  else if (number==732)       { set_char(s, '~'); } 
+  else if (number==732)       { set_char(s, '~'); }
 
   /* Trade Mark Sign */
   else if (number==153)       { CPYSL(s, "[tm]"); }
@@ -154,7 +154,7 @@ int microsoft_entities(CHAR *s)
   else if (number==159)       { set_char(s, 'Y'); }
   else if CMP("&Yuml;", s)    { set_char(s, 'Y'); }
   else if (number==376)       { set_char(s, 'Y'); }
-	
+
   else { return(0); }
 
   return(1); /* Microsoft entity found */

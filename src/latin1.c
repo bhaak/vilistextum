@@ -217,7 +217,7 @@ int html_entity(CHAR *str)
   else if CMP("&amp;",  str)    { return(set_char_wrapper(str, '&')); }
   else if CMP("&gt;",   str)    { return(set_char_wrapper(str, '>')); }
   else if CMP("&lt;",   str)    { return(set_char_wrapper(str, '<')); }
-	else if CMP("&apos;", str)    { return(set_char_wrapper(str, '\'')); } 
+  else if CMP("&apos;", str)    { return(set_char_wrapper(str, '\'')); } 
   else { return(0); } /* found no html entity */
 } /* end html_entity */
 
