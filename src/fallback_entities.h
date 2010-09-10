@@ -14,6 +14,10 @@ struct fallback_entities_struct {
 struct fallback_entities_struct fallback_entities[] = {
 /* Spacing Modifier Letters */
 
+/* Dashes */
+{0x2012, "FIGURE DASH", STRING("-")},
+{0x2015, "HORIZONTAL BAR", STRING("--")},
+
 /* General punctation */
 {0x2018, "LEFT SINGLE QUOTATION MARK",  STRING("'")},
 {0x2019, "RIGHT SINGLE QUOTATION MARK", STRING("'")},
