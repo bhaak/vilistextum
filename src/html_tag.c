@@ -338,6 +338,9 @@ void html_tag()
 		/* Tags used by heise.de */
 		else if CMP("HEISETEXT", str)    {}
 		else if CMP("/HEISETEXT", str)    {}
+		else if CMP("HEISEADVERT", str)  {}
+		else if CMP("/HEISEADVERT", str) {}
+		else if CMP("CONTENT_AD_POSSIBLE", str) {}
 		else if CMP("TPXAZ", str)    {}
 		else if CMP("/TPXAZ", str)    {}
 		else if CMP("TPXAZXTEXT", str)    {}
