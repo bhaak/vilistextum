@@ -158,6 +158,7 @@ char help_text[] =
 "  -u, --output-utf-8            \n"
 "  -x, --translit                \n"
 "  -y, --charset CHARSET         \n"
+"  -Y, --output-charset CHARSET  \n"
 #endif
 "\n"
 "  -h, --help           \n" /*        display this help and exit\n" */
@@ -203,6 +204,7 @@ void parse_args(int argc, char *argv[])
 			{"no-alt", 0, 0, 'a'},
 
 			{"charset", 1, 0, 'y'},
+			{"output-charset", 1, 0, 'Y'},
 			{"translit", 0, 0, 'x'},
 			{"output-utf-8", 0, 0, 'u'},
 
@@ -222,7 +224,7 @@ void parse_args(int argc, char *argv[])
 #endif
 		
 #ifdef  HAVE_GETOPT_H
-		c = getopt_long (argc, argv, "pmsi:ce:hklLtrnavy:xuw:", long_options, &option_index);
+		c = getopt_long (argc, argv, "pmsi:ce:hklLtrnavy:Y:xuw:", long_options, &option_index);
 #else
 		c = getopt(argc, argv,       "pmsi:ce:hklLtrnavy:xuw:");
 #endif
@@ -247,6 +249,7 @@ void parse_args(int argc, char *argv[])
 				exit(0);
 #ifdef MULTIBYTE
 		case 'y': set_iconv_charset(argument); break;
+		case 'Y': set_iconv_output_charset(argument); break;
 		case 'x': transliteration = 1; break;
 		case 'u': option_output_utf8 = 1; break;
 #endif

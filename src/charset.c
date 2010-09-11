@@ -27,11 +27,12 @@
 #include "text.h"
 #include "multibyte.h"
 
-char *default_charset = "iso-8859-1";
+static char *default_charset = "iso-8859-1";
 
-char iconv_charset[DEF_STR_LEN];
+static char iconv_charset[DEF_STR_LEN];
+static char iconv_output_charset[DEF_STR_LEN] = "";
 
-int usr=0;
+static int usr=0;
 
 #ifdef MULTIBYTE
 iconv_t conv;
@@ -89,6 +90,26 @@ void init_multibyte()
 /* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
+char* get_iconv_charset()
+{
+	return(iconv_charset);
+}
+
+/* ------------------------------------------------ */
+
+char* get_iconv_output_charset()
+{
+	/* check if there's a different output character set */
+	if (strlen(iconv_output_charset) > 0) {
+		return(iconv_output_charset);
+	} else {
+		return(iconv_charset);
+	}
+}
+
+/* ------------------------------------------------ */
+
+char* get_iconv_output_charset();
 int convert_character(int num, CHAR *outstring)
 {
 	char in[33], out[33];
@@ -117,10 +138,10 @@ int convert_character(int num, CHAR *outstring)
 	outp = out;
 	insize = wctomb(inp, num);
 
-/* 	printf("iconv_charset: -%s-\n", iconv_charset); */
+/* 	printf("iconv_output_charset: -%s-\n", get_iconv_output_charset()); */
 /* 	printf("insize %d\n", insize); */
-	if ((conv = iconv_open(iconv_charset, "utf-8"))==(iconv_t)(-1)) 
-		{	printf("iconv_open failed in convert_character: wrong character set?\n"); perror(iconv_charset); exit(1); } 
+	if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1)) 
+		{	printf("iconv_open failed in convert_character: wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); } 
 	
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	iconv_close(conv);
@@ -163,13 +184,6 @@ int convert_character(int num, CHAR *outstring)
 
 /* ------------------------------------------------ */
 
-char* get_iconv_charset()
-{
-	return(iconv_charset);
-}
-
-/* ------------------------------------------------ */
-
 void set_iconv_charset(char *charset) {
 	/* set charset for iconv conversion */
 	strcpy(iconv_charset, charset);
@@ -179,7 +193,18 @@ void set_iconv_charset(char *charset) {
 
 /* ------------------------------------------------ */
 
-void use_default_charset() { set_iconv_charset(default_charset); }
+void set_iconv_output_charset(char *charset) {
+	/* set charset for iconv conversion */
+	strcpy(iconv_output_charset, charset);
+	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");}
+	/* printf("iconv_output_charset %s\n", iconv_output_charset); DEBUG */
+}
+
+/* ------------------------------------------------ */
+
+void use_default_charset() {
+	set_iconv_charset(default_charset);
+}
 
 /* ------------------------------------------------ */
 

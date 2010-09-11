@@ -143,10 +143,10 @@ void output_string(CHAR *str)
 		inp = input;
 		outp = output;
 
-		if ((conv = iconv_open(get_iconv_charset(), "utf-8"))==(iconv_t)(-1))
-			{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_charset()); exit(1); }
+		if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1))
+			{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
 
-		/* printf("%s %s\n", get_iconv_charset(), inp); */
+		/* printf("%s %s\n", get_iconv_output_charset(), inp); */
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
 		fehlernr = errno;
 

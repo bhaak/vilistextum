@@ -562,6 +562,7 @@ void find_xml_encoding()
 #ifdef MULTIBYTE
 		/* xml default charset is utf-8 */
 		set_iconv_charset("utf-8");
+		/* try to find a supplied encoding */
 		find_encoding();
 #endif
 	}

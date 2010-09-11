@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo ""
+echo "TEST: $0"
+
+../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
+../src/vilistextum -v | grep >/dev/null multibyte || exit 0
+
+rm -f utf-8-to-latin1.output.test
+../src/vilistextum -Y iso-8859-1 utf-8-to-latin1.html utf-8-to-latin1.output.test
+
+diff >/dev/null utf-8-to-latin1.output utf-8-to-latin1.output.test
+
