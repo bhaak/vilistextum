@@ -167,7 +167,7 @@ char help_text[] =
 
 void help()
 {
-	printf(help_text);
+	printf("%s", help_text);
 
 	exit(0);
 } /* end help */

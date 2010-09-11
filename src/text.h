@@ -35,6 +35,7 @@ void push_align(int a);
 void pop_align();
 
 void wort_plus_string(CHAR *s);
+void wort_plus_string_escape(CHAR *s, int do_escape);
 void wort_plus_string_nocount(CHAR *s);
 void wort_plus_ch(int c);
 void wort_ende();

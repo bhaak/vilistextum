@@ -24,6 +24,7 @@
 
 #include "main.h"
 #include "html_tag.h"
+#include "html_tags.h"
 #include "text.h"
 #include "microsoft.h"
 #include "latin1.h"

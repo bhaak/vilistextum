@@ -28,7 +28,7 @@
   #include <iconv.h>
   #include <locale.h>
 
-extern char internal_locale;
+extern char* internal_locale;
 #endif
 
 FILE *in, *out;
