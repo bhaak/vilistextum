@@ -30,9 +30,9 @@ int microsoft_entities(CHAR *s)
   else if (number==8364)      { CPYSL(s, "EUR"); }
 
   /* Single Low-9 Quotation Mark */
-  else if (number==130)       { set_char(s, ','); }
-  else if CMP("&sbquo;", s)   { set_char(s, ','); }
-  else if (number==8218)      { set_char(s, ','); }
+  else if (number==130)       { set_char(s, '\''); }
+  else if CMP("&sbquo;", s)   { set_char(s, '\''); }
+  else if (number==8218)      { set_char(s, '\''); }
 
   else if (number==131)       { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
   else if CMP("&fnof;", s)    { set_char(s, 'f'); } /* Latin Small Letter F With Hook */
@@ -87,9 +87,9 @@ int microsoft_entities(CHAR *s)
   else if (number==381)       { set_char(s, 'Z'); }
 
   /* Left Single Quotation Mark */
-  else if (number==145)       { set_char(s, '`'); }
-  else if CMP("&lsquo;", s)   { set_char(s, '`'); }
-  else if (number==8216)      { set_char(s, '`'); }
+  else if (number==145)       { set_char(s, '\''); }
+  else if CMP("&lsquo;", s)   { set_char(s, '\''); }
+  else if (number==8216)      { set_char(s, '\''); }
 
   /* Right Single Quotation Mark */
   else if (number==146)       { set_char(s, '\''); }
@@ -178,7 +178,7 @@ void microsoft_character(int c)
 	WORT_PLUS_STRING("EUR"); break;
 	
   case 0x82: /* SINGLE LOW-9 QUOTATION MARK */
-	wort_plus_ch(','); break;
+	wort_plus_ch('\''); break;
   case 0x83: /* Latin Small Letter F With Hook */
 	wort_plus_ch('f'); break;
   case 0x84: /* Double Low-9 Quotation Mark */
@@ -204,7 +204,7 @@ void microsoft_character(int c)
 	wort_plus_ch('Z'); break;
 	
   case 0x91: /* LEFT SINGLE QUOTATION MARK */
-	wort_plus_ch('`'); break;
+	wort_plus_ch('\''); break;
   case 0x92: /* RIGHT SINGLE QUOTATION MARK */
 	wort_plus_ch('\''); break;
   case 0x93: /* LEFT DOUBLE QUOTATION MARK */
