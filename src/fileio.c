@@ -191,7 +191,6 @@ int read_char()
 	wchar_t outstring[33]; 
 	iconv_t conv;
 	char input[33], output[33];
-	CHAR tmpstr[33];
 	char *inp, *outp;
 	size_t insize = 1, outsize = 32;
 
@@ -226,11 +225,11 @@ int read_char()
 		if (fehlernr==E2BIG) { fprintf(stderr, "read_char: errno==E2BIG\n"); }
 		/* character is invalid  */
 		else if (fehlernr==EILSEQ) { 
-			fprintf(stderr, "read_char: errno==EILSEQ; invalid byte sequence for %s: ", get_iconv_charset()); 
+			fprintf(stderr, "read_char: errno==EILSEQ; invalid byte sequence for %s: ", get_iconv_charset());
 			for (k=0; k<j;k++) {
 				fprintf(stderr, "%d ",(unsigned char)input[k]);
 			}
-			printf("\n");
+			fprintf(stderr, "\n");
 			fehlernr=0; j=0;
 			c = '?';
 		}
@@ -238,14 +237,9 @@ int read_char()
 		else if (fehlernr==EINVAL) { /* printf("errno==EINVAL\n"); */ }
 		/* valid character found */
 		else if (fehlernr==0) {
-			/* printf("\n1: c=%d ; %d\n",c,c); */
-				result = mbstowcs(outstring, output, strlen(output));
-				if (convert_character(outstring[0], tmpstr)) {
-					c = outstring[0];
-					/* printf("2: c=%d ; %d\n",c,c); */
-				} else {
-					/* printf("microsoft character: %d\n", c); */
-				}
+			if (mbstowcs(outstring, output, strlen(output)) != -1) {
+				c = outstring[0];
+			}
 		}
 
 		j++;

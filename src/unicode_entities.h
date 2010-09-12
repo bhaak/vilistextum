@@ -6,5 +6,6 @@
 int unicode_entity(CHAR *s);
 int ligature_entity(CHAR *s);
 int fallback_entity(CHAR *s);
+CHAR* fallback_character(CHAR s);
 
 #endif

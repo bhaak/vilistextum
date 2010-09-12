@@ -33,6 +33,10 @@
 #include "charset.h"
 #include "util.h"
 
+#ifdef MULTIBYTE
+#include "unicode_entities.h"
+#endif
+
 int pre=0; /* for PRE-Tag */
 int processed_meta=0; /* only parse meta tags once */
 
@@ -234,7 +238,7 @@ void html()
 
       /* Microsoft ... */
 	case 0x80: case 0x81: case 0x82: case 0x83: case 0x84: case 0x85: case 0x86: case 0x87: 
-	case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d:	case 0x8e: case 0x8f:
+	case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d: case 0x8e: case 0x8f:
 	case 0x90: case 0x91: case 0x92: case 0x93: case 0x94: case 0x95: case 0x96: case 0x97:
 	case 0x98: case 0x99: case 0x9a: case 0x9b: case 0x9c: case 0x9d: case 0x9e: case 0x9f:
 
@@ -246,18 +250,26 @@ void html()
 #ifdef default_debug
         printf("default: ch=%c ; %d\n",ch,ch);
 #endif
-        {
-				CHAR str[] = {ch, '\0'};
-        if (pre==0) {
-          if (ch==' ') {
-					  wort_ende();
-					} else {
-				    wort_plus_string(str);
-					}
-        } else {
-				  wort_plus_string(str);
-				}
-				}
+	{
+		CHAR *str;
+		CHAR outstring[33];
+		/* convert unicode codepoint to output character set */
+		if (convert_character(ch, outstring)) {
+			str = outstring;
+		} else {
+			str = fallback_character(ch);
+		}
+
+		if (pre==0) {
+			if (ch==' ') {
+				wort_ende();
+			} else {
+				wort_plus_string(str);
+			}
+		} else {
+			wort_plus_string(str);
+		}
+	}
         break;
     }
   } /* next */

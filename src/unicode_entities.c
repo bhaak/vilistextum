@@ -99,3 +99,23 @@ int fallback_entity(CHAR *s)
 } /* end fallback_entity */
 
 /* ------------------------------------------------ */
+
+/* Return some replacement string for generic unicode code points. */
+CHAR* fallback_character(CHAR number)
+{
+	int i=0;
+	if (!convert_characters) { return(STRING("?")); }
+
+	while (fallback_entities[i].codepoint != 0){
+		if (number == fallback_entities[i].codepoint) {
+			/* found a transcription for entity */
+			return(fallback_entities[i].replacement);
+		}
+		i++;
+	}
+
+	return(STRING("?"));
+
+} /* end fallback_character */
+
+/* ------------------------------------------------ */
