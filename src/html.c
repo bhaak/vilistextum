@@ -251,6 +251,7 @@ void html()
         printf("default: ch=%c ; %d\n",ch,ch);
 #endif
 	{
+#ifdef MULTIBYTE
 		CHAR *str;
 		CHAR outstring[33];
 		/* convert unicode codepoint to output character set */
@@ -259,6 +260,9 @@ void html()
 		} else {
 			str = fallback_character(ch);
 		}
+#else
+		char str[] = {ch, '\0'};
+#endif
 
 		if (pre==0) {
 			if (ch==' ') {
