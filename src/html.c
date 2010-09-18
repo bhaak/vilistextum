@@ -72,82 +72,102 @@ static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 
 /* ------------------------------------------------ */
 
+/* Appends ch to the String str, converting it to the output
+ * charset if needed.
+ * Returns the number of characters added to str. */
+int append_character(CHAR *str, CHAR ch) {
+	CHAR *convstr;
+	int oldlen=STRLEN(str);
+
+#ifdef MULTIBYTE
+	CHAR newstr[DEF_STR_LEN];
+	newstr[0] = '\0';
+	if (convert_character(ch, newstr)) {
+		convstr = newstr;
+	} else {
+		convstr = fallback_character(ch);
+	}
+#else
+	char chstr[] = {ch, '\0'};
+	convstr = chstr;
+#endif
+	STRNCAT(str, convstr, DEF_STR_LEN-1);
+	return STRLEN(str)-oldlen;
+}
+/* ------------------------------------------------ */
 
 /* get the next attribute and writes it to attr_name and attr_ctnt. */
 /* attr_name is converted to uppercase.  */
 int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 {
-  int i;
+	int i;
 	CHAR temp[DEF_STR_LEN];
 #ifdef proc_debug 
-  printf("get_attr()\n");
+	printf("get_attr()\n");
 #endif
 
-  attr_name[0] = '\0';
-  attr_ctnt[0] = '\0';
+	attr_name[0] = '\0';
+	attr_ctnt[0] = '\0';
 
-/* printf("character %c %d\n", ch, ch); */
+	/* printf("character %c %d\n", ch, ch); */
 
 	/* skip whitespace */
-  while ((isspace(ch)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
-  if (ch=='>') { return '>'; };
-  /*  printf("nach return %c %d\n", ch, ch); */
+	while ((isspace(ch)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
+	if (ch=='>') { return '>'; };
+	/*  printf("nach return %c %d\n", ch, ch); */
 
-  /* read attribute's name */
-  i=1;
-  attr_name[0] = ch;
+	/* read attribute's name */
+	i=1;
+	attr_name[0] = ch;
 
 	while ((ch!='=') && (ch!='>')) {
 		ch=read_char();
 		if (i<DEF_STR_LEN) { attr_name[i++] = ch; }
 	} /* post cond: i<=DEF_STR_LEN */
 	attr_name[i-1] = '\0';
-	
-  if (ch=='>') { attr_ctnt[0]='\0'; return '>'; }
 
-  /* content of attribute */
+	if (ch=='>') { attr_ctnt[0]='\0'; return '>'; }
+
+	/* content of attribute */
 	ch=read_char();
 	/* skip white_space */
 	while ((isspace(ch)) && (ch!='>')) { ch=read_char(); }
 	temp[0] = '\0';
 
 	/* if quoted */
-  if ((ch=='"') || (ch=='\'')) {
+	if ((ch=='"') || (ch=='\'')) {
 		/* attribute looks like alt="bla" or alt='bla'. */
 		/* we'll have to remember what the quote was. */
 		int quote=ch;
-    i=0;
-    ch=read_char();
-    while(quote!=ch) {
-			if (i<DEF_STR_LEN-1) { temp[i++] = ch; }
-			ch=read_char(); 
-		} /* post cond: i<=DEF_STR_LEN-1 */
-		temp[i] = '\0';
-    ch=read_char();
-  }
-  else
-  {
-		/* attribute looks like alt=bla */
-    i=1;
-    temp[0] = ch;
-    while ((ch!='>') && (!isspace(ch))) {
+		i=0;
+		ch=read_char();
+		while (quote!=ch) {
+			i += append_character(temp, ch);
 			ch=read_char();
-			if (i<DEF_STR_LEN) { temp[i++] = ch; }
-		} /* post cond: i<=DEF_STR_LEN */
+		}
+		temp[i] = '\0';
+		ch=read_char();
+	} else {
+		/* attribute looks like alt=bla */
+		i = append_character(temp, ch);
+		while ((ch!='>') && (!isspace(ch))) {
+			ch=read_char();
+			i += append_character(temp, ch);
+		}
 		temp[i-1] = '\0';
-  }
+	}
 
 	uppercase_str(attr_name);
-  if CMP("ALT", attr_name) { parse_entities(temp); }
+	if CMP("ALT", attr_name) { parse_entities(temp); }
 	CPYSS(attr_ctnt, temp);
 
 #ifdef attr_debug
-  printf("attribute: %s; content: %s#-#\n", attr_name, attr_ctnt);
+	printf("attribute: %s; content: %s#-#\n", attr_name, attr_ctnt);
 #endif
 #ifdef proc_debug
-  printf("get_attr() ende\n");
+	printf("get_attr() ende\n");
 #endif
-  return ch;
+	return ch;
 } /* end get_attr */
 
 /* ------------------------------------------------  */
