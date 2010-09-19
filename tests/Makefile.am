@@ -1,4 +1,4 @@
-TESTS =  check_bufferoverflow check_tags check_entities check_latin2 check_utf8 check_fallback_entities
+TESTS =  check_tags check_entities check_latin2 check_utf8 check_fallback_entities check_utf8_to_latin1 check_bufferoverflow
 
 EXTRA_DIST = README tags.html tags.output entities.html entities.output \
 						latin2.html latin2.output \
