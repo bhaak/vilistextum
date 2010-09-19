@@ -4,7 +4,7 @@ echo ""
 echo "TEST: $0"
 
 rm -f bufferoverflow.output.test
-../src/vilistextum bufferoverflow.html bufferoverflow.output.test
+../src/vilistextum -l -c bufferoverflow.html bufferoverflow.output.test
 
 diff >/dev/null bufferoverflow.output bufferoverflow.output.test
 

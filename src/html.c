@@ -91,7 +91,7 @@ int append_character(CHAR *str, CHAR ch) {
 	char chstr[] = {ch, '\0'};
 	convstr = chstr;
 #endif
-	STRNCAT(str, convstr, DEF_STR_LEN-1);
+	STRNCAT(str, convstr, DEF_STR_LEN-oldlen-1);
 	return STRLEN(str)-oldlen;
 }
 /* ------------------------------------------------ */
