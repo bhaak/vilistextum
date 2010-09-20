@@ -114,6 +114,8 @@ CHAR* fallback_character(CHAR number)
 		i++;
 	}
 
+	if (errorlevel>=4) { fprintf(stderr, "Unicode codepoint %d unknown\n", (int)number); }
+
 	return(STRING("?"));
 
 } /* end fallback_character */
