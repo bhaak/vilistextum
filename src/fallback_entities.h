@@ -123,7 +123,9 @@ struct fallback_entities_struct fallback_entities[] = {
 {0x217F, "SMALL ROMAN NUMERAL ONE THOUSAND", STRING("m")},
 
 /* Addition for German typography */
+{0x017F, "LATIN SMALL LETTER LONG S", STRING("s")},
 {0x1E9E, "LATIN CAPITAL LETTER SHARP S", STRING("SS")},
+
 /* misc */
 {0x20AC, "EURO SIGN", STRING("EUR")},
 
