@@ -7,7 +7,7 @@ echo "TEST: $0"
 ../src/vilistextum -v | grep >/dev/null multibyte || exit 0
 
 rm -f fallback_entities.output.test
-../src/vilistextum fallback_entities.html fallback_entities.output.test
+../src/vilistextum -Y latin1 fallback_entities.html fallback_entities.output.test
 
 diff >/dev/null fallback_entities.output fallback_entities.output.test
 

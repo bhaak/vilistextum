@@ -15,7 +15,11 @@ struct fallback_entities_struct fallback_entities[] = {
 /* Spacing Modifier Letters */
 
 /* Dashes */
+{0x2010, "HYPHEN", STRING("-")},
+{0x2011, "NON-BREAKING HYPHEN", STRING("-")},
 {0x2012, "FIGURE DASH", STRING("-")},
+{0x2013, "EN DASH", STRING("-")},
+{0x2014, "EM DASH", STRING("--")},
 {0x2015, "HORIZONTAL BAR", STRING("--")},
 
 /* General punctation */
@@ -120,6 +124,8 @@ struct fallback_entities_struct fallback_entities[] = {
 
 /* Addition for German typography */
 {0x1E9E, "LATIN CAPITAL LETTER SHARP S", STRING("SS")},
+/* misc */
+{0x20AC, "EURO SIGN", STRING("EUR")},
 
 {0, "", STRING("")}
 };
