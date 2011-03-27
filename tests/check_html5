@@ -7,7 +7,7 @@ echo "TEST: $0"
 ../src/vilistextum -v | grep >/dev/null multibyte || exit 0
 
 rm -f html5.output.test
-../src/vilistextum -Y iso-8859-1 html5.html html5.output.test
+../src/vilistextum html5.html html5.output.test
 
 diff >/dev/null html5.output html5.output.test
 

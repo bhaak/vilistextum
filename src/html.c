@@ -549,6 +549,9 @@ void find_encoding()
 				/* printf("found encoding: %ls %ls\n", attr_name, attr_ctnt); DEBUG */
 				CPYSS(temp_locale, attr_ctnt);
 				found_ecdg=1;
+			} else if CMP("CHARSET", attr_name) {
+				found_chst=1;
+				CPYSS(temp_locale, attr_ctnt);
 			}
 		}
 		if (found_ctnt||found_chst||found_ecdg) {
