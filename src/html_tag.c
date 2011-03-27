@@ -360,6 +360,18 @@ void html_tag()
 		else if CMP("TPXLINKXTEXT", str)    {}
 		else if CMP("/TPXLINKXTEXT", str)    {}
 
+		/* new HTML5 elements */
+		else if CMP("HEADER", str)   { start_div(0); }
+		else if CMP("/HEADER", str)  { end_div(); }
+		else if CMP("ARTICLE", str)  { start_div(0); }
+		else if CMP("/ARTICLE", str) { end_div(); }
+		else if CMP("FOOTER", str)   { start_div(0); }
+		else if CMP("/FOOTER", str)  { end_div(); }
+		else if CMP("HGROUP", str)   {}
+		else if CMP("/HGROUP", str)  {}
+		else if CMP("SECTION", str)  {}
+		else if CMP("/SECTION", str) {}
+
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
 	}

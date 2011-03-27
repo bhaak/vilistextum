@@ -550,6 +550,7 @@ void find_encoding()
 				CPYSS(temp_locale, attr_ctnt);
 				found_ecdg=1;
 			} else if CMP("CHARSET", attr_name) {
+				/* HTML5 <meta charset=encoding> */
 				found_chst=1;
 				CPYSS(temp_locale, attr_ctnt);
 			}
