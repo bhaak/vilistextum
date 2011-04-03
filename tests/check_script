@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. test_functions
+
+check_testcase script
