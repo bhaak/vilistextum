@@ -1,0 +1,24 @@
+#!/bin/sh
+
+check_testcase()
+{
+  prefix=$1
+  args=$2
+
+  rm -f testcases/$prefix.output.test
+  ../src/vilistextum 2>/dev/null $args testcases/$prefix.html testcases/$prefix.output.test
+
+  diff >/dev/null testcases/$prefix.output testcases/$prefix.output.test
+  retval=$?
+  if [ $retval -ne 0 ]; then
+    echo "TEST: testcase $prefix failed"
+    exit $retval
+  fi
+  #echo "$prefix passed"
+}
+
+check_multibyte()
+{
+  ../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
+  ../src/vilistextum -v | grep >/dev/null multibyte || exit 77
+}
