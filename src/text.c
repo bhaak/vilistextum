@@ -209,6 +209,7 @@ int is_zeile_empty()
 
 /* ------------------------------------------------ */
 
+#ifdef debug
 void status()
 {
 	printf(" paragraph: %d; div_test: %d; align[align_nr]: %d; z_o: %d\n",paragraph, div_test, get_align(), zeilen_len_old);
@@ -221,6 +222,7 @@ void status()
   printf(" zeilen_pos: %d ; wort_pos: %d\n",zeilen_pos,wort_pos);
 #endif
 }
+#endif
 
 /* ------------------------------------------------ */
 
@@ -254,8 +256,9 @@ void wort_plus_ch(int c)
 		wort[wort_pos++] = c;
 		wort_len++;
 	} 
-} /* end wort_plus_ch_nocount */
+} /* end wort_plus_ch */
 
+#ifdef AMIGA
 void wort_plus_ch_nocount(int c)
 {
 
@@ -291,6 +294,7 @@ void wort_plus_string_nocount(CHAR *s)
   printf("wort_plus_string_nocount() ende\n");
 #endif
 } /* end wort_plus_string_nocount */
+#endif
 
 /* ------------------------------------------------ */
 

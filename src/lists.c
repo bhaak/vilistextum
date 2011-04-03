@@ -23,6 +23,7 @@ CHAR bullet_style=' ';
 
 /* ------------------------------------------------ */
 
+#if 0
 int check_style()
 {
   while (ch!='>')
@@ -40,6 +41,7 @@ int check_style()
   }
   return 0;
 } /* end check_style */
+#endif
 
 /* ------------------------------------------------ */
 

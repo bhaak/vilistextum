@@ -28,7 +28,7 @@
   #include <iconv.h>
   #include <locale.h>
 
-extern char* internal_locale;
+extern char internal_locale[];
 #endif
 
 FILE *in, *out;
@@ -87,7 +87,7 @@ void convert_string(char *str, CHAR *converted_string)
 	inp = str;
 	outp = output;
 
-	if ((conv = iconv_open("utf-8", "char"))==(iconv_t)(-1))
+	if ((conv = iconv_open("utf-8", "wchar_t"))==(iconv_t)(-1))
 		{	fprintf(stderr, "convert_string: iconv_open failed. Can't convert from %s to UTF-8.\n", getenv("LC_CTYPE")); exit(1); }
 
 	result = iconv(conv, &inp, &insize, &outp, &outsize);

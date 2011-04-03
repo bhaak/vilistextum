@@ -290,17 +290,16 @@ void parse_args(int argc, char *argv[])
 		case 'L': option_latex = 1; break;
 
 		case '?': /* unknown option */
-		  help();
-		  break;
-					
+		  help(); break;
+
 		default:
 			fprintf(stderr, "?? getopt returned character code 0%o %c??\n", c, c);
 		}
 	}
 
-#ifdef DEBUG                                                   
+#ifdef DEBUG
 	if (optind < argc)
-    {
+	{
 	  if (argc-optind!=2) { help(); }
 	  fprintf (stderr, "non-option ARGV-elements: ");
 	  while (optind < argc)

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. test_functions
+
+../src/vilistextum -h >/dev/null
+../src/vilistextum -? 2>/dev/null >/dev/null
+../src/vilistextum nothing$$ - 2>/dev/null
+../src/vilistextum - . 2>/dev/null
+
+check_testcase command_line_options "-i täst -p -w 40 -t -n -a -s -x" command_line_options

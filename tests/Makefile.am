@@ -7,6 +7,7 @@ TESTS = check_utf8 \
 	check_lists \
 	check_entities \
 	check_fallback_entities \
+	check_command_line_options \
 	check_hr \
 	check_ligatures \
 	check_links_inline \
