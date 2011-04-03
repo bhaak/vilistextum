@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. test_functions
+
+check_multibyte
+check_testcase xml_with_encoding "--output-utf-8"
+check_testcase xml_without_encoding "--output-utf-8"
+

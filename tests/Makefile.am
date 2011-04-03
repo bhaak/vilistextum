@@ -1,5 +1,6 @@
 TESTS = check_utf8 \
 	check_utf8_to_latin1 \
+	check_xml_default_encoding \
 	check_latin2 \
 	check_windows-1252 \
 	check_html32 \
