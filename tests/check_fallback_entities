@@ -1,13 +1,6 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
-../src/vilistextum -v | grep >/dev/null multibyte || exit 0
-
-rm -f fallback_entities.output.test
-../src/vilistextum -Y latin1 fallback_entities.html fallback_entities.output.test
-
-diff >/dev/null fallback_entities.output fallback_entities.output.test
-
+check_multibyte
+check_testcase fallback_entities "-Y latin1"

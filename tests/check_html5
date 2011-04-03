@@ -1,13 +1,6 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
-../src/vilistextum -v | grep >/dev/null multibyte || exit 0
-
-rm -f html5.output.test
-../src/vilistextum html5.html html5.output.test
-
-diff >/dev/null html5.output html5.output.test
-
+check_multibyte
+check_testcase html5

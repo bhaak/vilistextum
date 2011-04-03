@@ -1,10 +1,5 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-rm -f bufferoverflow.output.test
-../src/vilistextum -l -c bufferoverflow.html bufferoverflow.output.test
-
-diff >/dev/null bufferoverflow.output bufferoverflow.output.test
-
+check_testcase bufferoverflow "-l -c"

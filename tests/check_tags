@@ -1,10 +1,5 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-rm -f tags.output.test
-../src/vilistextum 2>/dev/null -l -m -c -r tags.html tags.output.test
-
-diff >/dev/null tags.output tags.output.test
-
+check_testcase tags "-l -m -c -r"

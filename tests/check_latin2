@@ -1,13 +1,6 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
-../src/vilistextum -v | grep >/dev/null multibyte || exit 0
-
-rm -f latin2.output.test
-../src/vilistextum latin2.html latin2.output.test
-
-diff >/dev/null latin2.output latin2.output.test
-
+check_multibyte
+check_testcase latin2

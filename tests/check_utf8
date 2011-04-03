@@ -1,13 +1,6 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
+. test_functions
 
-../src/vilistextum -v | grep >/dev/null multibyte || echo "no multibyte version. skipping..."
-../src/vilistextum -v | grep >/dev/null multibyte || exit 0
-
-rm -f utf-8-sampler.output.test
-../src/vilistextum utf-8-sampler.html utf-8-sampler.output.test
-
-diff >/dev/null utf-8-sampler.output utf-8-sampler.output.test
-
+check_multibyte
+check_testcase utf-8-sampler

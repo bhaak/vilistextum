@@ -1,9 +1,5 @@
 #!/bin/sh
 
-echo ""
-echo "TEST: $0"
-rm -f entities.output.test
-../src/vilistextum 2>/dev/null -m entities.html entities.output.test
+. test_functions
 
-diff >/dev/null entities.output entities.output.test
-
+check_testcase entities "-m"
