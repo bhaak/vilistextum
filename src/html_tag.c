@@ -371,6 +371,10 @@ void html_tag()
 		else if CMP("/HGROUP", str)  {}
 		else if CMP("SECTION", str)  {}
 		else if CMP("/SECTION", str) {}
+		else if CMP("FIGURE", str)   { start_div(0); }
+		else if CMP("/FIGURE", str)  { end_div(); }
+		else if CMP("FIGCAPTION", str)   { start_div(0); }
+		else if CMP("/FIGCAPTION", str)  { end_div(); }
 
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
