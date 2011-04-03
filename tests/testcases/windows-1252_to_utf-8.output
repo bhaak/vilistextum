@@ -1,0 +1,27 @@
+case 0x80: EUR EUR € /* MICROSOFT EURO */
+case 0x82: ' ' ‚ /* SINGLE LOW-9 QUOTATION MARK */
+case 0x83: f f ƒ /* Latin Small Letter F With Hook */
+case 0x84: " " „ /* Double Low-9 Quotation Mark */
+case 0x85: ... ... … /* HORIZONTAL ELLIPSIS */
+case 0x86: /- /- † /* Dagger */
+case 0x87: /= /= ‡ /* Double Dagger */
+case 0x88: ^ ^ ˆ /* Modifier Letter Circumflex Accent */
+case 0x89: 0/00 0/00 ‰ /* Per Mille Sign */
+case 0x8a: S S Š /* Latin Capital Letter S With Caron */
+case 0x8b: < < ‹ /* Single Left-Pointing Angle Quotation Mark */
+case 0x8c: OE OE Œ /* Latin Capital Ligature OE */
+case 0x8e: Z Z Ž /* Z\/ */
+case 0x91: ' ' ‘ /* Left Single Quotation Mark */
+case 0x92: ' ' ’ /* Right Single Quotation Mark */
+case 0x93: " " “ /* Left Double Quotation Mark */
+case 0x94: " " ” /* Right Double Quotation Mark */
+case 0x95: * * • /* Bullet */
+case 0x96: - - – /* En Dash */
+case 0x97: -- -- — /* Em Dash */
+case 0x98: ~ ~ ˜ /* Small Tilde */
+case 0x99: [tm] [tm] ™ /* Trade Mark Sign */
+case 0x9a: s s š /* Latin Small Letter S With Caron */
+case 0x9b: > > › /* Single Right-Pointing Angle Quotation Mark */
+case 0x9c: oe oe œ /* Latin Small Ligature OE */
+case 0x9e: z z ž /* z\/ */
+case 0x9f: Y Y Ÿ /* Latin Capital Letter Y With Diaeresis */

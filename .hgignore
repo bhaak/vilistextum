@@ -4,6 +4,7 @@ src/vilistextum
 src/*.o
 src/.deps
 tests/*.test
+tests/testcases/*.test
 autom4te.cache
 Makefile
 Makefile.in

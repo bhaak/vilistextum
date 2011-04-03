@@ -4,3 +4,4 @@
 
 check_multibyte
 check_testcase latin2
+check_testcase latin2 "-Y iso-8859-1" latin2_to_latin1

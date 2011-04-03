@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. test_functions
+
+check_multibyte
+check_testcase windows-1252
+check_testcase windows-1252 "--dont-convert-characters" windows-1252-unconverted
+check_testcase windows-1252 "--output-utf-8" windows-1252_to_utf-8
+check_testcase windows-1252 "--dont-convert-characters --output-utf-8" windows-1252_to_utf-8-unconverted

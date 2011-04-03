@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. test_functions
+
+check_testcase lists1
+check_testcase lists2
+check_testcase lists3
+check_testcase lists4

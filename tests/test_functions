@@ -4,14 +4,22 @@ check_testcase()
 {
   prefix=$1
   args=$2
+  output_prefix=$3
+  if [ -z "$output_prefix" ]; then
+    output_prefix=$prefix
+  fi
 
   rm -f testcases/$prefix.output.test
-  ../src/vilistextum 2>/dev/null $args testcases/$prefix.html testcases/$prefix.output.test
+  ../src/vilistextum 2>/dev/null $args testcases/$prefix.html testcases/$output_prefix.output.test
 
-  diff >/dev/null testcases/$prefix.output testcases/$prefix.output.test
+  diff >/dev/null testcases/$output_prefix.output testcases/$output_prefix.output.test
   retval=$?
   if [ $retval -ne 0 ]; then
-    echo "TEST: testcase $prefix failed"
+    if [ -z "$args" ]; then
+      echo "TEST: testcase $prefix failed"
+    else
+      echo "TEST: testcase $prefix $args failed"
+    fi
     exit $retval
   fi
   #echo "$prefix passed"
