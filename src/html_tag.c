@@ -239,6 +239,7 @@ void html_tag()
 		/* those tags are ignored */
 		else if CMP("HTML", str)      {}
 		else if CMP("BASE", str)      {}
+		else if CMP("/BASE", str)     {}
 		else if CMP("LINK", str)      {}
 		else if CMP("BASEFONT", str)  {} /* deprecated */
 
@@ -272,6 +273,7 @@ void html_tag()
 		else if CMP("SELECT", str)    {}
 		else if CMP("/SELECT", str)   {}
 		else if CMP("OPTION", str)    {}
+		else if CMP("/OPTION", str)   {}
 
 		else if CMP("FRAME", str)  {}
 		else if CMP("/FRAME", str) {}
@@ -306,6 +308,7 @@ void html_tag()
 		else if CMP("/OPTGROUP", str) {}
 
 		else if CMP("/AREA", str)     {}
+		else if CMP("/IMG", str)      {}
 
 		else if (STRNCMP("!--", str, 3)==0)  { 
 			/*#ifdef debug */
