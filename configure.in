@@ -26,10 +26,10 @@ CFLAGS="$CFLAGS -I/usr/local/include"
 LDFLAGS="$LDFLAGS -L/usr/local/lib"
 
 dnl checking for options
-AC_MSG_CHECKING(if --enable-multibyte specified)
+AC_MSG_CHECKING(if multibyte support should be enabled)
 AC_ARG_ENABLE(multibyte,
-  AS_HELP_STRING(--enable-multibyte,Enable multibyte support.),
-  [use_multibyte=$enableval], [use_multibyte=no])
+  AS_HELP_STRING(--enable-multibyte,Enable multibyte support [default=yes].),
+  [use_multibyte=$enableval], [use_multibyte=yes])
 AC_MSG_RESULT($use_multibyte)
 
 if test "$use_multibyte" = "yes"; then
