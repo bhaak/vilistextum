@@ -46,12 +46,21 @@ AC_CHECK_LIB(iconv, iconv,,
 
 dnl setting INTERNAL_LOCALE
 AC_MSG_CHECKING(for unicode locale)
-DEFAULT_LOCALE=`locale -a | grep -i 'utf.*8$' | sed -e '2,$D'`
+# prefer en_US.UTF-8 locale
+DEFAULT_LOCALE=`locale -a | grep -i 'en_US.utf.*8$' | sed -e '2,$D'`
+if test -z "$DEFAULT_LOCALE"; then
+ # prefer any english UTF-8 locale
+ DEFAULT_LOCALE=`locale -a | grep -i 'en_.*.utf.*8$' | sed -e '2,$D'`
+fi
+if test -z "$DEFAULT_LOCALE"; then
+ # take any UTF-8 locale
+ DEFAULT_LOCALE=`locale -a | grep -i 'utf.*8$' | sed -e '2,$D'`
+fi
 AC_MSG_RESULT("$DEFAULT_LOCALE")
-AC_MSG_CHECKING(if --with-unicode-locale specified)
+AC_MSG_CHECKING(if manually setting unicode locale)
 AC_ARG_WITH(unicode-locale,
 	[  --with-unicode-locale=LOCALE  use this LOCALE instead of $DEFAULT_LOCALE],
-	AC_MSG_RESULT(yes) ;
+	AC_MSG_RESULT("$with_unicode_locale") ;
 		INTERNAL_LOCALE="$with_unicode_locale" ;
 		AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$with_unicode_locale", [preferred Unicode set]),
 	AC_MSG_RESULT(no)  ;
@@ -59,7 +68,7 @@ AC_ARG_WITH(unicode-locale,
 		AC_DEFINE_UNQUOTED(INTERNAL_LOCALE, "$DEFAULT_LOCALE", [preferred Unicode set]))
 
 if test "$INTERNAL_LOCALE" = ""; then
-		AC_MSG_ERROR(Couldn't find utf-8 encoding. Use --with-unicode-locale=LOCALE.)
+		AC_MSG_ERROR([Couldn't find utf-8 encoding. Use --with-unicode-locale=LOCALE.])
 fi
 fi
 
