@@ -45,7 +45,7 @@ CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
 	link_inline[DEF_STR_LEN]; /* Link of a HTML-Tag */
 
 /* ------------------------------------------------ */
-#if defined(MULTIBYTE) && ! defined(__GNU_LIBRARY__)
+#if defined(MULTIBYTE) && !defined(HAVE_WCSCASECMP)
 #include <wchar.h>
 static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 {

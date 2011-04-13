@@ -43,6 +43,11 @@ AC_CHECK_HEADERS(iconv.h,,
 
 AC_CHECK_LIB(iconv, iconv,,
 			AC_MSG_WARN([Generic iconv found but not libiconv. See INSTALL for details]))
+AC_CHECK_HEADERS([wchar.h])
+AC_CHECK_TYPE([wchar_t],,[ AC_MSG_ERROR([Type wchar_t not found.]) ])
+# check for all needed wide char function
+# even if not all defines are used in code
+AC_CHECK_FUNCS(mbstowcs wcstombs fgetwc ungetwc wcscasecmp wcscat wcscmp wcscpy wcslen wcsncat wcsncmp wcsstr wcstol swprintf)
 
 dnl setting INTERNAL_LOCALE
 AC_MSG_CHECKING(for unicode locale)
@@ -57,7 +62,7 @@ if test -z "$DEFAULT_LOCALE"; then
  DEFAULT_LOCALE=`locale -a | grep -i 'utf.*8$' | sed -e '2,$D'`
 fi
 AC_MSG_RESULT("$DEFAULT_LOCALE")
-AC_MSG_CHECKING(if manually setting unicode locale)
+AC_MSG_CHECKING(if overwriting automatically set unicode locale)
 AC_ARG_WITH(unicode-locale,
 	[  --with-unicode-locale=LOCALE  use this LOCALE instead of $DEFAULT_LOCALE],
 	AC_MSG_RESULT("$with_unicode_locale") ;
