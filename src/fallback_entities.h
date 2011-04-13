@@ -9,10 +9,24 @@ struct fallback_entities_struct {
 	int codepoint;
 	char *description;
 	CHAR *replacement;
+	CHAR *entity;
 };
 
 struct fallback_entities_struct fallback_entities[] = {
 /* Spacing Modifier Letters */
+
+/* ISO-8859-1 */
+{0x00AB, "LEFT-POINTING DOUBLE ANGLE QUOTATION MARK", STRING("\""), STRING("&laquo;")},
+{0x00BB, "RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK", STRING("\""), STRING("&raquo;")},
+
+{0x00C4, "LATIN CAPITAL LETTER A WITH DIAERESIS", STRING("Ae"), STRING("&Auml;")},
+{0x00CB, "LATIN CAPITAL LETTER E WITH DIAERESIS", STRING("Oe"), STRING("&Ouml;")},
+{0x00DC, "LATIN CAPITAL LETTER U WITH DIAERESIS", STRING("Ue"), STRING("&Uuml;")},
+
+{0x00DF, "LATIN SMALL LETTER SHARP S (German)", STRING("ss"), STRING("&szlig;")},
+{0x00E4, "LATIN SMALL LETTER A WITH DIAERESIS", STRING("ae"), STRING("&auml;")},
+{0x00F6, "LATIN SMALL LETTER O WITH DIAERESIS", STRING("oe"), STRING("&ouml;")},
+{0x00FC, "LATIN SMALL LETTER U WITH DIAERESIS", STRING("ue"), STRING("&uuml;")},
 
 /* Dashes */
 {0x2010, "HYPHEN", STRING("-")},
