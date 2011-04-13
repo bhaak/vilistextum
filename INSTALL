@@ -1,7 +1,7 @@
-Standard version
-================
+iso-8859-1 / latin1 version
+===========================
 
-$ ./configure --enable-multibyte && make
+$ ./configure --disable-multibyte && make
 # make install (as root)
 
 The standard version of vilistextum should compile on any system with a
@@ -11,8 +11,9 @@ systems.
 
 Multibyte/Unicode version
 =========================
+Since 2.8.0 the multibyte version will be built by default
 
-$ ./configure --enable-multibyte && make
+$ ./configure && make
 # make install (as root)
 
 The multibyte version needs a good iconv implementation. The best and
