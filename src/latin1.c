@@ -127,14 +127,17 @@ void parse_entities(CHAR *s)
 	
 	while(i<=len) {
 		j=0;
+		/* search for end of string or possible entity */
 		while((s[i]!='\0') && (s[i]!='&') && (i<DEF_STR_LEN)) {
 			tmp[j++] = s[i++];
 		}
 		tmp[j] = '\0';
 		STRCAT(result, tmp);
 
+		/* possible entity found */
 		if (s[i]=='&') {
-		  k=0;
+			k=0;
+			/* extract entity from string */
 			while((s[i]!='\0') && (s[i]!=';') && (!isspace(s[i])) && (i<DEF_STR_LEN)) {
 				entity[k++] = s[i++];
 			}
