@@ -4,3 +4,5 @@
 
 check_multibyte
 check_testcase utf-8-to-latin1 "-Y ASCII" utf-8-to-ascii
+
+check_testcase entities "-Y ASCII" entities.ascii

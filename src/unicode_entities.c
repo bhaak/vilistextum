@@ -87,7 +87,9 @@ int fallback_entity(CHAR *s)
 	number = extract_entity_number(s);
 
 	while (fallback_entities[i].codepoint != 0){
+		/* search for fallback entity by number */
 		if ((number == fallback_entities[i].codepoint) ||
+		    /* search for fallback entity by named entity */
 		    (fallback_entities[i].entity != NULL &&
 		     wcscmp(fallback_entities[i].entity, s)==0)) {
 			CPYSS(s, fallback_entities[i].replacement);
