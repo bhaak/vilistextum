@@ -3,7 +3,7 @@ ISO 8859-1 characters
 entity	named	numerical
 nbsp	 	   
 
-iexcl	&iexcl;	&#161;  
+iexcl	!	!  
 
 cent	&cent;	&#162;  
 
@@ -13,11 +13,11 @@ curren	&curren;	&#164;
 
 yen	&yen;	&#165;  
 
-brvbar	&brvbar;	&#166;  
+brvbar	|	|  
 
 sect	&sect;	&#167;  
 
-uml	&uml;	&#168;  
+uml	"	"  
 
 copy	(c)	(c)  
 
@@ -29,25 +29,25 @@ not	&not;	&#172;
 
 shy		  
 
-reg	&reg;	&#174;  
+reg	(R)	(R)  
 
 macr	&macr;	&#175;  
 
 deg	&deg;	&#176;  
 
-plusmn	&plusmn;	&#177;  
+plusmn	+/-	+/-  
 
 sup2	&sup2;	&#178;  
 
 sup3	&sup3;	&#179;  
 
-acute	&acute;	&#180;  
+acute	'	'  
 
 micro	&micro;	&#181;  
 
 para	&para;	&#182;  
 
-middot	&middot;	&#183;  
+middot	*	*  
 
 cedil	&cedil;	&#184;  
 
@@ -63,135 +63,135 @@ frac12	1/2	1/2
 
 frac34	3/4	3/4  
 
-iquest	&iquest;	&#191;  
+iquest	?	?  
 
-Agrave	&Agrave;	&#192;  
+Agrave	A	A  
 
-Aacute	&Aacute;	&#193;  
+Aacute	A	A  
 
-Acirc	&Acirc;	&#194;  
+Acirc	A	A  
 
-Atilde	&Atilde;	&#195;  
+Atilde	A	A  
 
 Auml	Ae	Ae  
 
-Aring	&Aring;	&#197;  
+Aring	A	A  
 
-AElig	&AElig;	&#198;  
+AElig	Ae	Ae  
 
-Ccedil	&Ccedil;	&#199;  
+Ccedil	C	C  
 
-Egrave	&Egrave;	&#200;  
+Egrave	E	E  
 
-Eacute	&Eacute;	&#201;  
+Eacute	E	E  
 
-Ecirc	&Ecirc;	&#202;  
+Ecirc	E	E  
 
-Euml	&Euml;	&#203;  
+Euml	E	E  
 
-Igrave	&Igrave;	&#204;  
+Igrave	I	I  
 
-Iacute	&Iacute;	&#205;  
+Iacute	I	I  
 
-Icirc	&Icirc;	&#206;  
+Icirc	I	I  
 
-Iuml	&Iuml;	&#207;  
+Iuml	I	I  
 
-ETH	&ETH;	&#208;  
+ETH	Th	Th  
 
-Ntilde	&Ntilde;	&#209;  
+Ntilde	N	N  
 
-Ograve	&Ograve;	&#210;  
+Ograve	O	O  
 
-Oacute	&Oacute;	&#211;  
+Oacute	O	O  
 
-Ocirc	&Ocirc;	&#212;  
+Ocirc	O	O  
 
-Otilde	&Otilde;	&#213;  
+Otilde	O	O  
 
 Ouml	Oe	Oe  
 
-times	&times;	&#215;  
+times	*	*  
 
-Oslash	&Oslash;	&#216;  
+Oslash	O	O  
 
-Ugrave	&Ugrave;	&#217;  
+Ugrave	U	U  
 
-Uacute	&Uacute;	&#218;  
+Uacute	U	U  
 
-Ucirc	&Ucirc;	&#219;  
+Ucirc	U	U  
 
 Uuml	Ue	Ue  
 
-Yacute	&Yacute;	&#221;  
+Yacute	Y	Y  
 
-THORN	&THORN;	&#222;  
+THORN	Th	Th  
 
 szlig	ss	ss  
 
-agrave	&agrave;	&#224;  
+agrave	a	a  
 
-aacute	&aacute;	&#225;  
+aacute	a	a  
 
-acirc	&acirc;	&#226;  
+acirc	a	a  
 
-atilde	&atilde;	&#227;  
+atilde	a	a  
 
 auml	ae	ae  
 
-aring	&aring;	&#229;  
+aring	a	a  
 
-aelig	&aelig;	&#230;  
+aelig	ae	ae  
 
-ccedil	&ccedil;	&#231;  
+ccedil	c	c  
 
-egrave	&egrave;	&#232;  
+egrave	e	e  
 
-eacute	&eacute;	&#233;  
+eacute	e	e  
 
-ecirc	&ecirc;	&#234;  
+ecirc	e	e  
 
-euml	&euml;	&#235;  
+euml	e	e  
 
-igrave	&igrave;	&#236;  
+igrave	i	i  
 
-iacute	&iacute;	&#237;  
+iacute	i	i  
 
-icirc	&icirc;	&#238;  
+icirc	i	i  
 
-iuml	&iuml;	&#239;  
+iuml	i	i  
 
-eth	&eth;	&#240;  
+eth	th	th  
 
-ntilde	&ntilde;	&#241;  
+ntilde	n	n  
 
-ograve	&ograve;	&#242;  
+ograve	o	o  
 
-oacute	&oacute;	&#243;  
+oacute	o	o  
 
-ocirc	&ocirc;	&#244;  
+ocirc	o	o  
 
-otilde	&otilde;	&#245;  
+otilde	o	o  
 
 ouml	oe	oe  
 
-divide	&divide;	&#247;  
+divide	/	/  
 
-oslash	&oslash;	&#248;  
+oslash	o	o  
 
-ugrave	&ugrave;	&#249;  
+ugrave	u	u  
 
-uacute	&uacute;	&#250;  
+uacute	u	u  
 
-ucirc	&ucirc;	&#251;  
+ucirc	u	u  
 
 uuml	ue	ue  
 
-yacute	&yacute;	&#253;  
+yacute	y	y  
 
-thorn	&thorn;	&#254;  
+thorn	th	th  
 
-yuml	&yuml;	&#255;  
+yuml	y	y  
 
 Mathematical, Greek and Symbolic characters for HTML
 
