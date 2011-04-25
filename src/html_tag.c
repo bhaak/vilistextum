@@ -380,6 +380,13 @@ void html_tag()
 		else if CMP("/FIGCAPTION", str)  { end_div(); }
 		else if CMP("ASIDE", str)    { start_div(0); }
 		else if CMP("/ASIDE", str)   { end_div(); }
+		/* HTML5 media tags */
+		else if CMP("AUDIO", str)    {}
+		else if CMP("/AUDIO", str)   {}
+		else if CMP("EMBED", str)    {}
+		else if CMP("/EMBED", str)   {}
+		else if CMP("VIDEO", str)    {}
+		else if CMP("/VIDEO", str)   {}
 
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
