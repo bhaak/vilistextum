@@ -383,6 +383,8 @@ void html_tag()
 		/* HTML5 media tags */
 		else if CMP("AUDIO", str)    {}
 		else if CMP("/AUDIO", str)   {}
+		else if CMP("CANVAS", str)   {}
+		else if CMP("/CANVAS", str)  {}
 		else if CMP("EMBED", str)    {}
 		else if CMP("/EMBED", str)   {}
 		else if CMP("VIDEO", str)    {}

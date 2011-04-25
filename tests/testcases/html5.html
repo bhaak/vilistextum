@@ -33,8 +33,14 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <aside>aside content</aside>
   <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <p><audio src="nothing.ogg" controls="controls">Your browser does not support the audio element.</audio>
-  <p><video src="nothing.ogg" controls="controls">Your browser does not support the video tag.</video></p>
+  <p>
+    <audio src="nothing.ogg" controls="controls">
+      <source src="song.ogg" type="audio/ogg" />
+      <source src="song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <video src="nothing.ogg" controls="controls">Your browser does not support the video tag.</video>
+    <canvas id="myCanvas">Your browser does not support the canvas tag.</canvas>
 </section>
 <footer>Footer</footer>
 </body>
