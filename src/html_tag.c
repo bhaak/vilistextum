@@ -391,6 +391,14 @@ void html_tag()
 		else if CMP("/SOURCE", str)  {}
 		else if CMP("VIDEO", str)    {}
 		else if CMP("/VIDEO", str)   {}
+		else if CMP("COMMAND", str)  {}
+		else if CMP("/COMMAND", str) {}
+		else if CMP("METER", str)    {}
+		else if CMP("/METER", str)   {}
+		else if CMP("PROGRESS", str)  {}
+		else if CMP("/PROGRESS", str) {}
+		else if CMP("TIME", str)     {}
+		else if CMP("/TIME", str)    {}
 
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
