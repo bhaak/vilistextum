@@ -400,6 +400,15 @@ void html_tag()
 		else if CMP("TIME", str)     {}
 		else if CMP("/TIME", str)    {}
 
+		/* The content of details should only be shown when the
+		 * attribute open is set.
+		 * But it can't be dynamically set here, so always show
+		 * it. */
+		else if CMP("DETAILS", str)   { start_div(0); }
+		else if CMP("/DETAILS", str)  { end_div(); }
+		else if CMP("SUMMARY", str)   { start_div(0); }
+		else if CMP("/SUMMARY", str)  { end_div(); }
+
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
 		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
 	}

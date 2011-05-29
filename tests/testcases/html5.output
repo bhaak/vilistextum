@@ -18,6 +18,10 @@ This is the content for the second article
 
 Ἀγεωμέτρητος μηδεὶς εἰσίτω
 
+A summary
+According to the spec, the tag details should be hidden by default unless
+the attribute open is set.
+
 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor
 incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
