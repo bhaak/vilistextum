@@ -399,6 +399,12 @@ void html_tag()
 		else if CMP("/PROGRESS", str) {}
 		else if CMP("TIME", str)     {}
 		else if CMP("/TIME", str)    {}
+		else if CMP("RUBY", str)     {}
+		else if CMP("/RUBY", str)    {}
+		else if CMP("RP", str)       {}
+		else if CMP("/RP", str)      {}
+		else if CMP("RT", str)       {}
+		else if CMP("/RT", str)      {}
 
 		/* The content of details should only be shown when the
 		 * attribute open is set.
