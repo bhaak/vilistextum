@@ -289,3 +289,21 @@ void html_code_end() {
 } /* html_code_end */
 
 /* ------------------------------------------------ */
+
+void html_mark() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\htmlMark{"), FALSE);
+	} else {
+		wort_plus_ch('=');
+	}
+} /* html_b */
+
+void html_mark_end() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("}"), FALSE);
+	} else {
+		wort_plus_ch('=');
+	}
+} /* html_mark_end */
+
+/* ------------------------------------------------ */

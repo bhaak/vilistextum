@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/sh -x
 
 . test_functions
 
 check_multibyte
-check_testcase html5
+check_testcase html5 "-c"

@@ -24,5 +24,7 @@ void html_font();
 void html_font_end();
 void html_body();
 void html_img(CHAR *src_location);
+void html_mark();
+void html_mark_end();
 
 #endif

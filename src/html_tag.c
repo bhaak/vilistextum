@@ -380,6 +380,9 @@ void html_tag()
 		else if CMP("/FIGCAPTION", str)  { end_div(); }
 		else if CMP("ASIDE", str)    { start_div(0); }
 		else if CMP("/ASIDE", str)   { end_div(); }
+
+		else if CMP("MARK", str)     { if (convert_tags) { html_mark(); } }
+		else if CMP("/MARK", str)    { if (convert_tags) { html_mark_end(); } }
 		/* HTML5 media tags */
 		else if CMP("AUDIO", str)    {}
 		else if CMP("/AUDIO", str)   {}
