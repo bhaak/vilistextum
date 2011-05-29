@@ -387,6 +387,8 @@ void html_tag()
 		else if CMP("/CANVAS", str)  {}
 		else if CMP("EMBED", str)    {}
 		else if CMP("/EMBED", str)   {}
+		else if CMP("SOURCE", str)   {}
+		else if CMP("/SOURCE", str)  {}
 		else if CMP("VIDEO", str)    {}
 		else if CMP("/VIDEO", str)   {}
 
