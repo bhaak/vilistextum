@@ -400,6 +400,12 @@ void html_tag()
 		else if CMP("/METER", str)   {}
 		else if CMP("PROGRESS", str)  {}
 		else if CMP("/PROGRESS", str) {}
+		else if CMP("DATALIST", str)  {}
+		else if CMP("/DATALIST", str) {}
+		else if CMP("KEYGEN", str)   {}
+		else if CMP("/KEYGEN", str)  {}
+		else if CMP("OUTPUT", str)   {}
+		else if CMP("/OUTPUT", str)  {}
 		else if CMP("TIME", str)     {}
 		else if CMP("/TIME", str)    {}
 		else if CMP("RUBY", str)     {}
