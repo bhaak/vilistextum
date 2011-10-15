@@ -1,0 +1,3 @@
+version=3
+opts="uversionmangle=s/^2.22//" \
+http://bhaak.dyndns.org/vilistextum/download.html vilistextum\-([0-9\.]+)\.tar\.gz

@@ -1,0 +1,17 @@
+Source: vilistextum
+Section: text
+Priority: optional
+Maintainer: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>
+Build-Depends: cdbs, debhelper (>= 5), autotools-dev
+Standards-Version: 3.8.0
+Homepage: http://bhaak.dyndns.org/vilistextum/
+
+Package: vilistextum
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a HTML to text converter
+ Vilistextum is a small and fast HTML to text / ascii converter
+ specifically programmed to get the best out of incorrect html. It is
+ quite fault-tolerant and deals well with badly-formed or otherwise
+ quirky HTML. It is able to optimize for ebook reading, collapse
+ multiple blank lines, and create footnotes out of links.
