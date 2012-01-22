@@ -257,7 +257,7 @@ void html_pre_end() {
 void html_blockquote() {
 	if (option_latex) {
 		line_break();
-		wort_plus_string_escape(STRING("\\begin{htmlBlockquote}"), FALSE);
+		wort_plus_string_escape(STRING("\\begin{htmlBlockquote}%"), FALSE);
 		line_break();
 	} else {
 	  start_p();

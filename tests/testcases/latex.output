@@ -77,7 +77,7 @@ Köpfchen in das Wasser,
 Ein Blindparagraph mit eingeschobenem Zitat. Mirgänd Wegruden ernem Mörten
 Oegegesens Rundt Herkun dieseltenne vonun Voravaturf äulost unglichersch
 Kelde Weildi soltur.
-\begin{htmlBlockquote}
+\begin{htmlBlockquote}%
 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor
 incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
