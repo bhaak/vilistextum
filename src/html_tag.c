@@ -207,11 +207,11 @@ void html_tag()
 		else if CMP("SAMP", str)      {}
 		else if CMP("/SAMP", str)     {}
 		else if CMP("CODE", str)      { html_code(); }
-		else if CMP("/CODE", str)     { html_code_end(); }
+		else if CMP("/CODE", str)     { html_generic_tag_end(); }
 		else if CMP("ABBR", str)      {}
 		else if CMP("/ABBR", str)     {}
-		else if CMP("ACRONYM", str)      {}
-		else if CMP("/ACRONYM", str)     {}
+		else if CMP("ACRONYM", str)   {}
+		else if CMP("/ACRONYM", str)  {}
 		else if CMP("BIG", str)      {}
 		else if CMP("/BIG", str)     {}
 		else if CMP("VAR", str)      {}
@@ -247,14 +247,14 @@ void html_tag()
 		else if CMP("/HEAD", str)     {}
 		else if CMP("MAP", str)       {}
 		else if CMP("/MAP", str)      {}
-		else if CMP("SUP", str)       {}
-		else if CMP("/SUP", str)      {}
+		else if CMP("SUP", str)       { html_sup(); }
+		else if CMP("/SUP", str)      { html_generic_tag_end(); }
 		else if CMP("ADDRESS", str)   {}
 		else if CMP("/ADDRESS", str)  {}
 		else if CMP("TT", str)        {}
 		else if CMP("/TT", str)       {}
-		else if CMP("SUB", str)       {}
-		else if CMP("/SUB", str)      {}
+		else if CMP("SUB", str)       { html_sub(); }
+		else if CMP("/SUB", str)      { html_generic_tag_end(); }
 		else if CMP("NOSCRIPT", str)  {}
 		else if CMP("/NOSCRIPT", str) {}
 		else if CMP("SMALL", str)     {}

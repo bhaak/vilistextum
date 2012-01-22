@@ -276,17 +276,35 @@ void html_blockquote_end() {
 
 /* ------------------------------------------------ */
 
+void html_generic_tag_end() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("}"), FALSE);
+	}
+} /* html_generic_tag_end */
+
+/* ------------------------------------------------ */
+
 void html_code() {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlCode{"), FALSE);
 	}
 } /* html_code */
 
-void html_code_end() {
+/* ------------------------------------------------ */
+
+void html_sup() {
 	if (option_latex) {
-		wort_plus_string_escape(STRING("}"), FALSE);
+		wort_plus_string_escape(STRING("\\htmlSup{"), FALSE);
 	}
-} /* html_code_end */
+} /* html_sup */
+
+/* ------------------------------------------------ */
+
+void html_sub() {
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\htmlSub{"), FALSE);
+	}
+} /* html_sub */
 
 /* ------------------------------------------------ */
 

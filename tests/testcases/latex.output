@@ -88,6 +88,6 @@ garrötiv istiele Objendeifer leria ihrund Gewuß sinfänkigur.
 
 Verschiedenste Tags, wie \htmlCode{code}.
 
-sub: H2O \\
-sup: E = mc2
+sub: H\htmlSub{2}O \\
+sup: E = mc\htmlSup{2}
 
