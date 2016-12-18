@@ -1,0 +1,86 @@
+.TH VILISTEXTUM 1 "22 OCT 2006"
+.SH NAME
+vilistextum - 
+html to ascii converter
+.SH SYNOPSIS
+.B vilistextum
+[OPTIONS] [inputfile |-] [outputfile | -]
+.SH DESCRIPTION
+vilistextum is a html to ascii converter specifically programmed to get the best out of incorrect html.
+.SH OPTIONS
+.TP
+\fB\inputfile,- resp. outputfile,-
+replace inputfile with '-' for reading from standard input, likewise outputfile with '-' for writing to standard output.
+.TP
+\fB\-a, --no-alt 
+don't output anything for IMG tags even if they have an ALT attribute. Implies --no-image.
+.TP
+\fB\-c, --convert-tags 
+some tags will be converted to special characters.
+.TP
+\fB\-e, --errorlevel NUMBER
+increase level of verbosity for error messages (0: No error messages).
+.TP
+\fB\-i, --defimage STRING
+IMG tags without alt attribute are output as [STRING].
+.TP
+\fB\-l, --links 
+numbers the links in the document and creates footnotes of each link at the end of the file.
+.TP
+\fB\-k, --links-inline 
+print the links directly after the html tag.
+.TP
+\fB\-m, --dont-convert-characters 
+don't convert the entities from windows1252 (&#128;-&#159; and their proper entity names)
+.TP
+\fB\-n, --no-image 
+don't output [Image] for IMG tags that have no ALT attribute.
+.TP
+\fB\-p, --palm 
+output text more suitable for reading on a PDA.
+.TP
+\fB\-r, --remove-empty-alt 
+if there is an empty ALT attribute in a IMG tag (eg <IMG href="..." alt="">), don't output '[]'.
+.TP
+\fB\-s, --shrink-lines [NUMBER]
+if there are more than NUMBER empty lines, output only NUMBER. Default: 1.
+.TP
+\fB\-t, --no-title 
+don't output title.
+.TP
+\fB\-w, --width NUMBER
+maximum line width.
+.SH 
+.TP
+\fB\-h, --help 
+display this help and exit
+.TP
+\fB\-v, --version 
+output version information and exit
+.SH MULTIBYTE OPTIONS (Only available if compiled with multibyte support)
+.TP
+\fB\-u, --output-utf-8 
+instead of the character set of the html document, everything will be output as utf-8.
+.TP
+\fB\-x, --translit 
+use the //TRANSLIT feature of libiconv. Consult the iconv manual for details.
+.TP
+\fB\-y, --charset CHARSET
+if the HTML document doesn't provide a character set in the meta tags, use CHARSET.
+.SH LIMITATIONS
+The rendering of tables is not very good.
+
+The handling of OL is incomplete. The program treats it as UL and more than 10 nested lists confuse it.
+
+Text is never justified.
+
+.SH REPORTING BUGS
+Please report bugs to <bhaak@gmx.net>.
+.SH AUTHOR
+.B Vilistextum
+was written by Patric Mueller <bhaak@gmx.net> and may be freely distributed under the terms of the GNU General Public License Version 2. There is ABSOLUTELY NO WARRANTY for this program.
+.SH SEE ALSO
+.BR iconv (3), 
+.BR lynx (1), 
+.BR links (1), 
+.BR w3m (1)
