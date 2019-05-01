@@ -6,7 +6,7 @@
 3. valgrind --show-reachable=yes --db-attach=yes --leak-check=full src/vilistextum input.html output
 
 - Version ändern:
-configure.in
+configure.ac
 doc/README.xhtml
 doc/download.xml
 website.xweb
@@ -14,7 +14,7 @@ website.xweb
 - Datei freshmeat mit neuesten Zahlen updaten
 
 - Datum anpassen:
-configure.in
+configure.ac
 doc/vilistextum-manual.xml
 doc/README.xhtml
 doc/changes.xhtml
@@ -24,7 +24,7 @@ Homepage: history.xml
 http://owen.sj.ca.us/~rk/howto/cvs.html#tag
 cvs tag -r vilistextum_2_6_10
 ./create-dist
-change date and version in configure.in
+change date and version in configure.ac
 Hochladen nach Sourceforge (Details fehlen)
 
 - Ankündigungen
