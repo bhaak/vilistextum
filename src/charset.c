@@ -232,9 +232,3 @@ void strip_wchar(CHAR *locale, char *stripped_locale)
 } /* end strip_wchar */
 #endif
 /* ------------------------------------------------ */
-
-void print_locale() { 
-	/* printf("%s\n", this_locale); */
-}
-
-/* ------------------------------------------------ */

@@ -405,7 +405,6 @@ void construct_footnote(CHAR *temp, int number, CHAR *link)
 
 int references_count=0;
 CHAR references[DEF_STR_LEN];
-char *schemes[] = {"ftp://","file://" ,"http://" ,"gopher://" ,"mailto:" ,"news:" ,"nntp://" ,"telnet://" ,"wais://" ,"prospero://" };
 int html_a_opened = 0;
 
 /* handles <a href="..."></a> */

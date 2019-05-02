@@ -33,18 +33,10 @@ extern char internal_locale[];
 
 FILE *in, *out;
 
-CHAR curr_ch;
-
-char infile[DEF_STR_LEN], outfile[DEF_STR_LEN];
-
 /* ------------------------------------------------ */
 
 void open_files(char *input, char *output)
 {
-	/* cp file names for later use with files_reopen */
-	strcpy(infile, input);
-	strcpy(outfile, output);
-
   if ((in = (strcmp(input, "-") ? fopen(input, "r") : stdin))==0)  
   {
     fprintf(stderr, "Couldn't open input file %s!\n",input);
@@ -258,27 +250,9 @@ int read_char()
 		quit(); 
 		return 0; 
 	} else {
-		curr_ch = c;
 		return c;
 	}
 } /* end read_char */
-
-/* ------------------------------------------------ */
-
-int get_current_char()
-{
-	return(curr_ch);
-} /* end get_current_char */
-
-/* ------------------------------------------------ */
-
-/* set back stream p characters */
-void goback_char(int p)
-{
-  printf("\nACHTUNG\n");
-  fseek(in, -p, SEEK_CUR);
-  printf("\nACHTUNG\n");
-} /* end goback_char */
 
 /* ------------------------------------------------ */
 
@@ -287,9 +261,5 @@ void putback_char(CHAR c)
 {
   UNGETC (c, in);
 } /* end putback_char */
-
-/* ------------------------------------------------ */
-
-void files_reopen() {	open_files(infile, outfile); }
 
 /* ------------------------------------------------ */

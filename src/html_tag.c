@@ -311,24 +311,13 @@ void html_tag()
 		else if CMP("/IMG", str)      {}
 
 		else if (STRNCMP("!--", str, 3)==0)  { 
-			/*#ifdef debug */
-			/*printf("Frisskommentar %ls\n", str); */
-			/*#endif  */
-			/*goback_char(3); */
 			/* put the last 3 characters back to stream */
 			/* needed for comments like "<--test-->" */
 			putback_char(ch);
 			putback_char(str[STRLEN(str)-1]);
 			putback_char(str[STRLEN(str)-2]);
-			/*printf("str: %ls\n", str); */
-			/*printf(" put back %lc%lc%lc\n", str[STRLEN(str)-2], str[STRLEN(str)-1], ch); */
 			ch = friss_kommentar(); 
-			/*printf("ch_1: %c %d\n", ch, ch); */
-			/*goback_char(1); */
-			/*printf("ch_2: %c %d\n", ch, ch); */
-			/*ch = read_char(); */
-			/*printf("ch_3: %c %d\n", ch, ch); */
-		} /* Comment */
+		}
 
 		/* these have to be ignored, to avoid the following error to show up */
 		else if CMP("SCRIPT", str)    {}
