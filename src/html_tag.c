@@ -6,7 +6,7 @@
  * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
  * 23.04.01 : Ignoring SPAN, /SPAN and /LI
- *            IMG, APPLET, AREA and INPUT are searched for ALT attribute 
+ *            IMG, APPLET, AREA and INPUT are searched for ALT attribute
  * 13.08.01 : Ignoring DFN and /DFN
  * 24.08.01 : Fixed Frisskommentar
  * 02.09.01 : Ignoring BLINK, /BLINK, CITE and /CITE
@@ -33,48 +33,48 @@
 
 void html_tag()
 {
-  CHAR str[DEF_STR_LEN];
-  int i=0;
+	CHAR str[DEF_STR_LEN];
+	int i=0;
 
-  ch = uppercase(read_char());
+	ch = uppercase(read_char());
 
 	/* letter -> normal tag */
 	/* '!' -> CDATA section or comment */
-	/* '/' -> end tag */ 
+	/* '/' -> end tag */
 	/* '?' -> XML processing instruction */
-  if ((!isalpha(ch)) && (ch!='/') && (ch!='!') && (ch!='?'))
+	if ((!isalpha(ch)) && (ch!='/') && (ch!='!') && (ch!='?'))
 	{
-    wort_plus_ch('<');
+		wort_plus_ch('<');
 		putback_char(ch);
 		/* fprintf(stderr, "no html tag: %c\n",ch); */
-    return;
-  }
+		return;
+	}
 
 	/* read html tag */
-  while ((ch!='>') && (ch!=' ') && (ch!=13) && (ch!=10))
-  {
-    if (i<DEF_STR_LEN-1) { str[i++] = ch; }
-    ch = uppercase(read_char());
-  } /* post cond: i<=DEF_STR_LEN-1 */
+	while ((ch!='>') && (ch!=' ') && (ch!=13) && (ch!=10))
+	{
+		if (i<DEF_STR_LEN-1) { str[i++] = ch; }
+		ch = uppercase(read_char());
+	} /* post cond: i<=DEF_STR_LEN-1 */
 	str[i] = '\0';
 
 #ifdef debug
-  fprintf(stderr, "html_tag: %ls\n",str);
-  status();
+	fprintf(stderr, "html_tag: %ls\n",str);
+	status();
 #endif
 
 	/* first all tags, that affect if there is any output at all */
-  if CMP("SCRIPT", str)       { start_nooutput(); }
-  else if CMP("/SCRIPT", str) { end_nooutput(); }
-  else if CMP("STYLE", str)   { start_nooutput(); }
-  else if CMP("/STYLE", str)  { end_nooutput(); }
-  else if CMP("TITLE", str) { 
-		if (option_latex) { neuer_paragraph(); wort_plus_string_escape(STRING("\\title{"), FALSE); } 
-		else if (option_title) { push_align(LEFT); neuer_paragraph(); } 
+	if CMP("SCRIPT", str)       { start_nooutput(); }
+	else if CMP("/SCRIPT", str) { end_nooutput(); }
+	else if CMP("STYLE", str)   { start_nooutput(); }
+	else if CMP("/STYLE", str)  { end_nooutput(); }
+	else if CMP("TITLE", str) {
+		if (option_latex) { neuer_paragraph(); wort_plus_string_escape(STRING("\\title{"), FALSE); }
+		else if (option_title) { push_align(LEFT); neuer_paragraph(); }
 		else { wort_ende(); print_zeile(); nooutput = 1; }
 	} else if CMP("/TITLE", str) {
-		if (option_latex) { wort_plus_string_escape(STRING("}"), FALSE); paragraphen_ende(); print_zeile(); } 
-		else if (option_title) { paragraphen_ende(); print_zeile(); } 
+		if (option_latex) { wort_plus_string_escape(STRING("}"), FALSE); paragraphen_ende(); print_zeile(); }
+		else if (option_title) { paragraphen_ende(); print_zeile(); }
 		else { wort_ende(); clear_line(); print_zeile(); nooutput = 0; }
 	}
 
@@ -301,7 +301,7 @@ void html_tag()
 		else if CMP("TBODY", str)     {}
 		else if CMP("/TBODY", str)    {}
 		else if CMP("PARAM", str)     {}
-		else if CMP("/PARAM", str)    {} 
+		else if CMP("/PARAM", str)    {}
 		else if CMP("OBJECT", str)    {}
 		else if CMP("/OBJECT", str)   {}
 		else if CMP("OPTGROUP", str)  {}
@@ -310,13 +310,13 @@ void html_tag()
 		else if CMP("/AREA", str)     {}
 		else if CMP("/IMG", str)      {}
 
-		else if (STRNCMP("!--", str, 3)==0)  { 
+		else if (STRNCMP("!--", str, 3)==0)  {
 			/* put the last 3 characters back to stream */
 			/* needed for comments like "<--test-->" */
 			putback_char(ch);
 			putback_char(str[STRLEN(str)-1]);
 			putback_char(str[STRLEN(str)-2]);
-			ch = friss_kommentar(); 
+			ch = friss_kommentar();
 		}
 
 		/* these have to be ignored, to avoid the following error to show up */
@@ -414,20 +414,20 @@ void html_tag()
 		else if CMP("/SUMMARY", str)  { end_div(); }
 
 		/* else if CMP("WBR", str)    { wort_ende(); } TODO */
-		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} } 
+		else { if (errorlevel>=2) { print_error("tag ignored: ", str);} }
 	}
 
-  /* Skip attributes */
+	/* Skip attributes */
 #ifdef debug
-	printf("\nTag:     %ls;\n", str); 
+	printf("\nTag:     %ls;\n", str);
 #endif
-  while (ch!='>')
-  {
-    ch = get_attr();
-		
+	while (ch!='>')
+	{
+		ch = get_attr();
+
 #ifdef debug
-		printf("Attribute: %ls;\n", attr_name); 
+		printf("Attribute: %ls;\n", attr_name);
 		printf("Content:   %ls#\n", attr_ctnt);
 #endif
-  }
+	}
 } /* end html_tag */

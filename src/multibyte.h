@@ -9,7 +9,7 @@
 
  #define STRCMP(s1, s2)  wcscmp( L##s1, s2 )
  #define STRCASECMP(s1, s2)  (wcscasecmp(L##s1, s2)==0)
- #define CMP(s1, s2) (wcscmp(L##s1, s2)==0) 
+ #define CMP(s1, s2) (wcscmp(L##s1, s2)==0)
  #define STRCAT(dest, src) wcscat(dest, (wchar_t*) src)
  #define STRNCAT(dest, src, n) wcsncat(dest, src, n)
 
@@ -36,7 +36,7 @@
 
  #define STRCMP(s1, s2)  strcmp(s1, s2)
  #define STRCASECMP(s1, s2)  (strcasecmp(s1, s2)==0)
- #define CMP(s1, s2) (strcmp(s1, s2)==0) 
+ #define CMP(s1, s2) (strcmp(s1, s2)==0)
  #define STRCAT(dest, src) strcat(dest, src)
  #define STRNCAT(dest, src, n) strncat(dest, src, n)
  #define ATOI(n) atoi(n)

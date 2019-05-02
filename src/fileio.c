@@ -25,8 +25,8 @@
 #include "main.h"
 
 #ifdef MULTIBYTE
-  #include <iconv.h>
-  #include <locale.h>
+#include <iconv.h>
+#include <locale.h>
 
 extern char internal_locale[];
 #endif
@@ -37,17 +37,17 @@ FILE *in, *out;
 
 void open_files(char *input, char *output)
 {
-  if ((in = (strcmp(input, "-") ? fopen(input, "r") : stdin))==0)  
-  {
-    fprintf(stderr, "Couldn't open input file %s!\n",input);
-    exit(20);
-  }
+	if ((in = (strcmp(input, "-") ? fopen(input, "r") : stdin))==0)
+	{
+		fprintf(stderr, "Couldn't open input file %s!\n",input);
+		exit(20);
+	}
 
-  if ((out = (strcmp(output, "-") ? fopen(output, "w") : stdout))==0)
-  {
-    fprintf(stderr, "Couldn't open output file %s!\n",output);
-    exit(20);
-  }
+	if ((out = (strcmp(output, "-") ? fopen(output, "w") : stdout))==0)
+	{
+		fprintf(stderr, "Couldn't open output file %s!\n",output);
+		exit(20);
+	}
 } /* end open_files */
 
 /* ------------------------------------------------ */
@@ -67,7 +67,7 @@ void convert_string(char *str, CHAR *converted_string)
 
 	/* set locale based on environment variables */
 	ret = setlocale(LC_CTYPE, "");
-  if (ret==NULL) { 
+	if (ret==NULL) {
 		fprintf(stderr, "setlocale failed with: %s\n\n", getenv("LC_CTYPE"));
 		exit(1);
 	}
@@ -80,22 +80,22 @@ void convert_string(char *str, CHAR *converted_string)
 	outp = output;
 
 	if ((conv = iconv_open("utf-8", "wchar_t"))==(iconv_t)(-1))
-		{	fprintf(stderr, "convert_string: iconv_open failed. Can't convert from %s to UTF-8.\n", getenv("LC_CTYPE")); exit(1); }
+	{	fprintf(stderr, "convert_string: iconv_open failed. Can't convert from %s to UTF-8.\n", getenv("LC_CTYPE")); exit(1); }
 
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	fehlernr = errno;
 
 	if (fehlernr==E2BIG) { fprintf(stderr, "errno==E2BIG\n"); }
-	else if (fehlernr==EILSEQ) { 
+	else if (fehlernr==EILSEQ) {
 		fprintf(stderr, "convert_string: Can't interpret '%s' as character from charset %s\n", str, getenv("LC_CTYPE"));
 		fprintf(stderr, "convert_string: Check your language settings with locale(1)\n");
 	}
 	else if (fehlernr==EINVAL) { fprintf(stderr, "convert_string: errno==EINVAL\n"); }
-		
+
 	output[strlen(output)] = '\0';
 
 	ret = setlocale(LC_CTYPE, internal_locale);
-	if (ret==NULL) { 
+	if (ret==NULL) {
 		fprintf(stderr, "setlocale failed with: %s\n\n", internal_locale);
 		exit(1);
 	}
@@ -136,7 +136,7 @@ void output_string(CHAR *str)
 		outp = output;
 
 		if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1))
-			{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
+		{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
 
 		/* printf("%s %s\n", get_iconv_output_charset(), inp); */
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
@@ -145,14 +145,14 @@ void output_string(CHAR *str)
 		if (fehlernr==E2BIG) { fprintf(stderr, "output_string: errno==E2BIG\n"); }
 		else if (fehlernr==EILSEQ) { fprintf(stderr, "output_string: errno==EILSEQ in output_string\n"); fprintf(stderr, "input: %s\n", inp); }
 		else if (fehlernr==EINVAL) { fprintf(stderr, "output_string: errno==EINVAL\n"); }
-		
+
 		output[DEF_STR_LEN-outsize] = '\0';
 		fwrite(output, sizeof(output[0]), strlen(output), out); fputc('\n', out);
 
 		iconv_close(conv);
 	}
 #else
-  fprintf(out,"%s\n", str);
+	fprintf(out,"%s\n", str);
 #endif
 } /* end output_string */
 
@@ -160,27 +160,27 @@ void output_string(CHAR *str)
 
 void quit()
 {
-  if (!is_zeile_empty()) { wort_ende(); print_zeile(); }
+	if (!is_zeile_empty()) { wort_ende(); print_zeile(); }
 
-  href_output();
+	href_output();
 
-  fclose(in);
-  fclose(out);
+	fclose(in);
+	fclose(out);
 
-  exit(0);
+	exit(0);
 } /* end quit */
 
 /* ------------------------------------------------ */
 
-int read_char() 
+int read_char()
 {
 	int c = ' ';
 #ifdef MULTIBYTE
 	int fehlernr=0; /* tmp variable for errno */
 	static int i=0;
-	int j=0,k; 
+	int j=0,k;
 	size_t result=(size_t)(-1);
-	wchar_t outstring[33]; 
+	wchar_t outstring[33];
 	iconv_t conv;
 	char input[33], output[33];
 	char *inp, *outp;
@@ -188,7 +188,7 @@ int read_char()
 
 	inp = input;
 	outp = output;
-	
+
 	/* make source the strings are cleared */
 	for (j=0; j<33; j++) {
 		input[j] = '\0';
@@ -204,11 +204,11 @@ int read_char()
 	}
 
 	j=0;
-	do { 	 
-		c=fgetc(in);		
-		
+	do {
+		c=fgetc(in);
+
 		input[j] = c;
-		
+
 		errno=0;
 		insize = j+1;
 		result = iconv(conv, &inp, &insize, &outp, &outsize);
@@ -216,7 +216,7 @@ int read_char()
 
 		if (fehlernr==E2BIG) { fprintf(stderr, "read_char: errno==E2BIG\n"); }
 		/* character is invalid  */
-		else if (fehlernr==EILSEQ) { 
+		else if (fehlernr==EILSEQ) {
 			fprintf(stderr, "read_char: errno==EILSEQ; invalid byte sequence for %s: ", get_iconv_charset());
 			for (k=0; k<j;k++) {
 				fprintf(stderr, "%d ",(unsigned char)input[k]);
@@ -247,8 +247,8 @@ int read_char()
 #endif
 
 	if (feof(in)) {
-		quit(); 
-		return 0; 
+		quit();
+		return 0;
 	} else {
 		return c;
 	}
@@ -259,7 +259,7 @@ int read_char()
 /* put c back onto stream */
 void putback_char(CHAR c)
 {
-  UNGETC (c, in);
+	UNGETC (c, in);
 } /* end putback_char */
 
 /* ------------------------------------------------ */

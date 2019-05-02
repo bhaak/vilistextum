@@ -127,12 +127,12 @@ void html_hn(int n) {
 	start_p();
 	if (option_latex) {
 		switch (n) {
-		case 1: wort_plus_string_escape(STRING("\\htmlHeadingOne{"), FALSE); break;
-		case 2: wort_plus_string_escape(STRING("\\htmlHeadingTwo{"), FALSE); break;
-		case 3: wort_plus_string_escape(STRING("\\htmlHeadingThree{"), FALSE); break;
-		case 4: wort_plus_string_escape(STRING("\\htmlHeadingFour{"), FALSE); break;
-		case 5: wort_plus_string_escape(STRING("\\htmlHeadingFive{"), FALSE); break;
-		case 6: wort_plus_string_escape(STRING("\\htmlHeadingSix{"), FALSE); break;
+			case 1: wort_plus_string_escape(STRING("\\htmlHeadingOne{"), FALSE); break;
+			case 2: wort_plus_string_escape(STRING("\\htmlHeadingTwo{"), FALSE); break;
+			case 3: wort_plus_string_escape(STRING("\\htmlHeadingThree{"), FALSE); break;
+			case 4: wort_plus_string_escape(STRING("\\htmlHeadingFour{"), FALSE); break;
+			case 5: wort_plus_string_escape(STRING("\\htmlHeadingFive{"), FALSE); break;
+			case 6: wort_plus_string_escape(STRING("\\htmlHeadingSix{"), FALSE); break;
 		}
 	}
 } /* html_hn */
@@ -148,11 +148,11 @@ void html_hn_end(int n) {
 
 void html_img(CHAR *src_location) {
 	if (option_latex) {
-    int len = STRLEN(src_location);
+		int len = STRLEN(src_location);
 		wort_plus_string_escape(STRING("\\htmlImg{"), FALSE);
 		/* remove TLA file extension */
 		if ((len > 4) && (src_location[len-4] == '.')) {
-		  src_location[len-4] = '\0';
+			src_location[len-4] = '\0';
 		}
 		wort_plus_string_escape(src_location, FALSE);
 		wort_plus_string_escape(STRING("}"), FALSE);
@@ -165,7 +165,7 @@ void wort_plus_html_color(CHAR* color_command, CHAR* htmlcolor) {
 	wort_plus_string_escape(color_command, FALSE);
 	wort_plus_string_escape(STRING("{"), FALSE);
 	if (htmlcolor[0] == '#') {
-  	uppercase_str(htmlcolor); /* #00aa00 -> #00AA00 */
+		uppercase_str(htmlcolor); /* #00aa00 -> #00AA00 */
 		wort_plus_string(attr_ctnt); /* 00AA00 */
 	} else {
 		wort_plus_string(attr_ctnt); /* Red */
@@ -179,31 +179,31 @@ int html_font_opened = 0;
 void html_font()
 {
 #ifdef proc_debug
-  printf("html_font()\n");
+	printf("html_font()\n");
 #endif
 	if (option_latex) {
-    while (ch!='>') {
-      ch=get_attr();
+		while (ch!='>') {
+			ch=get_attr();
 
-      if CMP("COLOR", attr_name) {
+			if CMP("COLOR", attr_name) {
 				wort_plus_html_color(STRING("\\htmlColor"), attr_ctnt);
 				wort_plus_string_escape(STRING("{"), FALSE);
-        html_font_opened++;
-      }
-    }
+				html_font_opened++;
+			}
+		}
 	}
 
 #ifdef proc_debug
-  printf("html_font() ende\n");
+	printf("html_font() ende\n");
 #endif
 } /* html_font */
 
 void html_font_end()
 {
 	if (option_latex) {
-	  if (html_font_opened > 0) {
-		  wort_plus_string_escape(STRING("}"), FALSE);
-	    html_font_opened--;
+		if (html_font_opened > 0) {
+			wort_plus_string_escape(STRING("}"), FALSE);
+			html_font_opened--;
 		}
 	}
 
@@ -214,23 +214,23 @@ void html_font_end()
 void html_body()
 {
 #ifdef proc_debug
-  printf("html_body()\n");
+	printf("html_body()\n");
 #endif
 	if (option_latex) {
-    while (ch!='>') {
-      ch=get_attr();
+		while (ch!='>') {
+			ch=get_attr();
 
-      if CMP("TEXT", attr_name) {
+			if CMP("TEXT", attr_name) {
 				wort_plus_html_color(STRING("\\fgColor"), attr_ctnt);
-      }
-      if CMP("BGCOLOR", attr_name) {
+			}
+			if CMP("BGCOLOR", attr_name) {
 				wort_plus_html_color(STRING("\\bgColor"), attr_ctnt);
-      }
-    }
+			}
+		}
 	}
 
 #ifdef proc_debug
-  printf("html_body() ende\n");
+	printf("html_body() ende\n");
 #endif
 } /* html_font */
 
@@ -260,7 +260,7 @@ void html_blockquote() {
 		wort_plus_string_escape(STRING("\\begin{htmlBlockquote}"), FALSE);
 		line_break();
 	} else {
-	  start_p();
+		start_p();
 	}
 } /* html_pre */
 
@@ -270,7 +270,7 @@ void html_blockquote_end() {
 		wort_plus_string_escape(STRING("\\end{htmlBlockquote}"), FALSE);
 		line_break();
 	} else {
-	  paragraphen_ende();
+		paragraphen_ende();
 	}
 } /* html_pre_end */
 

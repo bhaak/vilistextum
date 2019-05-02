@@ -88,8 +88,8 @@
 
 /* Solaris needs this to activate getopt */
 #if defined (__SVR4) && defined (__sun)
- #define _XOPEN_SOURCE
- #define _XOPEN_VERSION 4
+#define _XOPEN_SOURCE
+#define _XOPEN_VERSION 4
 #endif
 
 #include <../config.h>
@@ -98,8 +98,8 @@
 #include <string.h>
 
 #ifdef HAVE_GETOPT_H
- #define _GNU_SOURCE
- #include <getopt.h>
+#define _GNU_SOURCE
+#include <getopt.h>
 #endif
 
 #include <stdio.h>
@@ -111,32 +111,32 @@
 #include "debug.h"
 
 /* commandline options */
-int palm = 0,              /* if true, enable pda specific restrictions    */
-  convert_tags = 0,        /* if true, convert some tags (eg B,I) to ASCII characters */
-  errorlevel = 1,          /* 0, no errormessages; 1, missing entities; 2, missing tags */
-  convert_characters = 1,  /* if true,  convert 0x128-0x159 to latin1-characters */
-  shrink_lines = 0,        /* no more than 2 empty lines */
-  option_links = 0,        /* show links at end of output */
-  option_links_inline = 0, /* show links after tag */
-  option_title = 1,        /* true -> show title tag, else dont */
+int palm = 0,                /* if true, enable pda specific restrictions    */
+	convert_tags = 0,        /* if true, convert some tags (eg B,I) to ASCII characters */
+	errorlevel = 1,          /* 0, no errormessages; 1, missing entities; 2, missing tags */
+	convert_characters = 1,  /* if true,  convert 0x128-0x159 to latin1-characters */
+	shrink_lines = 0,        /* no more than 2 empty lines */
+	option_links = 0,        /* show links at end of output */
+	option_links_inline = 0, /* show links after tag */
+	option_title = 1,        /* true -> show title tag, else dont */
 
-  remove_empty_alt = 0,   /* dont show [] for <IMG ALT="">  */
-	option_no_image = 0,    /* don't show [Image] */
-	option_no_alt   = 0,    /* don't show [alt text] for <IMG ALT="alt text" */
+	remove_empty_alt = 0,    /* dont show [] for <IMG ALT="">  */
+	option_no_image = 0,     /* don't show [Image] */
+	option_no_alt   = 0,     /* don't show [alt text] for <IMG ALT="alt text" */
 
-	option_latex = 0,    /* LaTeX output, experimental */
+	option_latex = 0,        /* LaTeX output, experimental */
 #ifdef MULTIBYTE
-	option_output_utf8 = 0, /* true -> output everything in utf8 */
-  sevenbit = 1,           /* true -> don't touch any character >127  */
-  transliteration = 0;    /* use //TRANSLIT with libiconv */
+	option_output_utf8 = 0,  /* true -> output everything in utf8 */
+	sevenbit = 1,            /* true -> don't touch any character >127  */
+	transliteration = 0;     /* use //TRANSLIT with libiconv */
 #else
-  sevenbit = 0;           /* true -> don't touch any character >127  */
+	sevenbit = 0;            /* true -> don't touch any character >127  */
 #endif
 
 CHAR *default_image=STRING("Image"); /* Default string for IMG without ALT-tag */
 CHAR user_image[DEF_STR_LEN]; /* string supplied by user */
 
-char help_text[] = 
+char help_text[] =
 "Usage: vilistextum [OPTIONS] [inputfile|-] [outputfile|-]\n"
 "\n"
 "OPTIONS:\n"
@@ -177,11 +177,11 @@ void help()
 
 void parse_args(int argc, char *argv[])
 {
-  int c=0;
+	int c=0;
 	char *argument="";
 
-  while (1)
-  {
+	while (1)
+	{
 #ifdef HAVE_GETOPT_H
 		int option_index = 0;
 		static struct option long_options[] =
@@ -222,25 +222,25 @@ void parse_args(int argc, char *argv[])
 		}
 		printf("\n");
 #endif
-		
+
 #ifdef  HAVE_GETOPT_H
 		c = getopt_long (argc, argv, "pmsi:ce:hklLtrnavy:Y:xuw:", long_options, &option_index);
 #else
 		c = getopt(argc, argv,       "pmsi:ce:hklLtrnavy:xuw:");
 #endif
- #ifdef DEBUG
-		fprintf(stderr, "c: %d c: %c \n\n", c,c); 
- #endif
+#ifdef DEBUG
+		fprintf(stderr, "c: %d c: %c \n\n", c,c);
+#endif
 
 		/* get argument */
 		if (optarg==NULL) { argument = argv[optind]; }
-		else { argument = optarg; } 
+		else { argument = optarg; }
 
 		if ((c == -1) && (c = '-')) break;
 
 		switch (c)
 		{
-		case 'v':
+			case 'v':
 #ifdef MULTIBYTE
 				printf("Vilistextum %s (%s) with multibyte support\n", VERSION, RELEASEDATE);
 #else
@@ -248,83 +248,83 @@ void parse_args(int argc, char *argv[])
 #endif
 				exit(0);
 #ifdef MULTIBYTE
-		case 'y': set_iconv_charset(argument); break;
-		case 'Y': set_iconv_output_charset(argument); break;
-		case 'x': transliteration = 1; break;
-		case 'u': option_output_utf8 = 1; break;
+			case 'y': set_iconv_charset(argument); break;
+			case 'Y': set_iconv_output_charset(argument); break;
+			case 'x': transliteration = 1; break;
+			case 'u': option_output_utf8 = 1; break;
 #endif
-			break;
-		case 'p':
-		  /* settings for PDAs */
-		  hr_breite = 30;
-		  breite = DEF_STR_LEN-1; 
-		  palm = 1;
-			break;
-		case 'w': 
-		  breite = atoi(argument);
-		  hr_breite = breite;
-		  if (breite>=DEF_STR_LEN) { fprintf(stderr, "max(breite)=%d\n", DEF_STR_LEN); breite=DEF_STR_LEN-1; }
-		  break;
-		case 'm': convert_characters = 0; break;
-		case 's': 
-			shrink_lines = atoi(argument); if (shrink_lines==0) { shrink_lines = 1; } break;
+					  break;
+			case 'p':
+					  /* settings for PDAs */
+					  hr_breite = 30;
+					  breite = DEF_STR_LEN-1;
+					  palm = 1;
+					  break;
+			case 'w':
+					  breite = atoi(argument);
+					  hr_breite = breite;
+					  if (breite>=DEF_STR_LEN) { fprintf(stderr, "max(breite)=%d\n", DEF_STR_LEN); breite=DEF_STR_LEN-1; }
+					  break;
+			case 'm': convert_characters = 0; break;
+			case 's':
+					  shrink_lines = atoi(argument); if (shrink_lines==0) { shrink_lines = 1; } break;
 
-		case 'r': remove_empty_alt = 1; break;
-		case 'i': 
+			case 'r': remove_empty_alt = 1; break;
+			case 'i':
 #ifdef MULTIBYTE
-			convert_string(argument, user_image);
-			default_image = user_image; break;
+					  convert_string(argument, user_image);
+					  default_image = user_image; break;
 #else
-			default_image = argument; break;
+					  default_image = argument; break;
 #endif
-		case 'n': option_no_image = 1; break;
-		case 'a': option_no_image = 1; option_no_alt = 1; break; 
+			case 'n': option_no_image = 1; break;
+			case 'a': option_no_image = 1; option_no_alt = 1; break;
 
-		case 'c': convert_tags = 1; break;
-		case 'e': errorlevel = atoi(argument); break;
-		case 'h': help(); break;
-		case 'l': option_links = 1; option_links_inline = 0; break;
-		case 'k': option_links_inline = 1; option_links = 0; break;
-		case 't': option_title = 0; break;
+			case 'c': convert_tags = 1; break;
+			case 'e': errorlevel = atoi(argument); break;
+			case 'h': help(); break;
+			case 'l': option_links = 1; option_links_inline = 0; break;
+			case 'k': option_links_inline = 1; option_links = 0; break;
+			case 't': option_title = 0; break;
 
-		case 'L': option_latex = 1; break;
+			case 'L': option_latex = 1; break;
 
-		case '?': /* unknown option */
-		  help(); break;
+			case '?': /* unknown option */
+					  help(); break;
 
-		default:
-			fprintf(stderr, "?? getopt returned character code 0%o %c??\n", c, c);
+			default:
+					  fprintf(stderr, "?? getopt returned character code 0%o %c??\n", c, c);
 		}
 	}
 
 #ifdef DEBUG
 	if (optind < argc)
 	{
-	  if (argc-optind!=2) { help(); }
-	  fprintf (stderr, "non-option ARGV-elements: ");
-	  while (optind < argc)
-		fprintf (stderr, "%s ", argv[optind++]);
-	  fprintf (stderr, "\n");
+		if (argc-optind!=2) { help(); }
+		fprintf (stderr, "non-option ARGV-elements: ");
+		while (optind < argc)
+			fprintf (stderr, "%s ", argv[optind++]);
+		fprintf (stderr, "\n");
 	}
 #endif
-}                                
+}
 
 /* ------------------------------------------------ */
 
 int main(int argc, char *argv[])
-{    
+{
 #ifdef MULTIBYTE
 	init_multibyte();
-	use_default_charset();	
+	use_default_charset();
 #endif
-  parse_args(argc, argv);
+	parse_args(argc, argv);
 
-  if (argc < 3) {	help(); }
+	if (argc < 3) {	help(); }
 
-  open_files(argv[argc-2],argv[argc-1]);
+	open_files(argv[argc-2],argv[argc-1]);
 
-  html();
+	html();
 
-  quit();
-  return(0);
+	quit();
+	return(0);
 } /* end main */

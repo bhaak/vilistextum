@@ -4,7 +4,7 @@
  * http://bhaak.dyndns.org/vilistextum/
  *
  * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
- * 
+ *
  * 04.09.01: added some more bullet_styles.
  * 15.03.04: lists generate less newlines
  *
@@ -26,20 +26,20 @@ CHAR bullet_style=' ';
 #if 0
 int check_style()
 {
-  while (ch!='>')
-  {
-    ch=get_attr();
+	while (ch!='>')
+	{
+		ch=get_attr();
 #ifdef debug
-    printf("checkstyle; attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
+		printf("checkstyle; attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
 #endif
-    if CMP("TYPE", attr_name)
-    {
-      if CMP("disc", attr_ctnt)   { return '*'; }
-      if CMP("square", attr_ctnt) { return '+'; }
-      if CMP("circle", attr_ctnt) { return 'o'; }
-    }
-  }
-  return 0;
+		if CMP("TYPE", attr_name)
+		{
+			if CMP("disc", attr_ctnt)   { return '*'; }
+			if CMP("square", attr_ctnt) { return '+'; }
+			if CMP("circle", attr_ctnt) { return 'o'; }
+		}
+	}
+	return 0;
 } /* end check_style */
 #endif
 
@@ -47,15 +47,15 @@ int check_style()
 
 void start_uls()
 {
-  /*int ret; */
+	/*int ret; */
 #ifdef proc_debug
-  printf("start_uls()\n");
+	printf("start_uls()\n");
 #endif
-  line_break();
+	line_break();
 
-  push_align(LEFT);
+	push_align(LEFT);
 
-  /* * o + # @ - = ~ $ % */
+	/* * o + # @ - = ~ $ % */
 	if (bullet_style==' ') { bullet_style='*'; }
 	else if (bullet_style=='*') { bullet_style='o'; }
 	else if (bullet_style=='o') { bullet_style='+'; }
@@ -72,36 +72,36 @@ void start_uls()
 		wort_plus_string_escape(STRING("\\begin{itemize}"), FALSE);
 		line_break();
 	}
-	
-  spaces += tab;
+
+	spaces += tab;
 #ifdef proc_debug
-  printf("start_uls() ende\n");
+	printf("start_uls() ende\n");
 #endif
 } /* end start_uls */
 
 void end_uls()
 {
-  spaces -= tab;
-  line_break();
+	spaces -= tab;
+	line_break();
 
-  if (bullet_style=='%') { bullet_style='$'; }
-  else if (bullet_style=='$') { bullet_style='~'; }
-  else if (bullet_style=='~') { bullet_style='='; }
-  else if (bullet_style=='=') { bullet_style='-'; }
-  else if (bullet_style=='-') { bullet_style='@'; }
+	if (bullet_style=='%') { bullet_style='$'; }
+	else if (bullet_style=='$') { bullet_style='~'; }
+	else if (bullet_style=='~') { bullet_style='='; }
+	else if (bullet_style=='=') { bullet_style='-'; }
+	else if (bullet_style=='-') { bullet_style='@'; }
 
-  else if (bullet_style=='@') { bullet_style='#'; }
-  else if (bullet_style=='#') { bullet_style='+'; }
-  else if (bullet_style=='+') { bullet_style='o'; }
-  else if (bullet_style=='o') { bullet_style='*'; }
-  else if (bullet_style=='*') { bullet_style=' '; }
+	else if (bullet_style=='@') { bullet_style='#'; }
+	else if (bullet_style=='#') { bullet_style='+'; }
+	else if (bullet_style=='+') { bullet_style='o'; }
+	else if (bullet_style=='o') { bullet_style='*'; }
+	else if (bullet_style=='*') { bullet_style=' '; }
 
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\end{itemize}"), FALSE);
 		line_break();
 	}
 
-  pop_align();
+	pop_align();
 } /* end end_uls */
 
 /* ------------------------------------------------ */
@@ -112,7 +112,7 @@ void start_ols()
 		line_break();
 		wort_plus_string_escape(STRING("\\begin{enumerate}"), FALSE);
 		line_break();
-    spaces += tab;
+		spaces += tab;
 	} else {
 		start_uls();
 	}
@@ -124,11 +124,11 @@ void end_ols()
 {
 	if (option_latex) {
 		line_break();
-    spaces -= tab;
+		spaces -= tab;
 		wort_plus_string_escape(STRING("\\end{enumerate}"), FALSE);
 		line_break();
 	} else {
-	  end_uls();
+		end_uls();
 	}
 } /* end end_ols */
 
@@ -140,17 +140,17 @@ void start_lis()
 		if (!is_zeile_empty()) { line_break(); }
 		wort_plus_string_escape(STRING("\\item "), FALSE);
 	} else {
-  spaces-=2;
+		spaces-=2;
 
-	/* don't output line break, if this list item is immediately
-		 after a start or end list tag. start_uls and end_uls have
-		 already take care of the line break */
-	if (!is_zeile_empty()) { line_break(); }
+		/* don't output line break, if this list item is immediately
+		   after a start or end list tag. start_uls and end_uls have
+		   already take care of the line break */
+		if (!is_zeile_empty()) { line_break(); }
 
-	wort_plus_ch(bullet_style);
+		wort_plus_ch(bullet_style);
 
-  wort_ende();
-  spaces+=2;
+		wort_ende();
+		spaces+=2;
 	}
 } /* end start_lis */
 
@@ -169,9 +169,9 @@ void start_dl()
 {
 	end_dd();
 	start_p();
-  if (option_latex) {
+	if (option_latex) {
 		line_break();
-	  wort_plus_string_escape(STRING("\\begin{description}"), FALSE);
+		wort_plus_string_escape(STRING("\\begin{description}"), FALSE);
 	}
 } /* end start_dl */
 
@@ -181,26 +181,26 @@ void end_dl()
 
 	end_dd();
 
-  if (option_latex) {
-	  wort_plus_string_escape(STRING("\\end{description}"), FALSE);
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\end{description}"), FALSE);
 	}
 } /* end_dl */
 
 /* Definition Title */
 void start_dt()
-{	
+{
 	end_dd();
-	
+
 	line_break();
-  if (option_latex) {
-	  wort_plus_string_escape(STRING("\\item["), FALSE);
+	if (option_latex) {
+		wort_plus_string_escape(STRING("\\item["), FALSE);
 	}
 } /* end start_dt */
 
 void end_dt()
 {
-  if (option_latex) {
-	  wort_plus_string_escape(STRING("]"), FALSE);
+	if (option_latex) {
+		wort_plus_string_escape(STRING("]"), FALSE);
 	}
 } /* end_dt */
 
@@ -209,15 +209,15 @@ void start_dd()
 {
 	end_dd();
 
-	line_break(); 
-	spaces+=tab; 
+	line_break();
+	spaces+=tab;
 
 	definition_list=1;
 } /* end  */
 
 void end_dd()
 {
-	if (definition_list==1) 
+	if (definition_list==1)
 	{
 		spaces-=tab;
 		definition_list=0;

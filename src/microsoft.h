@@ -6,4 +6,4 @@
 int microsoft_entities(CHAR *s);
 void microsoft_character(int c);
 
-#endif 
+#endif

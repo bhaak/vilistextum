@@ -9,7 +9,7 @@
 
 #include "multibyte.h"
 
-int LEFT;  
+int LEFT;
 int CENTER;
 int RIGHT;
 
@@ -25,7 +25,7 @@ int hr_breite;
 void status();
 
 int tab;
-int spaces;  
+int spaces;
 
 void print_zeile();
 int is_zeile_empty();
@@ -47,4 +47,4 @@ void neuer_paragraph();
 
 void hr();
 
-#endif 
+#endif

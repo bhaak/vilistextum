@@ -7,9 +7,9 @@
  *
  *
  *  history
- *  19.04.2001: get_attr parses text of a alt attribute 
+ *  19.04.2001: get_attr parses text of a alt attribute
  *  20.04.2001: added references ala lynx
- *  24.08.2001: Frisskommentar could'nt cope with <!--comment-->  
+ *  24.08.2001: Frisskommentar could'nt cope with <!--comment-->
  *  03.09.2001: check_for_center worked only correct if align was last attribute
  *  22.03.2002: process_meta crashed if Contenttype was provided, but no charset
  *  10.04.2002: corrected check_for_center to prevent align_errors.
@@ -41,8 +41,8 @@ int pre=0; /* for PRE-Tag */
 int processed_meta=0; /* only parse meta tags once */
 
 CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
-	attr_ctnt[DEF_STR_LEN], /* Attribut content of a HTML-Tag */
-	link_inline[DEF_STR_LEN]; /* Link of a HTML-Tag */
+	 attr_ctnt[DEF_STR_LEN], /* Attribut content of a HTML-Tag */
+	 link_inline[DEF_STR_LEN]; /* Link of a HTML-Tag */
 
 /* ------------------------------------------------ */
 #if defined(MULTIBYTE) && !defined(HAVE_WCSCASECMP)
@@ -102,7 +102,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 {
 	int i;
 	CHAR temp[DEF_STR_LEN];
-#ifdef proc_debug 
+#ifdef proc_debug
 	printf("get_attr()\n");
 #endif
 
@@ -176,51 +176,51 @@ void html()
 {
 	int i;
 	CHAR str[DEF_STR_LEN];
-  /*align[0]=LEFT; */
+	/*align[0]=LEFT; */
 
 	for (i=0; i<DEF_STR_LEN; i++) { str[i]=0x00; }
 
-  for (;;) {
-    ch = read_char();
+	for (;;) {
+		ch = read_char();
 #ifdef default_debug
-    printf("default: ch=%c ; %d\n",ch,ch);
+		printf("default: ch=%c ; %d\n",ch,ch);
 #endif
 
-    switch (ch) {
+		switch (ch) {
 			case '<':
 #ifdef debug
-        printf("<: \n");
+				printf("<: \n");
 #endif
-        html_tag();
-        break;
-				
-			/* Entities  */
+				html_tag();
+				break;
+
+				/* Entities  */
 			case '&':
 #ifdef debug
-        printf("&: \n");
+				printf("&: \n");
 #endif
-        i=1;
-        str[0] = ch;
-        do {
-          ch = read_char();
-          str[i++] = ch;
-        }
-        while ((isalnum(ch)) || (ch=='#'));
+				i=1;
+				str[0] = ch;
+				do {
+					ch = read_char();
+					str[i++] = ch;
+				}
+				while ((isalnum(ch)) || (ch=='#'));
 
 				/* if last char is no ';', then the string is no valid entity. */
 				/* maybe it is something like &nbsp or even '& ' */
-				if (ch!=';') { 
-				  /* save last char  */
-				  putback_char(ch);
-				  /* no ';' at end */
-				  str[i-1] = '\0'; }
-				else {					
+				if (ch!=';') {
+					/* save last char  */
+					putback_char(ch);
+					/* no ';' at end */
+					str[i-1] = '\0'; }
+				else {
 					/* valid entity */
 					str[i] = '\0';
 					/* strcpy(tmpstr, str); */
 				}
 #ifdef debug
-        printf("check &: %s\n",str);
+				printf("check &: %s\n",str);
 #endif
 #ifdef DEBUG
 				printf("-DEBUG-");
@@ -232,71 +232,71 @@ void html()
 				wort_plus_string(str);
 
 #ifdef debug
-        printf("&: %s\n",str);
+				printf("&: %s\n",str);
 #endif
-        break;
+				break;
 
 			case 173: /* soft hyphen, just swallow it */
 				break;
 
 			case   9: /* TAB */
-				if (pre) { 
-					wort_plus_ch(0x09); 
-				} else { 
-					wort_ende(); 
+				if (pre) {
+					wort_plus_ch(0x09);
+				} else {
+					wort_ende();
 				}
 				break;
 
-      case  13: /* CR */
-      case '\n':
+			case  13: /* CR */
+			case '\n':
 #ifdef debug
-        printf("\\n, TAB or CR: \n");
+				printf("\\n, TAB or CR: \n");
 #endif
-        wort_ende();
-        if (pre) { line_break(); }
-        break;
-
-      /* Microsoft ... */
-	case 0x80: case 0x81: case 0x82: case 0x83: case 0x84: case 0x85: case 0x86: case 0x87: 
-	case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d: case 0x8e: case 0x8f:
-	case 0x90: case 0x91: case 0x92: case 0x93: case 0x94: case 0x95: case 0x96: case 0x97:
-	case 0x98: case 0x99: case 0x9a: case 0x9b: case 0x9c: case 0x9d: case 0x9e: case 0x9f:
-
-	  if (convert_characters) { microsoft_character(ch); }
-	  else wort_plus_ch(ch);
-	  break;
-		
-      default:
-#ifdef default_debug
-        printf("default: ch=%c ; %d\n",ch,ch);
-#endif
-	{
-#ifdef MULTIBYTE
-		CHAR *str;
-		CHAR outstring[33];
-		/* convert unicode codepoint to output character set */
-		if (convert_character(ch, outstring)) {
-			str = outstring;
-		} else {
-			str = fallback_character(ch);
-		}
-#else
-		char str[] = {ch, '\0'};
-#endif
-
-		if (pre==0) {
-			if (ch==' ') {
 				wort_ende();
-			} else {
-				wort_plus_string(str);
-			}
-		} else {
-			wort_plus_string(str);
+				if (pre) { line_break(); }
+				break;
+
+				/* Microsoft ... */
+			case 0x80: case 0x81: case 0x82: case 0x83: case 0x84: case 0x85: case 0x86: case 0x87:
+			case 0x88: case 0x89: case 0x8a: case 0x8b: case 0x8c: case 0x8d: case 0x8e: case 0x8f:
+			case 0x90: case 0x91: case 0x92: case 0x93: case 0x94: case 0x95: case 0x96: case 0x97:
+			case 0x98: case 0x99: case 0x9a: case 0x9b: case 0x9c: case 0x9d: case 0x9e: case 0x9f:
+
+				if (convert_characters) { microsoft_character(ch); }
+				else wort_plus_ch(ch);
+				break;
+
+			default:
+#ifdef default_debug
+				printf("default: ch=%c ; %d\n",ch,ch);
+#endif
+				{
+#ifdef MULTIBYTE
+					CHAR *str;
+					CHAR outstring[33];
+					/* convert unicode codepoint to output character set */
+					if (convert_character(ch, outstring)) {
+						str = outstring;
+					} else {
+						str = fallback_character(ch);
+					}
+#else
+					char str[] = {ch, '\0'};
+#endif
+
+					if (pre==0) {
+						if (ch==' ') {
+							wort_ende();
+						} else {
+							wort_plus_string(str);
+						}
+					} else {
+						wort_plus_string(str);
+					}
+				}
+				break;
 		}
-	}
-        break;
-    }
-  } /* next */
+	} /* next */
 } /* end html */
 
 /* ------------------------------------------------ */
@@ -306,28 +306,28 @@ void check_for_center()
 {
 	int found=0;
 #ifdef proc_debug
-  printf("check_for_center()\n");
+	printf("check_for_center()\n");
 #endif
-  while (ch!='>') {
-    ch=get_attr();
+	while (ch!='>') {
+		ch=get_attr();
 #ifdef debug
-    printf(" Attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
+		printf(" Attr: %s; Inhalt: %s#\n",attr_name,attr_ctnt);
 #endif
-    if CMP("ALIGN", attr_name) {
+		if CMP("ALIGN", attr_name) {
 			found=1;
-      uppercase_str(attr_ctnt);
-      if CMP("LEFT",   attr_ctnt) { push_align(LEFT);  }
-      else if CMP("CENTER", attr_ctnt) { push_align(CENTER); }
-      else if CMP("RIGHT",  attr_ctnt) { push_align(RIGHT); }
-      else if CMP("JUSTIFY", attr_ctnt) { push_align(LEFT); }		
-      else { if (errorlevel>=2) { fprintf(stderr, "No LEFT|CENTER|RIGHT found!\n"); push_align(LEFT); } }
-    }
-  } 
-  /* found no ALIGN  */
-  if (found==0) { push_align(LEFT); }
-	
+			uppercase_str(attr_ctnt);
+			if CMP("LEFT",   attr_ctnt) { push_align(LEFT);  }
+			else if CMP("CENTER", attr_ctnt) { push_align(CENTER); }
+			else if CMP("RIGHT",  attr_ctnt) { push_align(RIGHT); }
+			else if CMP("JUSTIFY", attr_ctnt) { push_align(LEFT); }
+			else { if (errorlevel>=2) { fprintf(stderr, "No LEFT|CENTER|RIGHT found!\n"); push_align(LEFT); } }
+		}
+	}
+	/* found no ALIGN  */
+	if (found==0) { push_align(LEFT); }
+
 #ifdef proc_debug
-  printf("check_for_center() ende\n");
+	printf("check_for_center() ende\n");
 #endif
 } /* end check_for_center */
 
@@ -336,13 +336,13 @@ void check_for_center()
 void start_p()
 {
 #ifdef proc_debug
-  printf("\nstart_p()\n");
+	printf("\nstart_p()\n");
 #endif
-  push_align(LEFT);
-  neuer_paragraph();
-  check_for_center();
+	push_align(LEFT);
+	neuer_paragraph();
+	check_for_center();
 #ifdef proc_debug
-  printf("start_p() ende\n");
+	printf("start_p() ende\n");
 #endif
 } /* end start_p */
 
@@ -351,16 +351,16 @@ void start_p()
 void start_div(int a)
 {
 #ifdef proc_debug
-  printf("start_div()\n"),
+	printf("start_div()\n"),
 #endif
-	/*  paragraphen_ende(); */
+		/*  paragraphen_ende(); */
 
-	line_break();
+		line_break();
 
-  if (a!=0) 	{ div_test=a; push_align(div_test); }
-  else { check_for_center(); }
+	if (a!=0) 	{ div_test=a; push_align(div_test); }
+	else { check_for_center(); }
 #ifdef proc_debug
-  printf("start_div() ende\n");
+	printf("start_div() ende\n");
 #endif
 } /* end start_div */
 
@@ -369,27 +369,27 @@ void start_div(int a)
 void end_div()
 {
 #ifdef proc_debug
-  printf("end_div()\n"),
+	printf("end_div()\n"),
 #endif
-  wort_ende();
+		wort_ende();
 
-  if (paragraph!=0) { paragraphen_ende(); }
-  else { print_zeile(); }
-  pop_align(); /* einer für start_div */
-  div_test = 0;
+	if (paragraph!=0) { paragraphen_ende(); }
+	else { print_zeile(); }
+	pop_align(); /* einer für start_div */
+	div_test = 0;
 #ifdef proc_debug
-  printf("end_div() ende\n");
+	printf("end_div() ende\n");
 #endif
 } /* end_div */
 
 /* ------------------------------------------------ */
 
 void print_footnote_number(CHAR *temp, int number)
-{	
+{
 #ifdef MULTIBYTE
-	swprintf(temp, 1000, L"[%d]", number); 
+	swprintf(temp, 1000, L"[%d]", number);
 #else
-	snprintf(temp, 1000, "[%d]", number); 
+	snprintf(temp, 1000, "[%d]", number);
 #endif
 }
 void construct_footnote(CHAR *temp, int number, CHAR *link)
@@ -397,7 +397,7 @@ void construct_footnote(CHAR *temp, int number, CHAR *link)
 #ifdef MULTIBYTE
 	swprintf(temp, 1000, L" %3d. %ls\n", number, link);
 #else
-	snprintf(temp, 1000, " %3d. %s\n", number, link); 
+	snprintf(temp, 1000, " %3d. %s\n", number, link);
 #endif
 } /* end construct_footnote */
 
@@ -409,45 +409,45 @@ int html_a_opened = 0;
 
 /* handles <a href="..."></a> */
 void href()
-{  
+{
 	CHAR tmp[DEF_STR_LEN];
 
 	while (ch!='>') {
-    ch=get_attr();
+		ch=get_attr();
 
-    if CMP("HREF", attr_name) {
+		if CMP("HREF", attr_name) {
 			if ((STRSTR(attr_ctnt, "://")!=NULL) || (STRNCMP("mailto:", attr_ctnt, 7)==0) || (STRNCMP("news:", attr_ctnt, 5)==0)) {
 				if (option_latex) {
 					wort_plus_string_escape(STRING("\\htmlLink{"), FALSE);
 					wort_plus_string_escape(attr_ctnt, FALSE);
 					wort_plus_string_escape(STRING("}{"), FALSE);
-          html_a_opened++;
+					html_a_opened++;
 				} else if (option_links) {
-				  references_count++;
-				
-				  /* I think, this is completely unnecessary.
-					   There can't be any entities in URLs.
-				  */
-				  /* parse_entities(attr_ctnt); */
-				  print_footnote_number(tmp, references_count);
-				  wort_plus_string(tmp);
+					references_count++;
 
-				  construct_footnote(tmp, references_count, attr_ctnt);
-				  STRCAT(references, tmp);
+					/* I think, this is completely unnecessary.
+					   There can't be any entities in URLs.
+					   */
+					/* parse_entities(attr_ctnt); */
+					print_footnote_number(tmp, references_count);
+					wort_plus_string(tmp);
+
+					construct_footnote(tmp, references_count, attr_ctnt);
+					STRCAT(references, tmp);
 				} else if (option_links_inline) {
 					CPYSS(link_inline, attr_ctnt);
 				}
 			}
-    }
-  }
+		}
+	}
 } /* end href */
 
 /* ------------------------------------------------ */
 
-void href_output() 
+void href_output()
 {
 	if (option_links) {
-		if (references_count!=0) {				
+		if (references_count!=0) {
 			output_string(STRING("\n References:"));
 			output_string(references);
 		}
@@ -456,12 +456,12 @@ void href_output()
 
 /* ------------------------------------------------ */
 
-void href_link_inline_output() 
+void href_link_inline_output()
 {
 	if (option_latex) {
-	  if (html_a_opened > 0) {
-      wort_plus_string_escape(STRING("}"), FALSE);
-      html_a_opened--;
+		if (html_a_opened > 0) {
+			wort_plus_string_escape(STRING("}"), FALSE);
+			html_a_opened--;
 		}
 	} else if (option_links_inline) {
 		if (STRLEN(link_inline)>0) {
@@ -479,38 +479,38 @@ void href_link_inline_output()
 /* find alt attribute in current tag */
 void image(CHAR *alt_text, int show_alt)
 {
-  int found_alt=0;
+	int found_alt=0;
 	if (option_latex) {
-	  found_alt=1; /* WORKAROUND */
+		found_alt=1; /* WORKAROUND */
 	}
 #ifdef proc_debug
-  printf("image()\n");
+	printf("image()\n");
 #endif
 #ifdef DEBUG
 	printf("alt_text %ls alt %d, image %d, remove_empty_alt %d\n", alt_text, option_no_alt, option_no_image, remove_empty_alt);
 #endif
-  while (ch!='>') {
-    ch=get_attr();
-    if CMP("ALT", attr_name) {
+	while (ch!='>') {
+		ch=get_attr();
+		if CMP("ALT", attr_name) {
 			/*printf("+1+\n"); */
-			if (!(remove_empty_alt && CMP("", attr_ctnt))) { 
+			if (!(remove_empty_alt && CMP("", attr_ctnt))) {
 				/*printf("+2+\n"); */
 				if (!option_no_alt) {
-				  wort_plus_ch('['); wort_plus_string(attr_ctnt); wort_plus_ch(']');
+					wort_plus_ch('['); wort_plus_string(attr_ctnt); wort_plus_ch(']');
 				}
 			}
-      found_alt=1;
-    } else if CMP("SRC", attr_name) {
+			found_alt=1;
+		} else if CMP("SRC", attr_name) {
 			html_img(attr_ctnt);
 		}
-  }
-  if ((found_alt==0) && (show_alt)) {
+	}
+	if ((found_alt==0) && (show_alt)) {
 		if (!option_no_image) {
-		 	wort_plus_ch('['); wort_plus_string(alt_text); wort_plus_ch(']');
+			wort_plus_ch('['); wort_plus_string(alt_text); wort_plus_ch(']');
 		}
 	}
 #ifdef proc_debug
-  printf("image() ende\n");
+	printf("image() ende\n");
 #endif
 } /* end image */
 
@@ -562,7 +562,7 @@ void find_encoding()
 			} else if (found_chst||found_ecdg) {
 				locale = temp_locale;
 			}
-					
+
 			found_ctnt=0; found_chst=0; found_ecdg=0;
 			/* search and set character set */
 			/* printf("locale %ls\n", locale); DEBUG */
@@ -577,14 +577,14 @@ void find_encoding()
 					} else {
 						set_iconv_charset(stripped_locale);
 					}
-				  processed_meta=1;
+					processed_meta=1;
 				}
 			}
 		}
 #endif
 	}
 #ifdef proc_debug
-  printf("find_encoding ende\n");
+	printf("find_encoding ende\n");
 #endif
 } /* end find_encoding */
 
@@ -606,7 +606,7 @@ void find_xml_encoding()
 #endif
 	}
 #ifdef proc_debug
-  printf("find_utf8_encoding ende\n");
+	printf("find_utf8_encoding ende\n");
 #endif
 } /* end find_utf8_encoding */
 
@@ -625,13 +625,13 @@ CHAR friss_kommentar()
 		/*printf("%c", c); */
 		/*#endif */
 		if (c=='-') {
-		  c=read_char();
-		  /*#ifdef debug */
+			c=read_char();
+			/*#ifdef debug */
 			/*printf("%c", c); */
 			/*#endif */
 			while (c=='-') {
-			  c=read_char();
-			  /*#ifdef debug */
+				c=read_char();
+				/*#ifdef debug */
 				/*printf("%c", c); */
 				/*#endif */
 				if (c=='>') { dontquit=0; }
@@ -655,15 +655,15 @@ void start_nooutput()
 	wort_ende();
 	print_zeile();
 	nooutput = 1;
-	 
+
 	while (ch!='>') {
-    ch=get_attr();
+		ch=get_attr();
 		/* printf("attr_name: %ls\nattr_ctnt: %ls\n", attr_name, attr_ctnt); */
 		if CMP("/", attr_name) {
 			printf("Empty tag\n");
 			nooutput = 0;
 		}
-  }
+	}
 } /* end start_nooutput */
 
 void end_nooutput()

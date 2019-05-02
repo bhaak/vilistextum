@@ -71,7 +71,7 @@ void init_multibyte()
 					buf[strlen(buf)-1] = '\0';
 					/* check for a working UTF-8 locale */
 					if (utf_8_locale(buf) &&
-					    (locale_found = setlocale(LC_CTYPE, buf))) {
+							(locale_found = setlocale(LC_CTYPE, buf))) {
 						strcpy(internal_locale, buf);
 					}
 				}
@@ -116,7 +116,7 @@ int convert_character(int num, CHAR *outstring)
 	size_t result=(size_t)(-1);
 	int i;
 	int converted; /* has the entity been successfully converted */
-	
+
 	char *inp, *outp;
 	size_t insize = 1, outsize = 32;
 
@@ -132,22 +132,22 @@ int convert_character(int num, CHAR *outstring)
 #endif
 
 	/*#define iconv_debug 1 */
-	
+
 	for (i=0; i<33; i++) { in[i]=0x00; out[i]=0x00; }
 	inp  = in;
 	outp = out;
 	insize = wctomb(inp, num);
 
-/* 	printf("iconv_output_charset: -%s-\n", get_iconv_output_charset()); */
-/* 	printf("insize %d\n", insize); */
-	if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1)) 
-		{	printf("iconv_open failed in convert_character: wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); } 
-	
+	/* 	printf("iconv_output_charset: -%s-\n", get_iconv_output_charset()); */
+	/* 	printf("insize %d\n", insize); */
+	if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1))
+	{	printf("iconv_open failed in convert_character: wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
+
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
 	iconv_close(conv);
-	
-	if (result==(size_t)(-1)) 
-	{	
+
+	if (result==(size_t)(-1))
+	{
 #ifdef iconv_debug
 		printf("convert_character: not converted: &#%d;", num);
 #endif
@@ -168,7 +168,7 @@ int convert_character(int num, CHAR *outstring)
 		outstring[1] = L'\0';
 #ifdef iconv_debug
 		printf("convert_character: Result %d; outstring: %ls: out %s\nstrlen(out) %d; \n", result, outstring, out, strlen(out));
-#endif		
+#endif
 	}
 #ifdef iconv_debug
 	printf("convert_character: fertig %d -%ls-\n", converted, outstring);

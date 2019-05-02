@@ -5,4 +5,4 @@
 
 void parse_entity(CHAR *string);
 void parse_entities(CHAR *string);
-#endif 
+#endif
