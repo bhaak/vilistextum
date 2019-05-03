@@ -223,28 +223,31 @@ void parse_args(int argc, char *argv[])
 		printf("\n");
 #endif
 
-#ifdef  HAVE_GETOPT_H
-		c = getopt_long (argc, argv, "pmsi:ce:hklLtrnavy:Y:xuw:", long_options, &option_index);
+#ifdef HAVE_GETOPT_H
+		c = getopt_long(argc, argv, "pmsi:ce:hklLtrnavy:Y:xuw:", long_options, &option_index);
 #else
-		c = getopt(argc, argv,       "pmsi:ce:hklLtrnavy:xuw:");
+		c = getopt(argc, argv,       "pmsi:ce:hklLtrnavy:Y:xuw:");
 #endif
 #ifdef DEBUG
 		fprintf(stderr, "c: %d c: %c \n\n", c,c);
 #endif
 
 		/* get argument */
-		if (optarg==NULL) { argument = argv[optind]; }
-		else { argument = optarg; }
+		if (optarg==NULL) {
+			argument = argv[optind];
+		} else {
+			argument = optarg;
+		}
 
-		if ((c == -1) && (c = '-')) break;
+		if (c == -1) break;
 
 		switch (c)
 		{
 			case 'v':
 #ifdef MULTIBYTE
-				printf("Vilistextum %s (%s) with multibyte support\n", VERSION, RELEASEDATE);
+				printf("vilistextum %s (%s) with multibyte support\n", VERSION, RELEASEDATE);
 #else
-				printf("Vilistextum %s (%s)\n", VERSION, RELEASEDATE);
+				printf("vilistextum %s (%s)\n", VERSION, RELEASEDATE);
 #endif
 				exit(0);
 #ifdef MULTIBYTE
