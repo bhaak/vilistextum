@@ -17,21 +17,17 @@ $ ./configure && make
 # make install (as root)
 
 The multibyte version needs a good iconv implementation. The best and
-most portable implementation is libiconv. 
+most portable implementation is libiconv.
 http://www.gnu.org/software/libiconv
 The glibc (GNU C Library) implementation is also sufficient. For
 non-glibc systems, libiconv is recommended.
 
 The configure script detects if libiconv is installed and falls back
-to the standard iconv implementation if not. 
+to the standard iconv implementation if not.
 
 "make test" will fail if the iconv implementation is insufficient.
 
 Misc
 ====
-If GNU getopt is not installed, the POSIX getopt will be used. 
+If GNU getopt is not installed, the POSIX getopt will be used.
 In this case long options are not available.
-
-The GUI-frontend needs kaptain.
-http://kaptain.sourceforge.net/
-

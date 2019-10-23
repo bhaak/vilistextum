@@ -1,4 +1,4 @@
-bin_PROGRAMS = vilistextum 
+bin_PROGRAMS = vilistextum
 vilistextum_SOURCES = debug.h charset.c charset.h \
 											html.c html.h latin1.c latin1.h html_tag.c html_tag.h \
 											html_tags.c html_tags.h \
@@ -9,15 +9,3 @@ vilistextum_SOURCES = debug.h charset.c charset.h \
 
 AM_CFLAGS = -Wall -O2 -ansi
 AM_LDFLAGS = $(STATIC)
-
-EXTRA_DIST = kilistextum.kaptn
-
-kilistextum: kilistextum.kaptn
-	rm -f kilistextum
-	if test $(KAPTAIN) != no; then \
-		{ touch kilistextum ; \
-		echo \#\!$(KAPTAIN) >> kilistextum ; \
-		cat kilistextum.kaptn >> kilistextum ; \
-		chmod 744 kilistextum ; } ; \
-	fi
-

@@ -38,4 +38,3 @@ strip $RPM_BUILD_ROOT%{_bindir}/*
 %{_mandir}/man1/*
 %doc README CHANGES COPYING vilistextum.spec
 %doc doc/*.html
-%doc src/kilistextum.kaptn

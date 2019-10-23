@@ -10,7 +10,6 @@ AC_DEFINE_UNQUOTED(RELEASEDATE, "??.??.???", "Release date of the program")
 
 dnl Checks for programs.
 AC_PROG_CC
-AC_PATH_PROG(KAPTAIN, kaptain, no)
 
 AC_C_CHAR_UNSIGNED
 
@@ -19,7 +18,7 @@ AC_SYS_INTERPRETER
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(getopt.h) 	
+AC_CHECK_HEADERS(getopt.h)
 
 dnl add /usr/local
 CFLAGS="$CFLAGS -I/usr/local/include"
