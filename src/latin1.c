@@ -138,7 +138,7 @@ void parse_entities(CHAR *s)
 		if (s[i]=='&') {
 			k=0;
 			/* extract entity from string */
-			while((s[i]!='\0') && (s[i]!=';') && (!isspace(s[i])) && (i<DEF_STR_LEN)) {
+			while((s[i]!='\0') && (s[i]!=';') && (!isspace(s[i]&0xFF)) && (i<DEF_STR_LEN)) {
 				entity[k++] = s[i++];
 			}
 			entity[k] = '\0';

@@ -112,7 +112,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 	/* printf("character %c %d\n", ch, ch); */
 
 	/* skip whitespace */
-	while ((isspace(ch)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
+	while ((isspace(ch&0xFF)) && (ch!='>')) { ch=read_char(); /* printf("read_char %c %d\n", ch, ch);*/ }
 	if (ch=='>') { return '>'; };
 	/*  printf("nach return %c %d\n", ch, ch); */
 
@@ -131,7 +131,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 	/* content of attribute */
 	ch=read_char();
 	/* skip white_space */
-	while ((isspace(ch)) && (ch!='>')) { ch=read_char(); }
+	while ((isspace(ch&0xFF)) && (ch!='>')) { ch=read_char(); }
 	temp[0] = '\0';
 
 	/* if quoted */
@@ -150,7 +150,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 	} else {
 		/* attribute looks like alt=bla */
 		i = append_character(temp, ch);
-		while ((ch!='>') && (!isspace(ch))) {
+		while ((ch!='>') && (!isspace(ch&0xFF))) {
 			ch=read_char();
 			i += append_character(temp, ch);
 		}
@@ -205,7 +205,7 @@ void html()
 					ch = read_char();
 					str[i++] = ch;
 				}
-				while ((isalnum(ch)) || (ch=='#'));
+				while ((isalnum(ch&0xFF)) || (ch=='#'));
 
 				/* if last char is no ';', then the string is no valid entity. */
 				/* maybe it is something like &nbsp or even '& ' */

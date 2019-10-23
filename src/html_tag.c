@@ -42,7 +42,7 @@ void html_tag()
 	/* '!' -> CDATA section or comment */
 	/* '/' -> end tag */
 	/* '?' -> XML processing instruction */
-	if ((!isalpha(ch)) && (ch!='/') && (ch!='!') && (ch!='?'))
+	if ((!isalpha(ch&0xFF)) && (ch!='/') && (ch!='!') && (ch!='?'))
 	{
 		wort_plus_ch('<');
 		putback_char(ch);
