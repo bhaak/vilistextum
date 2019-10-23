@@ -270,7 +270,15 @@ void parse_args(int argc, char *argv[])
 					  break;
 			case 'm': convert_characters = 0; break;
 			case 's':
-					  shrink_lines = atoi(argument); if (shrink_lines==0) { shrink_lines = 1; } break;
+					  /* NULL crashes atoi */
+					  shrink_lines = atoi(argument);
+					  if (argument) {
+						  shrink_lines = atoi(argument);
+					  }
+					  if (shrink_lines == 0) {
+						  shrink_lines = 1;
+					  }
+					  break;
 
 			case 'r': remove_empty_alt = 1; break;
 			case 'i':
