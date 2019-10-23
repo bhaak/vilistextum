@@ -1,10 +1,10 @@
 Format-Specification: http://wiki.debian.org/Proposals/CopyrightFormat?action=recall&rev=437
 Upstream-Name: Vilistextum
-Upstream-Maintainer: Patric Müller <bhaak@gmx.net>
-Upstream-Source: http://bhaak.dyndns.org/vilistextum/download.html
+Upstream-Maintainer: Patric Mueller <bhaak@gmx.net>
+Upstream-Source: https://bhaak.net/vilistextum/download.html
 
 Files: *
-Copyright: © 1998-2006 Patric Müller <bhaak@gmx.net>
+Copyright: © 1998-2019 Patric Mueller <bhaak@gmx.net>
 License: GPL-2
 
 Files: debian/*

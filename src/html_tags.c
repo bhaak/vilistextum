@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1998-2019 Patric Mueller
  * bhaak@gmx.net
- * http://bhaak.dyndns.org/vilistextum/
+ * https://bhaak.net/vilistextum/
  *
  * Released under the GNU GPL Version 2 - http://www.gnu.org/copyleft/gpl.html
  *
