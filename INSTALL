@@ -2,7 +2,6 @@ iso-8859-1 / latin1 version
 ===========================
 
 $ ./configure --disable-multibyte && make
-# make install (as root)
 
 The standard version of vilistextum should compile on any system with a
 C-Compiler. It has been successfully compiled on Linux, FreeBSD and Solaris
@@ -14,7 +13,6 @@ Multibyte/Unicode version
 Since 2.8.0 the multibyte version will be built by default
 
 $ ./configure && make
-# make install (as root)
 
 The multibyte version needs a good iconv implementation. The best and
 most portable implementation is libiconv.
