@@ -175,7 +175,7 @@ void help()
 
 /* ------------------------------------------------ */
 
-void parse_args(int argc, char *argv[])
+int parse_args(int argc, char *argv[])
 {
 	int c=0;
 	char *argument="";
@@ -308,16 +308,7 @@ void parse_args(int argc, char *argv[])
 		}
 	}
 
-#ifdef DEBUG
-	if (optind < argc)
-	{
-		if (argc-optind!=2) { help(); }
-		fprintf (stderr, "non-option ARGV-elements: ");
-		while (optind < argc)
-			fprintf (stderr, "%s ", argv[optind++]);
-		fprintf (stderr, "\n");
-	}
-#endif
+	return optind;
 }
 
 /* ------------------------------------------------ */
@@ -328,11 +319,19 @@ int main(int argc, char *argv[])
 	init_multibyte();
 	use_default_charset();
 #endif
-	parse_args(argc, argv);
+	int option_index = parse_args(argc, argv);
 
-	if (argc < 3) {	help(); }
-
-	open_files(argv[argc-2],argv[argc-1]);
+	switch (argc-option_index)
+	{
+		case 0:
+			open_files("-", "-");
+			break;
+		case 1:
+			open_files(argv[argc-1], "-");
+			break;
+		default:
+			open_files(argv[argc-2],argv[argc-1]);
+	}
 
 	html();
 
