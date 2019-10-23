@@ -30,6 +30,3 @@ DISTCLEANFILES = testcases/*.output.test
 .PHONEY: test
 
 test: check
-
-all: check
-
