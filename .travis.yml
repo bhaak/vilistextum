@@ -1,0 +1,10 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+script:
+  - autoreconf -fi && ./configure && make && make test
+
+sudo: false
