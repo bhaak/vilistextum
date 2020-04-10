@@ -21,6 +21,8 @@
 #include "fileio.h"
 #include "util.h"
 
+CHAR ch;
+
 int LEFT = 1,
 	CENTER = 2,
 	RIGHT  = 3;

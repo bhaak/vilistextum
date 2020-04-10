@@ -9,23 +9,23 @@
 
 #include "multibyte.h"
 
-int LEFT;
-int CENTER;
-int RIGHT;
+extern int LEFT;
+extern int CENTER;
+extern int RIGHT;
 
-CHAR ch;
+extern CHAR ch;
 
-int paragraph;
-int div_test;
-int nooutput;
+extern int paragraph;
+extern int div_test;
+extern int nooutput;
 
-int breite;
-int hr_breite;
+extern int breite;
+extern int hr_breite;
 
 void status();
 
-int tab;
-int spaces;
+extern int tab;
+extern int spaces;
 
 void print_zeile();
 int is_zeile_empty();

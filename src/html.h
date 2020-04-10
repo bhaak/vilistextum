@@ -4,13 +4,13 @@
 #include "text.h"
 #include "multibyte.h"
 
-int pre;
+extern int pre;
 
 int get_attr();
 int get_new_attr(CHAR *name, CHAR *content);
 
-CHAR attr_name[DEF_STR_LEN];
-CHAR attr_ctnt[DEF_STR_LEN];
+extern CHAR attr_name[DEF_STR_LEN];
+extern CHAR attr_ctnt[DEF_STR_LEN];
 
 void html();
 void check_for_center();
