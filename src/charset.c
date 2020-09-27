@@ -184,6 +184,7 @@ int convert_character(int num, CHAR *outstring)
 
 /* ------------------------------------------------ */
 
+#ifdef MULTIBYTE
 void set_iconv_charset(char *charset) {
 	/* set charset for iconv conversion */
 	strcpy(iconv_charset, charset);
@@ -205,6 +206,7 @@ void set_iconv_output_charset(char *charset) {
 void use_default_charset() {
 	set_iconv_charset(default_charset);
 }
+#endif
 
 /* ------------------------------------------------ */
 

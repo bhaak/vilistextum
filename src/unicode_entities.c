@@ -84,6 +84,7 @@ int fallback_entity(CHAR *s)
 	int number, i=0;
 	if (!convert_characters) { return(0); }
 
+#ifdef MULTIBYTE
 	number = extract_entity_number(s);
 
 	while (fallback_entities[i].codepoint != 0){
@@ -97,6 +98,7 @@ int fallback_entity(CHAR *s)
 		}
 		i++;
 	}
+#endif
 
 	return(0);
 
