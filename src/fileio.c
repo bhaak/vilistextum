@@ -158,7 +158,7 @@ void output_string(CHAR *str)
 
 /* ------------------------------------------------ */
 
-void quit()
+void quit(void)
 {
 	if (!is_zeile_empty()) { wort_ende(); print_zeile(); }
 
@@ -172,7 +172,7 @@ void quit()
 
 /* ------------------------------------------------ */
 
-int read_char()
+int read_char(void)
 {
 	int c = ' ';
 #ifdef MULTIBYTE

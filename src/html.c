@@ -98,7 +98,7 @@ int append_character(CHAR *str, CHAR ch) {
 
 /* get the next attribute and writes it to attr_name and attr_ctnt. */
 /* attr_name is converted to uppercase.  */
-int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
+int get_attr(void) /* FIXME change to get_attr(char *name, char *ctnt) */
 {
 	int i;
 	CHAR temp[DEF_STR_LEN];
@@ -172,7 +172,7 @@ int get_attr() /* FIXME change to get_attr(char *name, char *ctnt) */
 
 /* ------------------------------------------------  */
 
-void html()
+void html(void)
 {
 	int i;
 	CHAR str[DEF_STR_LEN];
@@ -302,7 +302,7 @@ void html()
 /* ------------------------------------------------ */
 
 /* used when there's only the align-attribut to be checked  */
-void check_for_center()
+void check_for_center(void)
 {
 	int found=0;
 #ifdef proc_debug
@@ -333,7 +333,7 @@ void check_for_center()
 
 /* ------------------------------------------------ */
 
-void start_p()
+void start_p(void)
 {
 #ifdef proc_debug
 	printf("\nstart_p()\n");
@@ -366,7 +366,7 @@ void start_div(int a)
 
 /* ------------------------------------------------ */
 
-void end_div()
+void end_div(void)
 {
 #ifdef proc_debug
 	printf("end_div()\n"),
@@ -408,7 +408,7 @@ CHAR references[DEF_STR_LEN];
 int html_a_opened = 0;
 
 /* handles <a href="..."></a> */
-void href()
+void href(void)
 {
 	CHAR tmp[DEF_STR_LEN];
 
@@ -444,7 +444,7 @@ void href()
 
 /* ------------------------------------------------ */
 
-void href_output()
+void href_output(void)
 {
 	if (option_links) {
 		if (references_count!=0) {
@@ -456,7 +456,7 @@ void href_output()
 
 /* ------------------------------------------------ */
 
-void href_link_inline_output()
+void href_link_inline_output(void)
 {
 	if (option_latex) {
 		if (html_a_opened > 0) {
@@ -517,7 +517,7 @@ void image(CHAR *alt_text, int show_alt)
 /* ------------------------------------------------ */
 
 /* extract encoding information from META or ?xml tags */
-void find_encoding()
+void find_encoding(void)
 {
 #ifdef MULTIBYTE
 	int found_ctnt=0;
@@ -591,7 +591,7 @@ void find_encoding()
 /* ------------------------------------------------ */
 
 /* extract encoding information ?xml tags */
-void find_xml_encoding()
+void find_xml_encoding(void)
 {
 #ifdef proc_debug
 	printf("find_utf8_encoding()\n");
@@ -613,7 +613,7 @@ void find_xml_encoding()
 /* ------------------------------------------------ */
 
 /* simple finite state machine to eat up complete comment '!--' */
-CHAR friss_kommentar()
+CHAR friss_kommentar(void)
 {
 	int c, dontquit=1;
 #ifdef proc_debug
@@ -650,7 +650,7 @@ CHAR friss_kommentar()
 
 /* ------------------------------------------------ */
 
-void start_nooutput()
+void start_nooutput(void)
 {
 	wort_ende();
 	print_zeile();
@@ -666,7 +666,7 @@ void start_nooutput()
 	}
 } /* end start_nooutput */
 
-void end_nooutput()
+void end_nooutput(void)
 {
 	wort_ende();
 	print_zeile();

@@ -24,7 +24,7 @@ CHAR bullet_style=' ';
 /* ------------------------------------------------ */
 
 #if 0
-int check_style()
+int check_style(void)
 {
 	while (ch!='>')
 	{
@@ -45,7 +45,7 @@ int check_style()
 
 /* ------------------------------------------------ */
 
-void start_uls()
+void start_uls(void)
 {
 	/*int ret; */
 #ifdef proc_debug
@@ -79,7 +79,7 @@ void start_uls()
 #endif
 } /* end start_uls */
 
-void end_uls()
+void end_uls(void)
 {
 	spaces -= tab;
 	line_break();
@@ -106,7 +106,7 @@ void end_uls()
 
 /* ------------------------------------------------ */
 
-void start_ols()
+void start_ols(void)
 {
 	if (option_latex) {
 		line_break();
@@ -120,7 +120,7 @@ void start_ols()
 
 /* ------------------------------------------------ */
 
-void end_ols()
+void end_ols(void)
 {
 	if (option_latex) {
 		line_break();
@@ -134,7 +134,7 @@ void end_ols()
 
 /* ------------------------------------------------ */
 
-void start_lis()
+void start_lis(void)
 {
 	if (option_latex) {
 		if (!is_zeile_empty()) { line_break(); }
@@ -156,16 +156,17 @@ void start_lis()
 
 /* ------------------------------------------------ */
 
-void end_lis() {
+void end_lis(void)
+{
 }
 
 /* ------------------------------------------------ */
 
 int definition_list=0;
-void end_dd();
+void end_dd(void);
 
 /* Definition List */
-void start_dl()
+void start_dl(void)
 {
 	end_dd();
 	start_p();
@@ -175,7 +176,7 @@ void start_dl()
 	}
 } /* end start_dl */
 
-void end_dl()
+void end_dl(void)
 {
 	paragraphen_ende();
 
@@ -187,7 +188,7 @@ void end_dl()
 } /* end_dl */
 
 /* Definition Title */
-void start_dt()
+void start_dt(void)
 {
 	end_dd();
 
@@ -197,7 +198,7 @@ void start_dt()
 	}
 } /* end start_dt */
 
-void end_dt()
+void end_dt(void)
 {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("]"), FALSE);
@@ -205,7 +206,7 @@ void end_dt()
 } /* end_dt */
 
 /* Definition Description */
-void start_dd()
+void start_dd(void)
 {
 	end_dd();
 
@@ -215,7 +216,7 @@ void start_dd()
 	definition_list=1;
 } /* end  */
 
-void end_dd()
+void end_dd(void)
 {
 	if (definition_list==1)
 	{

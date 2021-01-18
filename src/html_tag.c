@@ -31,7 +31,7 @@
 #include "util.h"
 #include "html_tags.h"
 
-void html_tag()
+void html_tag(void)
 {
 	CHAR str[DEF_STR_LEN];
 	int i=0;

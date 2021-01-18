@@ -33,7 +33,7 @@ int align_nr=0,
 
 /* ------------------------------------------------ */
 
-int get_align()
+int get_align(void)
 {
 	/* Dynamic align added by autophile@starband.net 29 Mar 2002 */
 	if (align==NULL)
@@ -75,7 +75,7 @@ void push_align(int a)
 	align[align_nr]=a; /*} */
 }
 
-void pop_align()
+void pop_align(void)
 {
 	if (align_nr==0) { if (errorlevel>=5) { fprintf(stdout, "Error: align_nr=0\n");} }
 	else { align_nr--; }

@@ -166,7 +166,7 @@ char help_text[] =
 "Please report bugs to <bhaak@gmx.net>\n"
 ;
 
-void help()
+void help(void)
 {
 	printf("%s", help_text);
 

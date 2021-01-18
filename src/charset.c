@@ -55,7 +55,7 @@ static int utf_8_locale(const char * locale)
 	return suffix(locale,".utf8") || suffix(locale, ".UTF-8");
 }
 
-void init_multibyte()
+void init_multibyte(void)
 {
 	char *locale_found;
 	if ((locale_found = setlocale(LC_CTYPE, INTERNAL_LOCALE))) {
@@ -90,14 +90,14 @@ void init_multibyte()
 /* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
-char* get_iconv_charset()
+char* get_iconv_charset(void)
 {
 	return(iconv_charset);
 }
 
 /* ------------------------------------------------ */
 
-char* get_iconv_output_charset()
+char* get_iconv_output_charset(void)
 {
 	/* check if there's a different output character set */
 	if (strlen(iconv_output_charset) > 0) {
@@ -109,7 +109,7 @@ char* get_iconv_output_charset()
 
 /* ------------------------------------------------ */
 
-char* get_iconv_output_charset();
+char* get_iconv_output_charset(void);
 int convert_character(int num, CHAR *outstring)
 {
 	char in[33], out[33];
@@ -203,7 +203,7 @@ void set_iconv_output_charset(char *charset) {
 
 /* ------------------------------------------------ */
 
-void use_default_charset() {
+void use_default_charset(void) {
 	set_iconv_charset(default_charset);
 }
 #endif

@@ -3,9 +3,9 @@
 
 #include "multibyte.h"
 
-int get_align();
+int get_align(void);
 void push_align(int a);
-void pop_align();
+void pop_align(void);
 
 int uppercase(int c);
 void uppercase_str(CHAR *s);

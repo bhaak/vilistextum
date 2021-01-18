@@ -51,7 +51,7 @@ int breite=76,
 
 /* ------------------------------------------------ */
 
-void center_zeile()
+void center_zeile(void)
 {
 	int i,j;
 #ifdef proc_debug
@@ -95,7 +95,7 @@ void center_zeile()
 
 /* ------------------------------------------------ */
 
-void right_zeile()
+void right_zeile(void)
 {
 	int i,j;
 #ifdef proc_debug
@@ -146,7 +146,7 @@ int only_spaces(CHAR *z)
 
 /* ------------------------------------------------ */
 
-void clear_line() {
+void clear_line(void) {
 	zeile[0]='\0';
 	zeilen_len=0; zeilen_pos=0;
 }
@@ -154,7 +154,7 @@ void clear_line() {
 /* ------------------------------------------------ */
 
 /* print line */
-void print_zeile()
+void print_zeile(void)
 {
 	int printzeile;
 #ifdef proc_debug
@@ -204,7 +204,7 @@ void print_zeile()
 
 /* ------------------------------------------------ */
 
-int is_zeile_empty()
+int is_zeile_empty(void)
 {
 	return(zeile[0]=='\0');
 } /* end is_zeile_empty */
@@ -212,7 +212,7 @@ int is_zeile_empty()
 /* ------------------------------------------------ */
 
 #ifdef debug
-void status()
+void status(void)
 {
 	printf(" paragraph: %d; div_test: %d; align[align_nr]: %d; z_o: %d\n",paragraph, div_test, get_align(), zeilen_len_old);
 
@@ -311,7 +311,7 @@ CHAR* latex_escaped_characters[] = {STRING("\\$"), STRING("\\%"), STRING("\\_"),
 
 /* returns true, if c has to be escaped */
 CHAR* latex_must_escapable(char c) {
-	int i;
+	size_t i;
 	for (i=0; i<sizeof(latex_special_characters); i++) {
 		if (latex_special_characters[i] == c) {
 			return latex_escaped_characters[i];
@@ -363,7 +363,7 @@ void wort_plus_string(CHAR *s)
 
 /* ------------------------------------------------ */
 
-void wort_ende()
+void wort_ende(void)
 {
 	int i=0;
 #ifdef proc_debug
@@ -416,7 +416,7 @@ void wort_ende()
 
 /* ------------------------------------------------ */
 
-void line_break()
+void line_break(void)
 {
 	wort_ende();
 	print_zeile();
@@ -424,7 +424,7 @@ void line_break()
 
 /* ------------------------------------------------ */
 
-void paragraphen_ende()
+void paragraphen_ende(void)
 {
 	if (paragraph!=0)
 	{
@@ -445,7 +445,7 @@ void paragraphen_ende()
 
 /* ------------------------------------------------ */
 
-void neuer_paragraph()
+void neuer_paragraph(void)
 {
 #ifdef proc_debug
 	printf("neuer_paragraph()\n");
@@ -462,7 +462,7 @@ void neuer_paragraph()
 
 /* ------------------------------------------------ */
 
-void hr()
+void hr(void)
 {
 	int i, hr_width=hr_breite-4, hr_align=CENTER;
 #ifdef proc_debug

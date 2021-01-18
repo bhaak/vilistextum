@@ -24,7 +24,7 @@
 
 /* ------------------------------------------------ */
 
-void html_br() {
+void html_br(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\\\"), FALSE);
 	}
@@ -33,7 +33,7 @@ void html_br() {
 
 /* ------------------------------------------------ */
 
-void html_b() {
+void html_b(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlB{"), FALSE);
 	} else {
@@ -41,7 +41,7 @@ void html_b() {
 	}
 } /* html_b */
 
-void html_b_end() {
+void html_b_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {
@@ -51,7 +51,7 @@ void html_b_end() {
 
 /* ------------------------------------------------ */
 
-void html_i() {
+void html_i(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlI{"), FALSE);
 	} else {
@@ -59,7 +59,7 @@ void html_i() {
 	}
 } /* end html_i */
 
-void html_i_end() {
+void html_i_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {
@@ -69,7 +69,7 @@ void html_i_end() {
 
 /* ------------------------------------------------ */
 
-void html_u() {
+void html_u(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlU{"), FALSE);
 	} else {
@@ -77,7 +77,7 @@ void html_u() {
 	}
 } /* html_u */
 
-void html_u_end() {
+void html_u_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {
@@ -87,7 +87,7 @@ void html_u_end() {
 
 /* ------------------------------------------------ */
 
-void html_strong() {
+void html_strong(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlStrong{"), FALSE);
 	} else {
@@ -95,7 +95,7 @@ void html_strong() {
 	}
 } /* html_strong */
 
-void html_strong_end() {
+void html_strong_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {
@@ -105,7 +105,7 @@ void html_strong_end() {
 
 /* ------------------------------------------------ */
 
-void html_em() {
+void html_em(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlEm{"), FALSE);
 	} else {
@@ -113,7 +113,7 @@ void html_em() {
 	}
 } /* html_em */
 
-void html_em_end() {
+void html_em_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {
@@ -176,7 +176,7 @@ void wort_plus_html_color(CHAR* color_command, CHAR* htmlcolor) {
 /* ------------------------------------------------ */
 
 int html_font_opened = 0;
-void html_font()
+void html_font(void)
 {
 #ifdef proc_debug
 	printf("html_font()\n");
@@ -198,7 +198,7 @@ void html_font()
 #endif
 } /* html_font */
 
-void html_font_end()
+void html_font_end(void)
 {
 	if (option_latex) {
 		if (html_font_opened > 0) {
@@ -211,7 +211,7 @@ void html_font_end()
 
 /* ------------------------------------------------ */
 
-void html_body()
+void html_body(void)
 {
 #ifdef proc_debug
 	printf("html_body()\n");
@@ -236,7 +236,7 @@ void html_body()
 
 /* ------------------------------------------------ */
 
-void html_pre() {
+void html_pre(void) {
 	start_p();
 	pre=TRUE;
 	if (option_latex) {
@@ -244,7 +244,7 @@ void html_pre() {
 	}
 } /* html_pre */
 
-void html_pre_end() {
+void html_pre_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\end{htmlPre}"), FALSE);
 	}
@@ -254,7 +254,7 @@ void html_pre_end() {
 
 /* ------------------------------------------------ */
 
-void html_blockquote() {
+void html_blockquote(void) {
 	if (option_latex) {
 		line_break();
 		wort_plus_string_escape(STRING("\\begin{htmlBlockquote}"), FALSE);
@@ -264,7 +264,7 @@ void html_blockquote() {
 	}
 } /* html_pre */
 
-void html_blockquote_end() {
+void html_blockquote_end(void) {
 	if (option_latex) {
 		line_break();
 		wort_plus_string_escape(STRING("\\end{htmlBlockquote}"), FALSE);
@@ -276,13 +276,13 @@ void html_blockquote_end() {
 
 /* ------------------------------------------------ */
 
-void html_code() {
+void html_code(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlCode{"), FALSE);
 	}
 } /* html_code */
 
-void html_code_end() {
+void html_code_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	}
@@ -290,7 +290,7 @@ void html_code_end() {
 
 /* ------------------------------------------------ */
 
-void html_mark() {
+void html_mark(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("\\htmlMark{"), FALSE);
 	} else {
@@ -298,7 +298,7 @@ void html_mark() {
 	}
 } /* html_b */
 
-void html_mark_end() {
+void html_mark_end(void) {
 	if (option_latex) {
 		wort_plus_string_escape(STRING("}"), FALSE);
 	} else {

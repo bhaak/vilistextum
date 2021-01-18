@@ -22,29 +22,29 @@ extern int nooutput;
 extern int breite;
 extern int hr_breite;
 
-void status();
+void status(void);
 
 extern int tab;
 extern int spaces;
 
-void print_zeile();
-int is_zeile_empty();
-void clear_line();
+void print_zeile(void);
+int is_zeile_empty(void);
+void clear_line(void);
 
 void push_align(int a);
-void pop_align();
+void pop_align(void);
 
 void wort_plus_string(CHAR *s);
 void wort_plus_string_escape(CHAR *s, int do_escape);
 void wort_plus_string_nocount(CHAR *s);
 void wort_plus_ch(int c);
-void wort_ende();
+void wort_ende(void);
 
-void line_break();
+void line_break(void);
 
-void paragraphen_ende();
-void neuer_paragraph();
+void paragraphen_ende(void);
+void neuer_paragraph(void);
 
-void hr();
+void hr(void);
 
 #endif
