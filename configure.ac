@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([vilistextum], [2.8.0-devel])
+AC_INIT([vilistextum],[2.8.0-devel])
 AC_CONFIG_SRCDIR([src/debug.h])
 AM_INIT_AUTOMAKE
 
@@ -17,7 +17,6 @@ dnl check for #! (shebang)
 AC_SYS_INTERPRETER
 
 dnl Checks for header files.
-AC_HEADER_STDC
 AC_CHECK_HEADERS(getopt.h)
 
 dnl add /usr/local

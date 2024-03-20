@@ -13,7 +13,7 @@
 
 #-------------------------
 # Required binaries check
-#          
+#
 check_bin_file(){
    which $1 > /dev/null 2>&1
    if [ $? = 0 ]; then
@@ -54,5 +54,4 @@ echo "Generating..."
 "$ACLOCAL"
 "$AUTOHEADER"
 "$AUTOCONF"
-"$AUTOMAKE" -a
-
+"$AUTOMAKE" --add-missing --copy
