@@ -1,0 +1,90 @@
+name: Vilistextum CI builds
+
+on:
+  push:
+    branches: [ '*' ]
+    tags: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+env:
+  CFLAGS: '-O2 -Wall -Wextra -fno-common -Werror=format -Wno-format-truncation -Werror=return-type -Werror=strict-prototypes -Werror=uninitialized'
+  LFLAGS: '-fno-common'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: "./configure --enable-multibyte"
+
+    - name: make
+      run: make all
+
+    - name: install libcheck
+      run: sudo apt-get install check
+
+    - name: make check
+      run: make check
+
+    - name: config.log
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: artifacts
+        path: |
+          config.log
+
+  disable_multibyte:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: "./configure --disable-multibyte"
+
+    - name: make
+      run: make all
+
+    - name: install libcheck
+      run: sudo apt-get install check
+
+    - name: make check
+      run: make check
+
+  autogen:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: "rm -f ./configure && ./autogen.sh && ./configure --enable-multibyte"
+
+    - name: make
+      run: make all
+
+    - name: install libcheck
+      run: sudo apt-get install check
+
+    - name: make check
+      run: make check
+
+  macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: "./configure --enable-multibyte"
+
+    - name: make
+      run: make all
+
+    - name: make check
+      run: make check

@@ -34,6 +34,7 @@
 #include "util.h"
 
 #ifdef MULTIBYTE
+#include <wctype.h>
 #include "unicode_entities.h"
 #endif
 
@@ -47,7 +48,7 @@ CHAR attr_name[DEF_STR_LEN], /* Attribut name of a HTML-Tag */
 /* ------------------------------------------------ */
 #if defined(MULTIBYTE) && !defined(HAVE_WCSCASECMP)
 #include <wchar.h>
-static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
+static int vlist_wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 {
 	size_t i;
 	wint_t c1, c2;
@@ -68,6 +69,7 @@ static int wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 
 	return 0;
 }
+#define wcscasecmp vlist_wcscasecmp
 #endif
 
 /* ------------------------------------------------ */
@@ -375,7 +377,7 @@ void end_div(void)
 
 	if (paragraph!=0) { paragraphen_ende(); }
 	else { print_zeile(); }
-	pop_align(); /* einer für start_div */
+	pop_align(); /* one for start_div */
 	div_test = 0;
 #ifdef proc_debug
 	printf("end_div() ende\n");

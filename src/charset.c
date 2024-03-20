@@ -27,14 +27,12 @@
 #include "text.h"
 #include "multibyte.h"
 
+#ifdef MULTIBYTE
 static char *default_charset = "iso-8859-1";
 
 static char iconv_charset[DEF_STR_LEN];
 static char iconv_output_charset[DEF_STR_LEN] = "";
 
-static int usr=0;
-
-#ifdef MULTIBYTE
 iconv_t conv;
 char internal_locale[256];
 #endif
