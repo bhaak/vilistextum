@@ -13,9 +13,7 @@ tests/*.trs
 
 autom4te.cache
 Makefile
-compile
 config.h
 config.log
 config.status
 stamp-h1
-test-driver

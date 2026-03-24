@@ -2,6 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([vilistextum],[2.8.0-devel])
 AC_CONFIG_SRCDIR([src/debug.h])
 AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
 
 AC_CONFIG_HEADERS([config.h])
 

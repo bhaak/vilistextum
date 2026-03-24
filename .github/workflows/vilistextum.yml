@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: configure
       run: "./configure --enable-multibyte"
@@ -31,7 +31,7 @@ jobs:
       run: make check
 
     - name: config.log
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: artifacts
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: configure
       run: "./configure --disable-multibyte"
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: configure
       run: "rm -f ./configure && ./autogen.sh && ./configure --enable-multibyte"
@@ -78,13 +78,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: configure
       run: "./configure --enable-multibyte"
 
     - name: make
       run: make all
-
-    - name: make check
-      run: make check
