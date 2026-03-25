@@ -271,11 +271,10 @@ int parse_args(int argc, char *argv[])
 			case 'm': convert_characters = 0; break;
 			case 's':
 					  /* NULL crashes atoi */
-					  shrink_lines = atoi(argument);
 					  if (argument) {
 						  shrink_lines = atoi(argument);
 					  }
-					  if (shrink_lines == 0) {
+					  if (shrink_lines <= 0) {
 						  shrink_lines = 1;
 					  }
 					  break;
