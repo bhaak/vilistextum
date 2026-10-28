@@ -38,6 +38,43 @@ jobs:
         path: |
           config.log
 
+  sanitizers:
+    runs-on: ubuntu-latest
+
+    env:
+      CFLAGS: '-O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common -Wall -Wextra -Werror=format -Wno-format-truncation -Werror=return-type -Werror=strict-prototypes -Werror=uninitialized'
+      LDFLAGS: '-fsanitize=address,undefined -fno-omit-frame-pointer'
+      # tests/test_functions discards stderr, so sanitizer reports would be
+      # lost. Log them to files instead and upload/show them below.
+      ASAN_OPTIONS: 'detect_leaks=1:abort_on_error=1:log_path=asan'
+      UBSAN_OPTIONS: 'halt_on_error=1:print_stacktrace=1:log_path=ubsan'
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: configure
+      run: "./configure --enable-multibyte"
+
+    - name: make
+      run: make all
+
+    - name: make check
+      run: make check
+
+    - name: show sanitizer reports
+      if: always()
+      run: cat tests/asan.* tests/ubsan.* 2>/dev/null || true
+
+    - name: sanitizer reports
+      uses: actions/upload-artifact@v7
+      if: always()
+      with:
+        name: sanitizer-reports
+        path: |
+          tests/asan.*
+          tests/ubsan.*
+        if-no-files-found: ignore
+
   disable_multibyte:
     runs-on: ubuntu-latest
 
