@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Regression test: with --links the footnotes are collected in a fixed size
+# buffer. Many links used to write past its end. Only the sanitizer builds
+# in CI detect this reliably; a crash is also possible without them.
+# See href() in src/html.c.
+
+. test_functions
+
+tmp=$(mktemp "${TMPDIR:-/tmp}/vilistextum_overflow_links_XXXXXX") || exit 1
+awk 'BEGIN { for (i = 0; i < 2000; i++) printf "<a href=\"http://example.com/%d\">x</a> ", i }' > "$tmp"
+
+../src/vilistextum -l "$tmp" /dev/null 2>/dev/null
+retval=$?
+
+rm -f "$tmp"
+
+if [ $retval -ne 0 ]; then
+  echo "TEST: overflow_links failed (exit status $retval)"
+  exit $retval
+fi

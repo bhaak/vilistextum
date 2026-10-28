@@ -16,7 +16,9 @@ TESTS = check_utf8 \
 	check_links_inline \
 	check_html5 \
 	check_latex \
-	check_bufferoverflow
+	check_bufferoverflow \
+	check_overflow_entities \
+	check_overflow_links
 
 EXTRA_DIST = README \
 						testcases/*.html \

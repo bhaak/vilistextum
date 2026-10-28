@@ -74,6 +74,15 @@ static int vlist_wcscasecmp(const wchar_t *s1, const wchar_t *s2)
 
 /* ------------------------------------------------ */
 
+/* Characters that can be part of an entity name: "&amp;", "&#169;", "&#xA9;" */
+static int is_entity_char(CHAR c)
+{
+	/* isalnum() may only be called with EOF or an unsigned char value */
+	return (isalnum(c & 0xFF)) || (c == '#');
+}
+
+/* ------------------------------------------------ */
+
 /* Appends ch to the String str, converting it to the output
  * charset if needed.
  * Returns the number of characters added to str. */
@@ -203,11 +212,16 @@ void html(void)
 #endif
 				i=1;
 				str[0] = ch;
-				do {
+				/* The terminating character is not stored here.
+				   Keep two characters free because parse_entity() may append
+				   a ';' to the string. */
+				ch = read_char();
+				while (is_entity_char(ch)) {
+					if (i < DEF_STR_LEN - 2) {
+						str[i++] = ch;
+					}
 					ch = read_char();
-					str[i++] = ch;
 				}
-				while ((isalnum(ch&0xFF)) || (ch=='#'));
 
 				/* if last char is no ';', then the string is no valid entity. */
 				/* maybe it is something like &nbsp or even '& ' */
@@ -215,11 +229,13 @@ void html(void)
 					/* save last char  */
 					putback_char(ch);
 					/* no ';' at end */
-					str[i-1] = '\0'; }
-				else {
-					/* valid entity */
 					str[i] = '\0';
-					/* strcpy(tmpstr, str); */
+				} else {
+					/* valid entity */
+					if (i < DEF_STR_LEN - 2) {
+						str[i++] = ';';
+					}
+					str[i] = '\0';
 				}
 #ifdef debug
 				printf("check &: %s\n",str);
@@ -425,17 +441,22 @@ void href(void)
 					wort_plus_string_escape(STRING("}{"), FALSE);
 					html_a_opened++;
 				} else if (option_links) {
-					references_count++;
+					/* Keep room for the footnote in the fixed size
+					   references buffer. The 32 characters cover the
+					   " %3d. " prefix and the trailing newline. */
+					if (STRLEN(references) + STRLEN(attr_ctnt) + 32 < DEF_STR_LEN) {
+						references_count++;
 
-					/* I think, this is completely unnecessary.
-					   There can't be any entities in URLs.
-					   */
-					/* parse_entities(attr_ctnt); */
-					print_footnote_number(tmp, references_count);
-					wort_plus_string(tmp);
+						/* I think, this is completely unnecessary.
+						   There can't be any entities in URLs.
+						   */
+						/* parse_entities(attr_ctnt); */
+						print_footnote_number(tmp, references_count);
+						wort_plus_string(tmp);
 
-					construct_footnote(tmp, references_count, attr_ctnt);
-					STRCAT(references, tmp);
+						construct_footnote(tmp, references_count, attr_ctnt);
+						STRCAT(references, tmp);
+					}
 				} else if (option_links_inline) {
 					CPYSS(link_inline, attr_ctnt);
 				}
