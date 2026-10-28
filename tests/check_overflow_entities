@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Regression test: an entity name longer than the internal string buffer
+# used to write past its end in html(). The name has to be truncated.
+# See src/html.c, entity scanning in html().
+
+. test_functions
+
+tmp=$(mktemp "${TMPDIR:-/tmp}/vilistextum_overflow_entities_XXXXXX") || exit 1
+awk 'BEGIN { printf "<p>&#"; for (i = 0; i < 40000; i++) printf "0"; print ";</p>" }' > "$tmp"
+
+../src/vilistextum "$tmp" /dev/null 2>/dev/null
+retval=$?
+
+rm -f "$tmp"
+
+if [ $retval -ne 0 ]; then
+  echo "TEST: overflow_entities failed (exit status $retval)"
+  exit $retval
+fi

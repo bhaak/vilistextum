@@ -9,6 +9,19 @@ check_entities
   Checks if all named character entities are correctly translated with
   locale iso-8859-1.
 
+check_bufferoverflow
+  Feeds overlong attribute names and contents to make sure they are
+  truncated instead of writing past the end of the attribute buffers.
+
+check_overflow_entities
+  Feeds a single entity name far longer than the internal string buffer.
+  It must be truncated, not written past the end of the buffer in html().
+
+check_overflow_links
+  Feeds many links with --links. The footnotes are collected in a fixed
+  size buffer, which must not be overflowed. A sanitizer build fails
+  reliably on a regression, a plain build may not crash at all.
+
 
 The following tests only work when vilistextum is compiled as
 multibyte version.

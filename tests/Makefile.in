@@ -439,7 +439,9 @@ TESTS = check_utf8 \
 	check_links_inline \
 	check_html5 \
 	check_latex \
-	check_bufferoverflow
+	check_bufferoverflow \
+	check_overflow_entities \
+	check_overflow_links
 
 EXTRA_DIST = README \
 						testcases/*.html \
@@ -783,6 +785,20 @@ check_latex.log: check_latex
 check_bufferoverflow.log: check_bufferoverflow
 	@p='check_bufferoverflow'; \
 	b='check_bufferoverflow'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+check_overflow_entities.log: check_overflow_entities
+	@p='check_overflow_entities'; \
+	b='check_overflow_entities'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+check_overflow_links.log: check_overflow_links
+	@p='check_overflow_links'; \
+	b='check_overflow_links'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
