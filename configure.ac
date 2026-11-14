@@ -40,8 +40,30 @@ if test "$use_multibyte" = "yes"; then
 AC_CHECK_HEADERS(iconv.h,,
 			AC_MSG_ERROR(Need libiconv or iconv.h for multibyte support))
 
-AC_CHECK_LIB(iconv, iconv,,
-			AC_MSG_WARN([Generic iconv found but not libiconv. See INSTALL for details]))
+dnl AC_CHECK_LIB does not include iconv.h, so the macros of GNU libiconv
+dnl (iconv -> libiconv) do not apply and the check looks for a symbol that
+dnl GNU libiconv does not export. Test the header and the library together,
+dnl the same way the program uses them.
+AC_MSG_CHECKING([for iconv])
+save_LIBS="$LIBS"
+iconv_found=no
+for iconv_lib in "" "-liconv"; do
+	LIBS="$save_LIBS $iconv_lib"
+	AC_LINK_IFELSE(
+		[AC_LANG_PROGRAM([[#include <iconv.h>]],
+			[[iconv_t cd = iconv_open("UTF-8", "UTF-8");
+			  if (cd == (iconv_t)-1) return 1;
+			  iconv_close(cd);]])],
+		[iconv_found=yes; break])
+done
+if test "$iconv_found" = yes; then
+	AC_MSG_RESULT([yes])
+else
+	LIBS="$save_LIBS"
+	AC_MSG_RESULT([no])
+	AC_MSG_WARN([No usable iconv found. See INSTALL for details.])
+fi
+
 AC_CHECK_HEADERS([wchar.h])
 AC_CHECK_TYPE([wchar_t],,[ AC_MSG_ERROR([Type wchar_t not found.]) ])
 # check for all needed wide char function

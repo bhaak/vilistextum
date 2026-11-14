@@ -5042,61 +5042,42 @@ fi
 
 done
 
-{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: checking for iconv in -liconv" >&5
-printf %s "checking for iconv in -liconv... " >&6; }
-if test ${ac_cv_lib_iconv_iconv+y}
-then :
-  printf %s "(cached) " >&6
-else case e in #(
-  e) ac_check_lib_save_LIBS=$LIBS
-LIBS="-liconv  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: checking for iconv" >&5
+printf %s "checking for iconv... " >&6; }
+save_LIBS="$LIBS"
+iconv_found=no
+for iconv_lib in "" "-liconv"; do
+	LIBS="$save_LIBS $iconv_lib"
+	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.
-   The 'extern "C"' is for builds by C++ compilers;
-   although this is not generally supported in C code supporting it here
-   has little cost and some practical benefit (sr 110532).  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char iconv (void);
+#include <iconv.h>
 int
 main (void)
 {
-return iconv ();
+iconv_t cd = iconv_open("UTF-8", "UTF-8");
+			  if (cd == (iconv_t)-1) return 1;
+			  iconv_close(cd);
   ;
   return 0;
 }
 _ACEOF
 if ac_fn_c_try_link "$LINENO"
 then :
-  ac_cv_lib_iconv_iconv=yes
-else case e in #(
-  e) ac_cv_lib_iconv_iconv=no ;;
-esac
+  iconv_found=yes; break
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam \
     conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS ;;
-esac
+done
+if test "$iconv_found" = yes; then
+	{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf '%s\n' "yes" >&6; }
+else
+	LIBS="$save_LIBS"
+	{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf '%s\n' "no" >&6; }
+	{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: WARNING: No usable iconv found. See INSTALL for details." >&5
+printf '%s\n' "$as_me: WARNING: No usable iconv found. See INSTALL for details." >&2;}
 fi
-{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_iconv_iconv" >&5
-printf '%s\n' "$ac_cv_lib_iconv_iconv" >&6; }
-if test "x$ac_cv_lib_iconv_iconv" = xyes
-then :
-  printf '%s\n' "#define HAVE_LIBICONV 1" >>confdefs.h
-
-  LIBS="-liconv $LIBS"
-
-else case e in #(
-  e) { printf '%s\n' "$as_me:${as_lineno-$LINENO}: WARNING: Generic iconv found but not libiconv. See INSTALL for details" >&5
-printf '%s\n' "$as_me: WARNING: Generic iconv found but not libiconv. See INSTALL for details" >&2;} ;;
-esac
-fi
-
 ac_fn_c_check_header_compile "$LINENO" "wchar.h" "ac_cv_header_wchar_h" "$ac_includes_default"
 if test "x$ac_cv_header_wchar_h" = xyes
 then :
