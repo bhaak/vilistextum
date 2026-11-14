@@ -63,7 +63,11 @@ output version information and exit
 instead of the character set of the html document, everything will be output as utf-8.
 .TP
 \fB\-x, --translit 
-use the //TRANSLIT feature of libiconv. Consult the iconv manual for details.
+transliterate characters that the output character set cannot represent.
+This requires an iconv implementation that supports //TRANSLIT. If the
+implementation does not provide it, the option is ignored with a warning.
+On implementations that transliterate unconditionally, such as the one
+shipped with macOS, it has no effect.
 .TP
 \fB\-y, --charset CHARSET
 if the HTML document doesn't provide a character set in the meta tags, use CHARSET.

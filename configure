@@ -5078,6 +5078,7 @@ printf '%s\n' "no" >&6; }
 	{ printf '%s\n' "$as_me:${as_lineno-$LINENO}: WARNING: No usable iconv found. See INSTALL for details." >&5
 printf '%s\n' "$as_me: WARNING: No usable iconv found. See INSTALL for details." >&2;}
 fi
+
 ac_fn_c_check_header_compile "$LINENO" "wchar.h" "ac_cv_header_wchar_h" "$ac_includes_default"
 if test "x$ac_cv_header_wchar_h" = xyes
 then :

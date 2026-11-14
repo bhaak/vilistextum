@@ -108,6 +108,7 @@ char* get_iconv_output_charset(void)
 /* ------------------------------------------------ */
 
 char* get_iconv_output_charset(void);
+iconv_t open_output_iconv(void);
 int convert_character(int num, CHAR *outstring)
 {
 	char in[33], out[33];
@@ -138,7 +139,7 @@ int convert_character(int num, CHAR *outstring)
 
 	/* 	printf("iconv_output_charset: -%s-\n", get_iconv_output_charset()); */
 	/* 	printf("insize %d\n", insize); */
-	if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1))
+	if ((conv = open_output_iconv())==(iconv_t)(-1))
 	{	printf("iconv_open failed in convert_character: wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
 
 	result = iconv(conv, &inp, &insize, &outp, &outsize);
@@ -183,10 +184,38 @@ int convert_character(int num, CHAR *outstring)
 /* ------------------------------------------------ */
 
 #ifdef MULTIBYTE
+/* Open a converter into the output charset. //TRANSLIT applies to the
+   target charset and is only requested with --translit. Implementations
+   that do not support the suffix get a plain conversion and a warning. */
+iconv_t open_output_iconv(void)
+{
+	const char *charset = get_iconv_output_charset();
+	/* -1 unknown, 0 //TRANSLIT unsupported, 1 supported */
+	static int translit_state = -1;
+	iconv_t conv;
+
+	if (transliteration && (translit_state != 0)) {
+		char name[DEF_STR_LEN + 16];
+		strcpy(name, charset);
+		strcat(name, "//TRANSLIT");
+		conv = iconv_open(name, "utf-8");
+		if (conv != (iconv_t)(-1)) {
+			translit_state = 1;
+			return conv;
+		}
+		translit_state = 0;
+		if (errorlevel>=1) {
+			fprintf(stderr, "warning: %s does not support //TRANSLIT, ignoring --translit\n", charset);
+		}
+	}
+	return iconv_open(charset, "utf-8");
+}
+
+/* ------------------------------------------------ */
+
 void set_iconv_charset(char *charset) {
 	/* set charset for iconv conversion */
 	strcpy(iconv_charset, charset);
-	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");}
 	/* printf("iconv_charset %s\n", iconv_charset); DEBUG */
 }
 
@@ -195,7 +224,6 @@ void set_iconv_charset(char *charset) {
 void set_iconv_output_charset(char *charset) {
 	/* set charset for iconv conversion */
 	strcpy(iconv_output_charset, charset);
-	if (transliteration) { strcat(iconv_charset, "//TRANSLIT");}
 	/* printf("iconv_output_charset %s\n", iconv_output_charset); DEBUG */
 }
 

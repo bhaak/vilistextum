@@ -135,7 +135,7 @@ void output_string(CHAR *str)
 		inp = input;
 		outp = output;
 
-		if ((conv = iconv_open(get_iconv_output_charset(), "utf-8"))==(iconv_t)(-1))
+		if ((conv = open_output_iconv())==(iconv_t)(-1))
 		{	fprintf(stderr, "output_string: iconv_open failed, wrong character set?\n"); perror(get_iconv_output_charset()); exit(1); }
 
 		/* printf("%s %s\n", get_iconv_output_charset(), inp); */

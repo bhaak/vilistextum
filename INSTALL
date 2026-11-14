@@ -23,6 +23,11 @@ non-glibc systems, libiconv is recommended.
 The configure script detects if libiconv is installed and falls back
 to the standard iconv implementation if not.
 
+Transliteration (--translit) requires an iconv implementation that supports
+//TRANSLIT. If the implementation does not provide it, the option is ignored
+with a warning. On implementations that transliterate unconditionally, such
+as the one shipped with macOS, it has no effect.
+
 "make test" will fail if the iconv implementation is insufficient.
 
 Misc

@@ -11,5 +11,10 @@ char* get_iconv_output_charset(void);
 void set_iconv_charset(char*);
 void set_iconv_output_charset(char*);
 
+#ifdef MULTIBYTE
+#include <iconv.h>
+iconv_t open_output_iconv(void);
+#endif
+
 int convert_character(int number, CHAR *out);
 

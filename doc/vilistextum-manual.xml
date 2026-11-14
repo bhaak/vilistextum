@@ -162,8 +162,16 @@ instead of the character set of the html document, everything will be output as 
 
 <option short="x" long="translit">
 <shortdesc>
-use the //TRANSLIT feature of libiconv. Consult the iconv manual for details.
+transliterate characters that the output character set cannot represent.
 </shortdesc>
+<longdesc>
+<para>
+This requires an iconv implementation that supports
+<literal>//TRANSLIT</literal>. If the implementation does not provide it, the
+option is ignored with a warning. On implementations that transliterate
+unconditionally, such as the one shipped with macOS, it has no effect.
+</para>
+</longdesc>
 </option>
 
 <option short="y" long="charset" argument="CHARSET">

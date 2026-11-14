@@ -18,7 +18,8 @@ TESTS = check_utf8 \
 	check_latex \
 	check_bufferoverflow \
 	check_overflow_entities \
-	check_overflow_links
+	check_overflow_links \
+	check_translit
 
 EXTRA_DIST = README \
 						testcases/*.html \

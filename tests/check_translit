@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Regression test: --translit must not leak into the input charset name.
+# Combining -x with -y and -Y used to append //TRANSLIT to the input
+# charset, which corrupted the decoding of the document.
+# See open_output_iconv() in src/charset.c.
+
+. test_functions
+
+check_multibyte
+
+tmp=$(mktemp "${TMPDIR:-/tmp}/vilistextum_translit_XXXXXX") || exit 1
+printf '<p>abc caf\303\251</p>\n' > "$tmp"
+
+err=$(../src/vilistextum -x -y UTF-8 -Y ASCII "$tmp" - 2>&1 >/dev/null)
+retval=$?
+
+rm -f "$tmp"
+
+if [ $retval -ne 0 ] || echo "$err" | grep -q "//TRANSLIT"; then
+  echo "TEST: translit leaked into the charset name (exit status $retval)"
+  echo "$err"
+  exit 1
+fi
